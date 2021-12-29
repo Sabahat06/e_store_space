@@ -1,12 +1,13 @@
-import 'package:flutter/material.dart';
 import 'package:e_store_space/Utils/styles.dart';
 import 'package:e_store_space/settings/color_palates.dart';
+import 'package:flutter/material.dart';
 
 class MyTextField extends StatelessWidget {
   TextEditingController controller;
   String label;
   bool obsecureText =false;
   IconButton suffixIcon;
+  IconButton prefixIcon;
   final ValueChanged<String> onChanged;
   Function onEditingComplete;
   GestureTapCallback onTap;
@@ -18,10 +19,10 @@ class MyTextField extends StatelessWidget {
   double height;
   double width;
   int maxLength;
-  int minLines;
   FocusNode focusNode;
   bool phoneNumber=false;
   double fontSize;
+  Color hintColor;
   ///Constructor
   MyTextField({
     @required this.controller,
@@ -42,7 +43,8 @@ class MyTextField extends StatelessWidget {
     this.focusNode,
     this.phoneNumber,
     this.fontSize,
-    this.minLines
+    this.hintColor,
+    this.prefixIcon
   });
 
   @override
@@ -54,7 +56,6 @@ class MyTextField extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: TextField(
-          minLines: minLines,
           focusNode: focusNode,
           maxLength: maxLength,
           autofocus: autoFocus??false,
@@ -66,44 +67,45 @@ class MyTextField extends StatelessWidget {
           onChanged:onChanged,
           controller: controller,
           obscureText: obsecureText??false,
-          cursorColor: ColorPalette.orange,
+          cursorColor: ColorPalette.green,
           style: phoneNumber??false ? Styles.phoneNumberTextStyle() : Styles.textFieldTextStyle().copyWith(fontSize: fontSize??15),
           decoration: InputDecoration(
             hintText: hintText,
             suffixIcon: suffixIcon,
-            fillColor: ColorPalette.orange,
-              focusColor: ColorPalette.orange,
-              hoverColor: ColorPalette.orange,
-              labelText: label,
-              hintStyle: const TextStyle(
-                color: Colors.black54,
+            prefixIcon: prefixIcon,
+            fillColor: ColorPalette.green,
+            focusColor: ColorPalette.green,
+            hoverColor: ColorPalette.green,
+            labelText: label,
+            hintStyle:TextStyle(
+                color:  Colors.black54,
                 fontSize: 12
-              ),
-              labelStyle: const TextStyle(
-                color: Colors.black,
+            ),
+            labelStyle: TextStyle(
+                color:hintColor ?? ColorPalette.green,
                 fontSize: 16
-              ),
-              disabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                      color: ColorPalette.orange
-                  )
-              ),
-              enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                      color: ColorPalette.orange
-                  )
-              ),
-              focusedBorder:  const OutlineInputBorder(
-                  borderSide: BorderSide(
-                      color: ColorPalette.orange
-                  )
-              ),
-              border: const OutlineInputBorder(
+            ),
+            disabledBorder:OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: ColorPalette.orange
+                    color: ColorPalette.green
                 )
-              ),
-              // hintText: label,
+            ),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: ColorPalette.green
+                )
+            ),
+            focusedBorder:  OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: ColorPalette.green
+                )
+            ),
+            border: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color: ColorPalette.green
+                )
+            ),
+            // hintText: label,
           ),
         ),
       ),

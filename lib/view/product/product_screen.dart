@@ -41,7 +41,7 @@ class ProductScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blueGrey[50],
-      appBar: MyAppBarWidgets(title: 'Products').getMyAppBar(),
+      // appBar: MyAppBarWidgets(title: 'Products').getMyAppBar(),
       body: Obx(
         () => productController.progressing.value
           ? const Center(child: CircularProgressIndicator(),)

@@ -24,17 +24,16 @@ class BottomNavigateBar extends StatelessWidget {
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.shop_outlined),
-                label: 'Products',
+                label: 'Favorites',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.devices_other),
-                label: 'Used Devices',
+                icon: Icon(Icons.shopping_cart_outlined),
+                label: 'Cart',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.perm_identity),
                 label: 'Account',
               ),
-
             ],
           );
         }

@@ -92,7 +92,7 @@ class _MyAppState extends State<MyApp> {
           title: 'Flutter Demo',
           theme: ThemeData(
             fontFamily: 'Nunito',
-            primarySwatch: Colors.orange,
+            primarySwatch: Colors.blue,
           ),
           home: SplashScreen() ,
           // routes: {
