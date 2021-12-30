@@ -28,7 +28,7 @@ class HomeScreenTab extends StatelessWidget {
             SliverAppBar(
               expandedHeight: 210.0,
               flexibleSpace: FlexibleSpaceBar(
-                background: Image.asset("assets/image/image6.jpg", fit: BoxFit.cover,),
+                background: Image.asset("assets/image/shirt.jpg", fit: BoxFit.cover,),
               ),
             ),
             SliverAppBar(
@@ -88,7 +88,7 @@ class HomeScreenTab extends StatelessWidget {
                       ),
                       itemBuilder: (BuildContext context, int index) {
                         return GestureDetector(
-                          child: MyProduct(),
+                          child: MyProduct(index),
                         );
                       }
                     ),
@@ -102,7 +102,7 @@ class HomeScreenTab extends StatelessWidget {
     );
   }
 
-  MyProduct(){
+  MyProduct(int index){
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Stack(
@@ -110,8 +110,8 @@ class HomeScreenTab extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              image: const DecorationImage(
-                image: AssetImage( "assets/image/image6.jpg",),
+              image: DecorationImage(
+                image: index%2==0 ? AssetImage( "assets/image/apple.jpg",) :  AssetImage( "assets/image/shoes.jpg",),
                 fit: BoxFit.cover
               ),
               borderRadius: BorderRadius.circular(15),
