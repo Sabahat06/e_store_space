@@ -31,6 +31,7 @@ class HomeScreenTab extends StatelessWidget {
                 background: Image.asset("assets/image/shirt.jpg", fit: BoxFit.cover,),
               ),
             ),
+
             SliverAppBar(
               backgroundColor: Colors.black,
               pinned: true,
