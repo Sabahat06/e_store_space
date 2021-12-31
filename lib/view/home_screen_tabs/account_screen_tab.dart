@@ -325,44 +325,46 @@ class AccountScreenTab extends StatelessWidget {
                 const Divider(),
                 const SizedBox(height: 15,),
                 GestureDetector(
-                    // onTap: () {Get.to(HtmlViewer("5"));},
-                    child: Row(
-                      children: [
-                        const Icon(Icons.description_outlined,),
-                        const SizedBox(width: 10,),
-                        Container(
-                          width: Get.width-65,
-                          child: const Text(
-                            'Terms & Conditions',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                            ),
+                  // onTap: () {Get.to(HtmlViewer("5"));},
+                  child: Row(
+                    children: [
+                      const Icon(Icons.description_outlined,),
+                      const SizedBox(width: 10,),
+                      Container(
+                        width: Get.width-65,
+                        child: const Text(
+                          'Terms & Conditions',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
                           ),
                         ),
-                      ],
-                    )
+                      ),
+                    ],
+                  )
                 ),
                 const Divider(),
                 const SizedBox(height: 15,),
                 MyFilledButton(
                   ontap: () {
-                    // Get.to(() => CreateAccount(false));
+                    Get.to(() => CreateAccount(false));
                   },
                   color: Colors.blue,
                   width: double.infinity,
                   txt: 'Create Account',
                   borderRadius: 10,
+                  fontSize: 20,
                 ),
                 const SizedBox(height: 15,),
                 MyFilledButton(
                   ontap: () {
-                    // Get.to(SignInScreen());
+                    Get.to(SignInScreen());
                   },
                   color: Colors.blue,
                   width: double.infinity,
                   txt: 'Sign In',
                   borderRadius: 10,
+                  fontSize: 20,
                 ),
               ],
             ),

@@ -15,7 +15,7 @@ class BottomNavigateBar extends StatelessWidget {
             showUnselectedLabels: true,
             currentIndex: controller.currentBNBIndex.value,
             onTap: controller.indexChanged,
-            selectedItemColor: ColorPalette.orange,
+            selectedItemColor: Colors.blue,
             unselectedItemColor: Colors.black54,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(

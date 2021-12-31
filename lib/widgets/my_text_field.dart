@@ -67,42 +67,42 @@ class MyTextField extends StatelessWidget {
           onChanged:onChanged,
           controller: controller,
           obscureText: obsecureText??false,
-          cursorColor: ColorPalette.green,
+          cursorColor: Colors.blue,
           style: phoneNumber??false ? Styles.phoneNumberTextStyle() : Styles.textFieldTextStyle().copyWith(fontSize: fontSize??15),
           decoration: InputDecoration(
             hintText: hintText,
             suffixIcon: suffixIcon,
             prefixIcon: prefixIcon,
-            fillColor: ColorPalette.green,
-            focusColor: ColorPalette.green,
-            hoverColor: ColorPalette.green,
+            fillColor: Colors.blue,
+            focusColor: Colors.blue,
+            hoverColor: Colors.blue,
             labelText: label,
             hintStyle:TextStyle(
                 color:  Colors.black54,
                 fontSize: 12
             ),
             labelStyle: TextStyle(
-                color:hintColor ?? ColorPalette.green,
+                color:hintColor ?? Colors.blue,
                 fontSize: 16
             ),
             disabledBorder:OutlineInputBorder(
                 borderSide: BorderSide(
-                    color: ColorPalette.green
+                    color: Colors.blue
                 )
             ),
             enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                    color: ColorPalette.green
+                    color: Colors.blue
                 )
             ),
             focusedBorder:  OutlineInputBorder(
                 borderSide: BorderSide(
-                    color: ColorPalette.green
+                    color: Colors.blue
                 )
             ),
             border: OutlineInputBorder(
                 borderSide: BorderSide(
-                    color: ColorPalette.green
+                    color: Colors.blue
                 )
             ),
             // hintText: label,

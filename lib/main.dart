@@ -5,6 +5,7 @@ import 'package:e_store_space/intro/splash_screen.dart';
 import 'package:e_store_space/services/http_services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -87,19 +88,23 @@ class _MyAppState extends State<MyApp> {
     return Sizer(
       builder: (context,orientation,deviceType){
         // cartControllerNew.cart.items.clear();
-        return GetMaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            fontFamily: 'Nunito',
-            primarySwatch: Colors.blue,
+        return ScreenUtilInit(
+          designSize: const Size(360, 690),
+          splitScreenMode: true,
+          builder: () => GetMaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Flutter Demo',
+            theme: ThemeData(
+              fontFamily: 'Nunito',
+              primarySwatch: Colors.blue,
+            ),
+            home: SplashScreen() ,
+            // routes: {
+            //   'orders_history' : (_)=>OrderHistoryScreen(),
+            //   'order_status' : (_)=> currentOrder==null?OrderHistoryScreen(): OrderStatusScreen( order: currentOrder,),
+            //   'usedDevices' : (_)=> UsedMobileScreenTab(),
+            // },
           ),
-          home: SplashScreen() ,
-          // routes: {
-          //   'orders_history' : (_)=>OrderHistoryScreen(),
-          //   'order_status' : (_)=> currentOrder==null?OrderHistoryScreen(): OrderStatusScreen( order: currentOrder,),
-          //   'usedDevices' : (_)=> UsedMobileScreenTab(),
-          // },
         );
       },
     );

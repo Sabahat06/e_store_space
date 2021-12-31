@@ -1,120 +1,63 @@
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:yousafmobile/controller/cart_controller.dart';
-// import 'package:yousafmobile/models/product_model.dart';
-//
-// class ProductDetailsScreen extends StatelessWidget {
-//   Products products;
-//
-//
-//   ProductDetailsScreen({@required this.products}) {
-//     productDetailsController.totalPrice.value = int.parse(products.salePrice);
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text(products.title),
-//       ),
-//       body: SingleChildScrollView(
-//         child: Padding(
-//           padding: const EdgeInsets.all(10.0),
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               Image(
-//                   image: NetworkImage(
-//                 products.photo,
-//               )),
-//               Row(
-//                 mainAxisSize: MainAxisSize.max,
-//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                 children: [
-//                   Text(
-//                     products.title,
-//                     style: const TextStyle(
-//                       fontSize: 23,
-//                       fontWeight: FontWeight.bold,
-//                     ),
-//                   ),
-//                   IconButton(
-//                       onPressed: () {}, icon: const Icon(Icons.favorite_border))
-//                 ],
-//               ),
-//               const SizedBox(height: 12,),
-//               Obx(
-//                 () =>
-//                     Row(
-//                   mainAxisSize: MainAxisSize.max,
-//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                   children: [
-//                    Container(
-//                      child: Row(
-//                        children: [
-//                          GestureDetector(
-//                            onTap: () {
-//                              if(productDetailsController.amount.value>1){
-//                                productDetailsController.amount.value--;
-//                                productDetailsController.totalPrice.value= productDetailsController.totalPrice.value-int.parse(products.salePrice);
-//                              };
-//                            },
-//                            child: Container(
-//                              width: 30,
-//                              height: 30,
-//                              decoration: BoxDecoration(
-//                                  borderRadius: BorderRadius.circular(7),
-//                                  color: Colors.blueGrey[100]),
-//                              child: const Icon(
-//                                Icons.remove,
-//                                size: 20,
-//                              ),
-//                            ),
-//                          ),
-//                          const SizedBox(
-//                            width: 7,
-//                          ),
-//                          Text(
-//                            '${productDetailsController.amount.value}',
-//                            style: const TextStyle(fontSize: 20),
-//                          ),
-//                          const SizedBox(
-//                            width: 7,
-//                          ),
-//                          GestureDetector(
-//                            onTap: (){
-//                              productDetailsController.amount.value++;
-//                              productDetailsController.totalPrice.value=productDetailsController.totalPrice.value+int.parse(products.salePrice);
-//                              print(productDetailsController.totalPrice.value);
-//                            },
-//                            child: Container(
-//                              width: 30,
-//                              height: 30,
-//                              decoration: BoxDecoration(
-//                                  borderRadius: BorderRadius.circular(7),
-//                                  color: Colors.blueGrey[100]),
-//                              child: const Icon(
-//                                Icons.add,
-//                                size: 20,
-//                              ),
-//                            ),
-//                          ),
-//                        ],
-//                      ),
-//                    ),
-//
-//                     Padding(
-//                       padding: const EdgeInsets.all(8.0),
-//                       child: Text(products.salePrice,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-//                     ),
-//
-//                   ],
-//                 ),
-//               )
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+
+class ProductDetailsScreen extends StatelessWidget {
+  // Products products;
+  //
+  // ProductDetailsScreen({@required this.products}) {
+  //   productDetailsController.totalPrice.value = int.parse(products.salePrice);
+  // }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () {Get.back();}, color: Colors.white,),
+        leadingWidth: 30,
+        title: const Text('Product Name', style: TextStyle(color: Colors.white),),
+        actions: [
+          const Text('Rating', style: TextStyle(fontSize: 16, color: Colors.white),),
+        ],
+      ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: 120.h,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/image/image6.jpg",),
+                          fit: BoxFit.contain,
+                        )
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 7.0.w, left: 3.w, right: 3.w, top: 3.w),
+              child: GestureDetector(
+                child: Container(
+                  height: 40.h,
+                  color: Colors.blue,
+                  width: double.infinity,
+                  child: const Center(
+                    child: Text('Add To Bag', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white),),
+                  )
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

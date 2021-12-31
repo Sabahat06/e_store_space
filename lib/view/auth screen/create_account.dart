@@ -30,10 +30,11 @@ class CreateAccount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () {Get.back();}, color: Colors.black,),
+        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () {Get.back();}, color: Colors.white,),
         leadingWidth: 30,
-        title: const Text('Create Account', style: TextStyle(color: Colors.black),),
+        title: const Text('Create Account', style: TextStyle(color: Colors.white),),
       ),
       body: Obx(
         () => authController.progressing.value ? const Center(child: CircularProgressIndicator(),) : Padding(
@@ -41,18 +42,41 @@ class CreateAccount extends StatelessWidget {
             child: SingleChildScrollView(
             child: Column(
             children: [
+              Center(
+                child: Container(
+                    width: 150,
+                    height: 150,
+                    child: Image.asset("assets/image/appimage.jpeg",)
+                ),
+              ),
+              // MyImagePicker(file: file, centerText: "Add Photo/ Business Card",),
+              // const SizedBox(height: 10),
+              MyTextField(
+                prefixIcon: IconButton(icon: Icon(Icons.person_outlined, color: Colors.blue,)),
+                controller: name,
+                label: 'Name',
+              ),
               const SizedBox(height: 10),
-              MyImagePicker(file: file, centerText: "Add Photo/ Business Card",),
+              // MyTextField(controller: shopName, label: 'Shop Name',),
+              // const SizedBox(height: 10),
+              MyTextField(
+                prefixIcon: IconButton(icon: Icon(Icons.email_outlined, color: Colors.blue,)),
+                controller: email,
+                label: 'Email',
+                keyboardType: TextInputType.emailAddress,
+              ),
               const SizedBox(height: 10),
-              MyTextField(controller: name, label: 'Name',),
+              MyTextField(
+                prefixIcon: IconButton(icon: Icon(Icons.phone_outlined, color: Colors.blue,)),
+                controller: phone,
+                label: 'Phone Number',
+              ),
               const SizedBox(height: 10),
-              MyTextField(controller: shopName, label: 'Shop Name',),
-              const SizedBox(height: 10),
-              MyTextField(controller: email, label: 'Email', keyboardType: TextInputType.emailAddress,),
-              const SizedBox(height: 10),
-              MyTextField(controller: phone, label: 'Phone',),
-              const SizedBox(height: 10),
-              MyTextField(controller: password, label: 'Password',),
+              MyTextField(
+                prefixIcon: IconButton(icon: Icon(Icons.lock_outlined, color: Colors.blue,)),
+                controller: password,
+                label: 'Password',
+              ),
               const SizedBox(height: 10),
               TextFormField(
                 minLines: 2,
@@ -61,36 +85,42 @@ class CreateAccount extends StatelessWidget {
                 maxLines: null,
                 controller: address,
                 decoration: const InputDecoration(
-                  fillColor: ColorPalette.orange,
-                  focusColor: ColorPalette.orange,
-                  hoverColor: ColorPalette.orange,
+                  prefixIcon: IconButton(icon: Icon(Icons.home_outlined, color: Colors.blue,)),
+                  fillColor: Colors.blue,
+                  focusColor: Colors.blue,
+                  hoverColor: Colors.blue,
                   labelText: 'Enter Full Address',
                   hintStyle:
                   TextStyle(color: Colors.black54, fontSize: 12),
                   labelStyle:
-                  TextStyle(color: Colors.black, fontSize: 16),
+                  TextStyle(color: Colors.blue, fontSize: 16),
                   disabledBorder: OutlineInputBorder(
                       borderSide:
-                      BorderSide(color: ColorPalette.orange)),
+                      BorderSide(color: Colors.blue)),
                   enabledBorder: OutlineInputBorder(
                       borderSide:
-                      BorderSide(color: ColorPalette.orange)),
+                      BorderSide(color: Colors.blue)),
                   focusedBorder: OutlineInputBorder(
                       borderSide:
-                      BorderSide(color: ColorPalette.orange)),
+                      BorderSide(color: Colors.blue)),
                   border: OutlineInputBorder(
                       borderSide:
-                      BorderSide(color: ColorPalette.orange)),
+                      BorderSide(color: Colors.blue)),
                   // hintText: label,
                 ),
               ),
               const SizedBox(height: 10),
-              MyTextField(controller: city, label: 'City',),
-              const SizedBox(height: 10),
+              MyTextField(
+                prefixIcon: IconButton(icon: Icon(Icons.location_city_outlined, color: Colors.blue,)),
+                controller: city,
+                label: 'City',
+              ),
+              const SizedBox(height: 20),
               MyFilledButton(
                 txt: 'Register',
+                fontSize: 20,
                 width: double.infinity,
-                color: Colors.orange,
+                color: Colors.blue,
                 borderRadius: 10,
                 ontap: () async {
                   if(registerValidation()) {
