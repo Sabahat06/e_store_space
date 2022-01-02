@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:e_store_space/settings/color_palates.dart';
 
@@ -14,21 +15,18 @@ class AlertDialogWidget extends StatelessWidget {
     return AlertDialog(
       title: Text(title,
         style: TextStyle(
-          fontSize: 18,
+          fontSize: 18.sp,
           fontWeight: FontWeight.bold,
       ),
     ),
-      content: Text(subTitle,
-        style: TextStyle(
-        ),
-      ),
+      content: Text(subTitle,),
       actions: [
         TextButton(
           child: Text(
               'No',
               style: TextStyle(
-                  fontSize: 16,
-                  color: ColorPalette.orange,
+                  fontSize: 16.sp,
+                  color: Colors.blue,
                   fontWeight: FontWeight.bold)
           ),
           onPressed: (){Get.back();},
@@ -37,8 +35,8 @@ class AlertDialogWidget extends StatelessWidget {
             child: Text(
               'Yes',
               style: TextStyle(
-                  fontSize: 16,
-                  color: ColorPalette.green,
+                  fontSize: 16.sp,
+                  color: Colors.blue,
                   fontWeight: FontWeight.bold),
             ),
             onPressed: onPositiveClick

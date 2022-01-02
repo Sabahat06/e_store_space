@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:e_store_space/models/order_history_model.dart';
 import 'package:e_store_space/settings/color_palates.dart';
@@ -17,25 +18,25 @@ class OrderDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color labelColor = Colors.black54;
-    if(order.status== "Completed")
-    {
-      labelColor = ColorPalette.green;
-    }
-    if(order.status== "Pending")
-    {
-      labelColor = ColorPalette.orange;
-    }
-    if(order.status== "Cancelled")
-    {
-      labelColor = Colors.red;
-    }
+    // Color labelColor = Colors.black54;
+    // if(order.status== "Completed")
+    // {
+    //   labelColor = ColorPalette.green;
+    // }
+    // if(order.status== "Pending")
+    // {
+    //   labelColor = ColorPalette.orange;
+    // }
+    // if(order.status== "Cancelled")
+    // {
+    //   labelColor = Colors.red;
+    // }
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () {Get.back();}, color: Colors.black,),
+        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () {Get.back();}, color: Colors.white,),
         leadingWidth: 30,
-        title: const Text('Order Details', style: TextStyle(color: Colors.black),),
+        title: const Text('Order Details', style: TextStyle(color: Colors.white),),
       ),
       body: Column(
         children: [
@@ -45,9 +46,10 @@ class OrderDetailScreen extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    const SizedBox(height: 10,),
-                    ...order.orderDetails.map((e) => rendringProduct(e, context)).toList(),
-                    const SizedBox(height: 10,),
+                    SizedBox(height: 10.h,),
+                    // ...order.orderDetails.map((e) =>
+                        rendringProduct(context),
+                    SizedBox(height: 10.h,),
                   ],
                 ),
               ),
@@ -56,7 +58,7 @@ class OrderDetailScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Container(
-              height: 50,
+              height: 50.h,
               color: Colors.white70,
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -64,14 +66,14 @@ class OrderDetailScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     MyLabel(
-                      label: order.status,
+                      label: "Status",
                       borderRadius: 5,
-                      backGroundColor: labelColor
+                      backGroundColor: Colors.blue
                     ),
                     Row(
                       children: [
-                        const Text('Total : Rs ', style: TextStyle( fontSize: 16),),
-                        Text('${int.parse(order.amount)}', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold,),),
+                        Text('Total : Rs ', style: TextStyle( fontSize: 16.sp),),
+                        Text('200', style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold,),),
                       ],
                     ),
                   ],
@@ -84,7 +86,7 @@ class OrderDetailScreen extends StatelessWidget {
     );
   }
 
-  rendringProduct(OrderDetails order, BuildContext context){
+  rendringProduct(BuildContext context){
     return
     Column(
       children: [
@@ -92,7 +94,7 @@ class OrderDetailScreen extends StatelessWidget {
           children: [
             Container( width: Get.width ,child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-                child: Text("${order.productTitle} ${utf8.decode(order.urduTitle.codeUnits)}", style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold),))),
+                child: Text("Product Title", style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.bold),))),
             Container(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -104,11 +106,12 @@ class OrderDetailScreen extends StatelessWidget {
                           Row(
                             children: [
                               Container(
-                                width: 100,
-                                height: 100,
-                                child: Image.network(order.productPhoto)
+                                width: 100.w,
+                                height: 100.h,
+                                child: Image.asset("assets/image/appbar.jpg", fit: BoxFit.cover,)
                               ),
-                              Text(order.choiceColorName== "DEFAULT" || order.choiceColorName == null ? "" : order.choiceColorName),
+                              SizedBox(width: 15.w,),
+                              Text("Blue", style: TextStyle(fontSize: 16.sp, color: Colors.black),),
                             ],
                           ),
                         ],
@@ -119,19 +122,19 @@ class OrderDetailScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const SizedBox(height: 15,),
-                      Text("${order.saleQuantity} × ${order.discountedPrice}", style: const TextStyle(fontSize: 16,color: Colors.black54),),
-                      const SizedBox(height: 15,),
-                      Text('${order.subTotal}',style:TextStyle(
+                      SizedBox(height: 15.h,),
+                      Text("1 × 10", style: TextStyle(fontSize: 16.sp,color: Colors.black54),),
+                      SizedBox(height: 15.h,),
+                      Text('450',style:TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 16
+                        fontSize: 16.sp
                       ),)
                     ],
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 5,),
+            SizedBox(height: 5.h,),
             const Divider(color: Colors.grey,),
           ],
         ),

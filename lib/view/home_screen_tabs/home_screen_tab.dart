@@ -50,7 +50,7 @@ class HomeScreenTab extends StatelessWidget {
                         Container(
                           height: 70.h,
                           width: 50.w,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             image: DecorationImage(
                               image: AssetImage("assets/image/appbar.jpg"),
                               fit: BoxFit.cover
@@ -73,8 +73,8 @@ class HomeScreenTab extends StatelessWidget {
                             ),
                           )
                         ),
-                        Icon(Icons.sort_outlined, color: Colors.white,),
-                        Icon(Icons.sort_outlined, color: Colors.white,),
+                        const Icon(Icons.sort_outlined, color: Colors.white,),
+                        const Icon(Icons.sort_outlined, color: Colors.white,),
                       ]
                   ),
                 ),
@@ -88,7 +88,7 @@ class HomeScreenTab extends StatelessWidget {
                     child: GridView.builder(
                       itemCount: 25,
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           mainAxisSpacing: 1.1

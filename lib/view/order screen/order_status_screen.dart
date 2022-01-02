@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:e_store_space/controller/order_status_screen_controller.dart';
 import 'package:e_store_space/models/order_history_model.dart';
@@ -18,15 +19,15 @@ class OrderStatusScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if(order.status=="Cancelled"&& !statusList.any((element) => element=="Cancelled"))
-    {
-      statusList.add("Cancelled");
-    }
+    // if(order.status=="Cancelled"&& !statusList.any((element) => element=="Cancelled"))
+    // {
+    //   statusList.add("Cancelled");
+    // }
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () {Get.back();}, color: Colors.black,),
+        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () {Get.back();}, color: Colors.white,),
         leadingWidth: 30,
-        title: const Text('Order Status', style: TextStyle(color: Colors.black),),
+        title: const Text('Order Status', style: TextStyle(color: Colors.white),),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -42,35 +43,35 @@ class OrderStatusScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Order #:${order.id}"),
-                          order.status == "Pending"?
+                          Text("Order # 1"),
+                          // order.status == "Pending"?
                           MyFilledButton(
                             txt: "Cancel",
-                            color: ColorPalette.orange,
+                            color: Colors.blue,
                             borderRadius: 5,
-                            width: 100,
-                            height: 30,
+                            width: 100.w,
+                            height: 30.h,
                             ontap: (){
                               showDialog(context: context, builder: (BuildContext context){
                                 return  AlertDialogWidget(title: "Cancel Alert",
                                   subTitle: "Are you sure to cancel this order?",
                                   onPositiveClick: () async {
                                     Get.back();
-                                    String status =  await  controller.cancelOrder(order.id);
-                                    if(status=="success")
-                                    {
-                                      order.status="Cancelled";
-                                      statusList.add("Cancelled");
-                                      controller.progressing.value = false;
-                                      Get.off(OrderHistoryScreen());
-                                    }
+                                    // String status =  await  controller.cancelOrder(order.id);
+                                    // if(status=="success")
+                                    // {
+                                    //   order.status="Cancelled";
+                                    //   statusList.add("Cancelled");
+                                    //   controller.progressing.value = false;
+                                    //   Get.off(OrderHistoryScreen());
+                                    // }
                                   },
                                 );
                               });
 
                             },
-                          ):
-                          Container()
+                          )
+                          // Container()
                         ],
                       ),
                       Divider(),
@@ -86,22 +87,22 @@ class OrderStatusScreen extends StatelessWidget {
                       // )
 
                       ...statusList.map((status) {
-                        // order.status = "Cancelled";
-                        if(order.status=="Cancelled")
-                        {
-                          return StepperRow(status=="Cancelled",status);
-                        }
-                        else
-                          return  StepperRow(statusIndex(order.status)>= statusIndex(status),status);
+                        // // order.status = "Cancelled";
+                        // if(order.status=="Cancelled")
+                        // {
+                        //   return StepperRow(status=="Cancelled",status);
+                        // }
+                        // else
+                          return  StepperRow(status);
                       }
                       ).toList(),
-                      const SizedBox(height: 20,),
+                      SizedBox(height: 20.h,),
                       const Divider(thickness: 5,),
-                      const SizedBox(height: 20,),
+                      SizedBox(height: 20.h,),
                       Row(
                         children: [
                           const Text("Order Date: "),
-                          Text(order.createdDate,style: const TextStyle(fontWeight: FontWeight.bold),)
+                          Text('01',style: const TextStyle(fontWeight: FontWeight.bold),)
                         ],
                       ),
                       // const SizedBox(height: 10,),
@@ -111,33 +112,33 @@ class OrderStatusScreen extends StatelessWidget {
                       //     Text("COD",style: TextStyle(fontWeight: FontWeight.bold),)
                       //   ],
                       // ),
-                      const SizedBox(height: 10,),
+                      SizedBox(height: 10.h,),
                       Row(
                         children: [
                           const Text("Delivery Time Slot: "),
-                          Text("${order.timeFrom} - ${order.timeTo}",style: const TextStyle(fontWeight: FontWeight.bold),)
+                          Text("6:00 - 9:00",style: const TextStyle(fontWeight: FontWeight.bold),)
                         ],
                       ),
-                      const SizedBox(height: 10,),
+                      SizedBox(height: 10.h,),
                       Row(
                         children: [
                           const Text("Delivery Date: "),
-                          Text(order.deliveryDate,style: const TextStyle(fontWeight: FontWeight.bold),)
+                          Text("01-01-2022",style: const TextStyle(fontWeight: FontWeight.bold),)
                         ],
                       ),
 
-                      const SizedBox(height: 10,),
+                      SizedBox(height: 10.h,),
                       Row(
                         children: [
                           const  Text("Delivery Charges: "),
-                           Text(order.deliveryStatus == '0'? 'To be Calculated': order.productDelivery == '0'? 'Free':'Rs. '+order.productDelivery.toString(),style: const TextStyle(fontWeight: FontWeight.bold),)
+                           Text("Free")
                         ],
                       ),
                       const SizedBox(height: 10,),
                       Row(
                         children: [
                           const Text("Total Price: "),
-                          Text('Rs. '+order.amount,style: const TextStyle(fontWeight: FontWeight.bold),)
+                          Text('Rs. 200',style: const TextStyle(fontWeight: FontWeight.bold),)
                         ],
                       ),
 
@@ -148,11 +149,11 @@ class OrderStatusScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(10.0),
                   child: MyFilledButton(
                     txt:"View Order Details",
-                    color: ColorPalette.orange,
+                    color: Colors.blue,
                     width: Get.width-16,
                     borderRadius: 12,
                     ontap: (){
-                      Get.to(OrderDetailScreen(order: order,));
+                      Get.to(OrderDetailScreen());
                     },
                   ),
                 ),
@@ -165,34 +166,34 @@ class OrderStatusScreen extends StatelessWidget {
     );
   }
 
-  Widget StepperRow(bool active,String status){
-    Color dotColor = ColorPalette.green;
+  Widget StepperRow(String status){
+    Color dotColor = Colors.blue;
     String date = "";
-    if(status==statusList[0])
-    {
-      date = order.createdDate??"";
-    }
-    else if(status == statusList[1])
-    {
-      date = order.verifiedDate??"";
-    }
+    // if(status==statusList[0])
+    // {
+    //   date = order.createdDate??"";
+    // }
+    // else if(status == statusList[1])
+    // {
+    //   date = order.verifiedDate??"";
+    // }
+    // // else if(status == statusList[2])
+    // // {
+    // //   date = order.processedDate??"";
+    // // }
+    // // else if(status == statusList[3])
+    // // {
+    // //   date = order.assignedDate??"";
+    // // }
     // else if(status == statusList[2])
     // {
-    //   date = order.processedDate??"";
+    //   date = order.paidDate??"";
     // }
     // else if(status == statusList[3])
     // {
-    //   date = order.assignedDate??"";
+    //   date = order.cancelledDate??"";
+    //   dotColor = Colors.red;
     // }
-    else if(status == statusList[2])
-    {
-      date = order.paidDate??"";
-    }
-    else if(status == statusList[3])
-    {
-      date = order.cancelledDate??"";
-      dotColor = Colors.red;
-    }
 
     return Row(
       children: [
@@ -202,18 +203,18 @@ class OrderStatusScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 6.0),
               child: Container(
-                width: 2,
-                height: 30,
+                width: 2.w,
+                height: 30.h,
                 color: Colors.grey,
               ),
             ),
             Row(mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.circle,color: active?dotColor:Colors.grey,size: 15,),
+                Icon(Icons.circle,color:  Colors.grey,size: 15.r,),
                 Container(
-                    width: 100,
+                    width: 100.w,
                     child: Text(" "+status)),
-                SizedBox(width: 50,),
+                SizedBox(width: 50.w,),
                 Text(date),
               ],
             )

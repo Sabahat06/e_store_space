@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:e_store_space/controller/faq_controller.dart';
 import 'package:e_store_space/models/faq_model.dart';
@@ -11,22 +12,27 @@ class FAQScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () {Get.back();}, color: Colors.black,),
+        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () {Get.back();}, color: Colors.white,),
         leadingWidth: 30,
-        title: const Text('FAQs', style: TextStyle(color: Colors.black),),
+        title: const Text('FAQs', style: TextStyle(color: Colors.white),),
       ),
-      body: Obx(
-          () => faqController.loading.value ? const Center(child: CircularProgressIndicator(),) :SingleChildScrollView(
-            child: Container(
-              child: ListView.builder(
-                itemCount: faqController.faqs.length,
-                shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index){
-                return listItem(faqController.faqs[index],index);
-              }),
-            ),
-          ),
-      ),
+      body: Center(
+        child: Container(
+          child: Text('Data For FAQs', style: TextStyle(fontSize: 16.sp, color: Colors.black),),
+        ),
+      )
+      // Obx(
+      //     () => faqController.loading.value ? const Center(child: CircularProgressIndicator(),) :SingleChildScrollView(
+      //       child: Container(
+      //         child: ListView.builder(
+      //           itemCount: faqController.faqs.length,
+      //           shrinkWrap: true,
+      //             itemBuilder: (BuildContext context, int index){
+      //           return listItem(faqController.faqs[index],index);
+      //         }),
+      //       ),
+      //     ),
+      // ),
     );
   }
   Widget listItem(Faq faq,index){

@@ -49,7 +49,7 @@ class CartScreen extends StatelessWidget {
               child: GestureDetector(
                 onTap: (){
                   Get.to(() => authController.isLogedIn.value
-                    ? PlaceOrderLoginScreen(cartController.calculateBillingAmount().toStringAsFixed(0)) // static value initially
+                    ? PlaceOrderLoginScreen(totalAmount: cartController.calculateBillingAmount().toStringAsFixed(0),) // static value initially
                     : CreateAccount(true));
                 },
                 child: Container(

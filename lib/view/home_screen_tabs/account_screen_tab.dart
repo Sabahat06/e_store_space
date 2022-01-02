@@ -1,3 +1,5 @@
+import 'package:e_store_space/view/account_screens/privacy_policy.dart';
+import 'package:e_store_space/view/account_screens/term_and_condition.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:e_store_space/controller/auth_controller.dart';
@@ -21,355 +23,358 @@ import 'cart_screen_tab.dart';
 
 class AccountScreenTab extends StatelessWidget {
   AuthController authController = Get.find();
-  RxBool isLogedIn = false.obs;
+  RxBool isLogedIn = true.obs;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+          appBar: AppBar(
+            leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () {Get.back();}, color: Colors.white, iconSize: 0,),
+            leadingWidth: 5,
+            title: const Text('Account', style: TextStyle(color: Colors.white),),
+          ),
           body: Obx(
-            () => authController.isLogedIn.value
+            () => isLogedIn.value
             ? SingleChildScrollView(
-            child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    // Get.to(() => DashboardScreen());
-                  },
-                  child: Row(
-                    children: [
-                      const Icon(Icons.dashboard_outlined,),
-                      const SizedBox(width: 10,),
-                      Container(
-                        width: Get.width-65,
-                        child: const Text(
-                          'My Dashboard',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.black
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-                ),
-                const SizedBox(height: 15,),
-                const Divider(),
-                GestureDetector(
-                  onTap: () {
-                    // Get.off(OrderHistoryScreen());
-                  },
-                  child: Row(
-                    children: [
-                      const Icon(Icons.reorder_rounded,),
-                      const SizedBox(width: 10,),
-                      Container(
-                        width: Get.width-65,
-                        child: const Text(
-                          'Orders History',
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.black
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-                ),
-                const SizedBox(height: 15,),
-                const Divider(),
-                GestureDetector(
-                  // onTap: () {Get.to(UpdateProfile());},
-                  child: Row(
-                      children: [
-                        const Icon(Icons.account_circle_outlined,),
-                        const SizedBox(width: 10,),
-                        Container(
-                          width: Get.width-65,
-                          child: const Text(
-                            'Account Details',
-                            style: TextStyle(
+                child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Get.to(() => DashboardScreen());
+                      },
+                      child: Row(
+                        children: [
+                          const Icon(Icons.dashboard_outlined,),
+                          const SizedBox(width: 10,),
+                          Container(
+                            width: Get.width-65,
+                            child: const Text(
+                              'My Dashboard',
+                              style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.black
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    )
-                ),
-                const SizedBox(height: 15,),
-                const Divider(),
-                GestureDetector(
-                    onTap: () {
-                      // Get.to(MyUsedMobileScreen());
-                    },
-                    child: Row(
-                      children: [
-                        const Icon(Icons.phone_iphone,),
-                        const SizedBox(width: 10,),
-                        Container(
-                          width: Get.width-65,
-                          child: const Text(
-                            'My Used Devices',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                ),
-                const SizedBox(height: 15,),
-                const Divider(),
-                GestureDetector(
-                    onTap: () {
-                      // Get.to(FAQScreen());
-                    },
-                    child: Row(
-                      children: [
-                        const Icon(Icons.help_outline_outlined,),
-                        const SizedBox(width: 10,),
-                        Container(
-                          width: Get.width-65,
-                          child: const Text(
-                            'FAQs',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-//                      letterSpacing: 2
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                ),
-                const SizedBox(height: 15,),
-                const Divider(),
-                GestureDetector(
-                    // onTap: () {Get.to(HtmlViewer("4"));},
-                    child: Row(
-                      children: [
-                        const Icon(Icons.library_books_outlined,),
-                        const SizedBox(width: 10,),
-                        Container(
-                          width: Get.width-65,
-                          child: const Text(
-                            'Privacy Policy',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                ),
-                const SizedBox(height: 15,),
-                const Divider(),
-                GestureDetector(
-                    // onTap: () {Get.to(HtmlViewer("5"));},
-                    child: Row(
-                      children: [
-                        const Icon(Icons.description_outlined,),
-                        const SizedBox(width: 10,),
-                        Container(
-                          width: Get.width-65,
-                          child: const Text(
-                            'Terms & Conditions',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                ),
-                const SizedBox(height: 15,),
-                const Divider(),
-                GestureDetector(
-                  onTap: () {
-                    // Get.to(ContactUs());
-                    // Get.to(ContactUs());
-                    },
-                    child: Row(
-                      children: [
-                        const Icon(Icons.phone_in_talk_outlined,),
-                        const SizedBox(width: 10,),
-                        Container(
-                          width: Get.width-65,
-                          child: const Text(
-                            'Contact Us',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                ),
-                const SizedBox(height: 20,),
-                GestureDetector(
-                  onTap: (){
-                    // showDialog(
-                    //     context: context,
-                    //     builder: (BuildContext context) {
-                    //       return AlertDialogWidget(
-                    //         title: 'Log Out Alert',
-                    //         subTitle: "Are you sure to logout?",
-                    //         onPositiveClick: () {
-                    //           authController.logOut();
-                    //           Get.back();
-                    //         },
-                    //       );
-                    //     }
-                    // );
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: ColorPalette.orange,
-                      borderRadius: BorderRadius.circular(12),
+                        ],
+                      )
                     ),
-                    height: 40,
-                    width: double.infinity,
-                    child: Center(
-                        child:  Text('Log Out',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
+                    const SizedBox(height: 15,),
+                    const Divider(),
+                    GestureDetector(
+                      onTap: () {
+                        Get.off(OrderHistoryScreen());
+                      },
+                      child: Row(
+                        children: [
+                          const Icon(Icons.reorder_rounded,),
+                          const SizedBox(width: 10,),
+                          Container(
+                            width: Get.width-65,
+                            child: const Text(
+                              'Orders History',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.black
+                              ),
+                            ),
                           ),
+                        ],
+                      )
+                    ),
+                    const SizedBox(height: 15,),
+                    const Divider(),
+                    GestureDetector(
+                      onTap: () {Get.to(UpdateProfile());},
+                      child: Row(
+                          children: [
+                            const Icon(Icons.account_circle_outlined,),
+                            const SizedBox(width: 10,),
+                            Container(
+                              width: Get.width-65,
+                              child: const Text(
+                                'Account Details',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.black
+                                ),
+                              ),
+                            ),
+                          ],
                         )
                     ),
-                  ),
-                ),
-              ],
-            ),
-                ),
-              )
-
-
-            : SingleChildScrollView(
-                child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 15,),
-                GestureDetector(
-                    // onTap: () {Get.to(ContactUs());},
-                    child: Row(
-                      children: [
-                        const Icon(Icons.phone_in_talk_outlined,),
-                        const SizedBox(width: 10,),
-                        Container(
-                          width: Get.width-65,
-                          child: const Text(
-                            'Contact Us',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
+                    const SizedBox(height: 15,),
+                    const Divider(),
+                    // GestureDetector(
+                    //     onTap: () {
+                    //       // Get.to(MyUsedMobileScreen());
+                    //     },
+                    //     child: Row(
+                    //       children: [
+                    //         const Icon(Icons.phone_iphone,),
+                    //         const SizedBox(width: 10,),
+                    //         Container(
+                    //           width: Get.width-65,
+                    //           child: const Text(
+                    //             'My Used Devices',
+                    //             style: TextStyle(
+                    //               color: Colors.black,
+                    //               fontSize: 20,
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       ],
+                    //     )
+                    // ),
+                    // const SizedBox(height: 15,),
+                    // const Divider(),
+                    GestureDetector(
+                        onTap: () {
+                          Get.to(FAQScreen());
+                        },
+                        child: Row(
+                          children: [
+                            const Icon(Icons.help_outline_outlined,),
+                            const SizedBox(width: 10,),
+                            Container(
+                              width: Get.width-65,
+                              child: const Text(
+                                'FAQs',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+    //                      letterSpacing: 2
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      ],
-                    )
-                ),
-                const Divider(),
-                const SizedBox(height: 15,),
-                GestureDetector(
-                    // onTap: () {Get.to(FAQScreen());},
-                    child: Row(
-                      children: [
-                        const Icon(Icons.help_outline_outlined,),
-                        const SizedBox(width: 10,),
-                        Container(
-                          width: Get.width-65,
-                          child: const Text(
-                            'FAQs',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
+                          ],
+                        )
+                    ),
+                    const SizedBox(height: 15,),
+                    const Divider(),
+                    GestureDetector(
+                        onTap: () {Get.to(PrivacyPolicy());},
+                        child: Row(
+                          children: [
+                            const Icon(Icons.library_books_outlined,),
+                            const SizedBox(width: 10,),
+                            Container(
+                              width: Get.width-65,
+                              child: const Text(
+                                'Privacy Policy',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      ],
-                    )
-                ),
-                const Divider(),
-                const SizedBox(height: 15,),
-                GestureDetector(
-                    // onTap: () {Get.to(HtmlViewer("4"));},
-                    child: Row(
-                      children: [
-                        const Icon(Icons.library_books_outlined,),
-                        const SizedBox(width: 10,),
-                        Container(
-                          width: Get.width-65,
-                          child: const Text(
-                            'Privacy Policy',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
+                          ],
+                        )
+                    ),
+                    const SizedBox(height: 15,),
+                    const Divider(),
+                    GestureDetector(
+                        onTap: () {Get.to(TermAndCondition());},
+                        child: Row(
+                          children: [
+                            const Icon(Icons.description_outlined,),
+                            const SizedBox(width: 10,),
+                            Container(
+                              width: Get.width-65,
+                              child: const Text(
+                                'Terms & Conditions',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                ),
+                              ),
                             ),
-                          ),
+                          ],
+                        )
+                    ),
+                    const SizedBox(height: 15,),
+                    const Divider(),
+                    GestureDetector(
+                      onTap: () {
+                        Get.to(ContactUs());
+                        },
+                        child: Row(
+                          children: [
+                            const Icon(Icons.phone_in_talk_outlined,),
+                            const SizedBox(width: 10,),
+                            Container(
+                              width: Get.width-65,
+                              child: const Text(
+                                'Contact Us',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                    ),
+                    const SizedBox(height: 20,),
+                    GestureDetector(
+                      onTap: (){
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialogWidget(
+                                title: 'Log Out Alert',
+                                subTitle: "Are you sure to logout?",
+                                onPositiveClick: () {
+                                  isLogedIn.value = false;
+                                  // authController.logOut();
+                                  Get.back();
+                                },
+                              );
+                            }
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(12),
                         ),
-                      ],
-                    )
-                ),
-                const Divider(),
-                const SizedBox(height: 15,),
-                GestureDetector(
-                  // onTap: () {Get.to(HtmlViewer("5"));},
-                  child: Row(
-                    children: [
-                      const Icon(Icons.description_outlined,),
-                      const SizedBox(width: 10,),
-                      Container(
-                        width: Get.width-65,
-                        child: const Text(
-                          'Terms & Conditions',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                          ),
+                        height: 40,
+                        width: double.infinity,
+                        child: const Center(
+                            child:  Text('Log Out',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            )
                         ),
                       ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+            : SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 15,),
+                      GestureDetector(
+                          onTap: () {Get.to(ContactUs());},
+                          child: Row(
+                            children: [
+                              const Icon(Icons.phone_in_talk_outlined,),
+                              const SizedBox(width: 10,),
+                              Container(
+                                width: Get.width-65,
+                                child: const Text(
+                                  'Contact Us',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                      ),
+                      const Divider(),
+                      const SizedBox(height: 15,),
+                      GestureDetector(
+                          onTap: () {Get.to(FAQScreen());},
+                          child: Row(
+                            children: [
+                              const Icon(Icons.help_outline_outlined,),
+                              const SizedBox(width: 10,),
+                              Container(
+                                width: Get.width-65,
+                                child: const Text(
+                                  'FAQs',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                      ),
+                      const Divider(),
+                      const SizedBox(height: 15,),
+                      GestureDetector(
+                          onTap: () {Get.to(PrivacyPolicy());},
+                          child: Row(
+                            children: [
+                              const Icon(Icons.library_books_outlined,),
+                              const SizedBox(width: 10,),
+                              Container(
+                                width: Get.width-65,
+                                child: const Text(
+                                  'Privacy Policy',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                      ),
+                      const Divider(),
+                      const SizedBox(height: 15,),
+                      GestureDetector(
+                        onTap: () {Get.to(TermAndCondition());},
+                        child: Row(
+                          children: [
+                            const Icon(Icons.description_outlined,),
+                            const SizedBox(width: 10,),
+                            Container(
+                              width: Get.width-65,
+                              child: const Text(
+                                'Terms & Conditions',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      ),
+                      const Divider(),
+                      const SizedBox(height: 15,),
+                      MyFilledButton(
+                        ontap: () {
+                          Get.to(() => CreateAccount(false));
+                        },
+                        color: Colors.blue,
+                        width: double.infinity,
+                        txt: 'Create Account',
+                        borderRadius: 10,
+                        fontSize: 20,
+                      ),
+                      const SizedBox(height: 15,),
+                      MyFilledButton(
+                        ontap: () {
+                          Get.to(SignInScreen());
+                        },
+                        color: Colors.blue,
+                        width: double.infinity,
+                        txt: 'Sign In',
+                        borderRadius: 10,
+                        fontSize: 20,
+                      ),
                     ],
-                  )
+                  ),
+                  ),
                 ),
-                const Divider(),
-                const SizedBox(height: 15,),
-                MyFilledButton(
-                  ontap: () {
-                    Get.to(() => CreateAccount(false));
-                  },
-                  color: Colors.blue,
-                  width: double.infinity,
-                  txt: 'Create Account',
-                  borderRadius: 10,
-                  fontSize: 20,
-                ),
-                const SizedBox(height: 15,),
-                MyFilledButton(
-                  ontap: () {
-                    Get.to(SignInScreen());
-                  },
-                  color: Colors.blue,
-                  width: double.infinity,
-                  txt: 'Sign In',
-                  borderRadius: 10,
-                  fontSize: 20,
-                ),
-              ],
-            ),
-            ),
-          ),
         )
       ),
     );

@@ -23,7 +23,7 @@ class BottomNavigateBar extends StatelessWidget {
                 label: 'Home',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.shop_outlined),
+                icon: Icon(Icons.favorite_border_outlined),
                 label: 'Favorites',
               ),
               BottomNavigationBarItem(

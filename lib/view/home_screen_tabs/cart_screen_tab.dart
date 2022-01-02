@@ -1,4 +1,5 @@
 import 'package:e_store_space/settings/color_palates.dart';
+import 'package:e_store_space/view/order%20screen/place_order_login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -17,15 +18,17 @@ class CartScreenTab extends StatelessWidget {
     double width = Get.width;
     double height = Get.height;
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Column(
-          children: [
-            Text('Your Cart'),
-            Text('2 Items', style: TextStyle(fontSize: 15.sp, color: Colors.black), ),
-          ],
+        appBar: AppBar(
+          leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () {Get.back();}, color: Colors.white, iconSize: 0,),
+          leadingWidth: 5,
+          centerTitle: true,
+          title: Column(
+            children: [
+              Text('Your Cart'),
+              Text('2 Items', style: TextStyle(fontSize: 15.sp, color: Colors.black), ),
+            ],
+          ),
         ),
-      ),
       body: Column(
         children: [
           Expanded(
@@ -42,6 +45,9 @@ class CartScreenTab extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(bottom: 7.0.w, left: 3.w, right: 3.w, top: 3.w),
             child: GestureDetector(
+              onTap: (){
+                Get.to(PlaceOrderLoginScreen());
+              },
               child: Container(
                 height: 40.h,
                 color: Colors.blue,

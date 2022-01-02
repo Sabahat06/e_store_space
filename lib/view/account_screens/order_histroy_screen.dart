@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:e_store_space/controller/auth_controller.dart';
@@ -14,126 +15,119 @@ import 'package:e_store_space/widgets/my_label.dart';
 
 class OrderHistoryScreen extends StatelessWidget {
   OrderHistoryController controller = OrderHistoryController();
-  AuthController authController = Get.find();
-  RefreshController refreshController = RefreshController();
-  final BottomBarController _barController=Get.find();
+  // AuthController authController = Get.find();
+  // RefreshController refreshController = RefreshController();
+  // final BottomBarController _barController=Get.find();
 
   List<String> sortedTerms = ['All Orders','Pending','Verified','Completed','Cancelled'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () {
-          _barController.currentBNBIndex.value=3;
-          Get.off(HomePage());
-
-
-          }, color: Colors.black,),
+        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () {Get.back();}, color: Colors.white,),
         leadingWidth: 30,
-        title: const Text('Orders History', style: TextStyle(color: Colors.black),),
+        title: const Text('Orders History', style: TextStyle(color: Colors.white),),
       ),
       body:
       // authController.user.value.id == null?const Center(child:  Text('Please login to see you history'),):
 
       Container(
-        child: Obx(
-              () => controller.progressing.value
-              ? const Center(child: CircularProgressIndicator(),)
-              : Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Obx(
-                  ()=> Column(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.grey[600],
-                      ),
-                      borderRadius: BorderRadius.circular(10),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Obx(
+            ()=> Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.grey[600],
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Stack(
-                        alignment: Alignment.centerLeft,
-                        children: [
-                          Text(controller.sorteditem.value, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,)),
-                          DropdownButton<String>(
-                              isExpanded: true,
-                              icon: Padding(
-                                padding: EdgeInsets.only(right: 3.0),
-                                child: Icon(
-                                  Icons.arrow_drop_down,
-                                  color: Colors.grey[600],
-                                ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Stack(
+                      alignment: Alignment.centerLeft,
+                      children: [
+                        Text(controller.sorteditem.value, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold,)),
+                        DropdownButton<String>(
+                            isExpanded: true,
+                            icon: Padding(
+                              padding: const EdgeInsets.only(right: 3.0),
+                              child: Icon(
+                                Icons.arrow_drop_down,
+                                color: Colors.grey[600],
                               ),
-                              iconSize: 30,
-                              style: TextStyle(color: ColorPalette.green),
-                              underline: Container(
-                                color: Colors.transparent,
-                              ),
-                              onChanged: (newValue) {
-                                controller.sorteditem.value = newValue;
-                                controller.sortItems();
-                              },
-                              items: sortedTerms.map((value) =>
-                                  DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value, style: TextStyle(color: Colors.black),),
-                                  )
-                              ).toList()
-                          ),
-                        ],
-                      ),
+                            ),
+                            iconSize: 30,
+                            style: TextStyle(color: ColorPalette.green),
+                            underline: Container(
+                              color: Colors.transparent,
+                            ),
+                            onChanged: (newValue) {
+                              controller.sorteditem.value = newValue;
+                              // controller.sortItems();
+                            },
+                            items: sortedTerms.map((value) =>
+                                DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value, style: TextStyle(color: Colors.black),),
+                                )
+                            ).toList()
+                        ),
+                      ],
                     ),
                   ),
-                  SizedBox(height: 10,),
-                  Container(
-                    height: Get.height-195,
-                    child: controller.modal.orders.length ==0
-                        ? Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(icon: Icon(Icons.search), iconSize: 50,),
-                          SizedBox(height: 15,),
-                          Text('You have no orders yet', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
-                        ],
+                ),
+                SizedBox(height: 10.h,),
+                Container(
+                  height: Get.height-190.h,
+                  child:
+                  //     controller.modal.orders.length ==0
+                  //     ? Center(
+                  //   child: Column(
+                  //     mainAxisAlignment: MainAxisAlignment.center,
+                  //     children: [
+                  //       IconButton(icon: Icon(Icons.search), iconSize: 50,),
+                  //       SizedBox(height: 15,),
+                  //       Text('You have no orders yet', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+                  //     ],
+                  //   ),
+                  // )
+                  //     :
+                  //   Center(
+                  //     child: Column(
+                  //       mainAxisAlignment: MainAxisAlignment.center,
+                  //       children: const [
+                  //         IconButton(icon: Icon(Icons.search), iconSize: 50,),
+                  //         SizedBox(height: 15,),
+                  //         Text('No Order Found', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+                  //         SizedBox(height: 15,),
+                  //         Text('Manage your orders here', style: TextStyle(fontSize: 16),),
+                  //       ],
+                  //     ),
+                  //   )
+                  //       :
+                  // SmartRefresher(
+                  //     controller: refreshController,
+                  //     onLoading: (){
+                  //       controller.loadMoreOrders().then((value) =>refreshController.loadComplete());
+                  //     },
+                  //     onRefresh: (){
+                  //       controller.loadOrders().then((value) => refreshController.refreshCompleted());
+                  //     },
+                  //     enablePullUp: controller.currentPage<controller.modal.totalPages.value,
+                  //     child:
+                      ListView.builder(
+                        itemCount: 10,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index)=> renderListItem(),
                       ),
-                    )
-                        : Obx(
-                          ()=> controller.modal.orders.length == 0
-                          ? Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            IconButton(icon: Icon(Icons.search), iconSize: 50,),
-                            SizedBox(height: 15,),
-                            Text('No Order Found', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
-                            SizedBox(height: 15,),
-                            Text('Manage your orders here', style: TextStyle(fontSize: 16),),
-                          ],
-                        ),
-                      )
-                          : SmartRefresher(
-                        controller: refreshController,
-                        onLoading: (){
-                          controller.loadMoreOrders().then((value) =>refreshController.loadComplete());
-                        },
-                        onRefresh: (){
-                          controller.loadOrders().then((value) => refreshController.refreshCompleted());
-                        },
-                        enablePullUp: controller.currentPage<controller.modal.totalPages.value,
-                        child: ListView.builder(
-                          itemCount: controller.modal.orders.length,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index)=> renderListItem(controller.modal.orders[index]),
-                        ),
-                      ),
-                    ),
-                  ),
+                  //   ),
+                //   ),
+                ),
 //                ...controller.orderHistoryList.map((order) => renderListItem(order)).toList(),
-                ],
-              ),
+              ],
             ),
           ),
         ),
@@ -141,29 +135,31 @@ class OrderHistoryScreen extends StatelessWidget {
     );
   }
 
-  renderListItem(Orders order){
-    Color labelColor = Colors.black54;
-    if(order.status== "Completed")
-    {
-      labelColor = ColorPalette.green;
-    }
-    if(order.status== "Pending")
-    {
-      labelColor = ColorPalette.orange;
-    }
-    if(order.status== "Cancelled")
-    {
-      labelColor = Colors.red;
-    }
+  renderListItem(
+      // Orders order
+      ){
+    // Color labelColor = Colors.black54;
+    // if(order.status== "Completed")
+    // {
+    //   labelColor = ColorPalette.green;
+    // }
+    // if(order.status== "Pending")
+    // {
+    //   labelColor = ColorPalette.orange;
+    // }
+    // if(order.status== "Cancelled")
+    // {
+    //   labelColor = Colors.red;
+    // }
     return GestureDetector(
       onTap: (){
-        Get.to(OrderStatusScreen(order:order));
+        Get.to(OrderStatusScreen());
       },
       child: Column(
         children: [
           Container(
             width: double.infinity,
-            height: 130,
+            height: 110.h,
             decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
@@ -181,23 +177,23 @@ class OrderHistoryScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Order ID # ${order.id}', style: TextStyle(fontSize: 18, color: Colors.black),),
-                  SizedBox(height: 12,),
+                  Text('Order ID # 01', style: TextStyle(fontSize: 18.sp, color: Colors.black),),
+                  SizedBox(height: 12.h,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Created On:', style: TextStyle(fontSize: 18, color: Colors.black),),
-                      Text(order.createdDate, style: TextStyle(fontSize: 18, color: Colors.black),),
+                      Text('Created On:', style: TextStyle(fontSize: 18.sp, color: Colors.black),),
+                      Text("01-01-2022", style: TextStyle(fontSize: 18.sp, color: Colors.black),),
                     ],
                   ),
-                  SizedBox(height: 12,),
+                  SizedBox(height: 12.h,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(order.label, style: TextStyle(fontSize: 18, color: Colors.black),),
+                      Text("label", style: TextStyle(fontSize: 18.sp, color: Colors.black),),
                       MyLabel(
-                        label: order.status,
-                        backGroundColor: labelColor,
+                        label: "Order Status",
+                        backGroundColor: Colors.blue,
                         // height: 35,
                         // width: 100,
                         borderRadius: 5,
@@ -208,7 +204,7 @@ class OrderHistoryScreen extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 10,),
+          SizedBox(height: 10.h,),
         ],
       ),
     );
