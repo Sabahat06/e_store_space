@@ -24,7 +24,14 @@ class OrderHistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () {Get.back();}, color: Colors.white,),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Get.off(HomePage());
+            // Get.back();
+            },
+          color: Colors.white,
+        ),
         leadingWidth: 30,
         title: const Text('Orders History', style: TextStyle(color: Colors.white),),
       ),
