@@ -1,3 +1,4 @@
+import 'package:e_store_space/controller/bottom_bar_controller.dart';
 import 'package:e_store_space/settings/color_palates.dart';
 import 'package:e_store_space/view/order%20screen/place_order_login.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'package:e_store_space/widgets/my_appbar.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class CartScreenTab extends StatelessWidget {
+  BottomBarController bottomBarController = Get.find();
   RxInt quantity = 0.obs;
   @override
 
@@ -29,7 +31,9 @@ class CartScreenTab extends StatelessWidget {
             ],
           ),
         ),
-      body: Column(
+      body: bottomBarController.isSeller.value
+          ? Container(child: Center(child: Text("Favorite Tab"),),)
+          : Column(
         children: [
           Expanded(
             child: ListView.builder(

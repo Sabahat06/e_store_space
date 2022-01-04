@@ -1,3 +1,4 @@
+import 'package:e_store_space/controller/bottom_bar_controller.dart';
 import 'package:e_store_space/widgets/AlertDialogeWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,6 +13,7 @@ import 'package:e_store_space/view/product/product_screen.dart';
 import 'package:e_store_space/widgets/my_appbar.dart';
 
 class FavoriteScreenTab extends StatelessWidget {
+  BottomBarController bottomBarController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,9 @@ class FavoriteScreenTab extends StatelessWidget {
         leadingWidth: 5,
         title: const Text('Favorite', style: TextStyle(color: Colors.white),),
       ),
-      body: Column(
+      body: bottomBarController.isSeller.value
+          ? Container(child: Center(child: Text("Favorite Tab"),),)
+          : Column(
         children: [
           Expanded(
             child: ListView.builder(
