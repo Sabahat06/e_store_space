@@ -1,9 +1,11 @@
 import 'package:e_store_space/view/product/product_detail_screen.dart';
+import 'package:e_store_space/view/seller%20screens/adding_product.dart';
+import 'package:e_store_space/view/seller%20screens/product_detail_seller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class StoreProducts extends StatelessWidget {
+class StoreProductsSeller extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -15,18 +17,46 @@ class StoreProducts extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(10.w),
-        child: GridView.builder(
-            itemCount: 25,
-            shrinkWrap: true,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisSpacing: 1.1
+        child: SingleChildScrollView(
+          child: Container(
+            width: double.infinity,
+            child: GridView.builder(
+                itemCount: 25,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 1.1
+                ),
+                itemBuilder: (BuildContext context, int index) {
+                  return GestureDetector(
+                    child: MyProduct(index),
+                  );
+                }
             ),
-            itemBuilder: (BuildContext context, int index) {
-              return GestureDetector(
-                child: MyProduct(index),
-              );
-            }
+          ),
+        ),
+      ),
+      floatingActionButton: GestureDetector(
+        onTap: (){
+          Get.to(() => AddingProductScreen());
+        },
+        child: Container(
+          height: 40.h,
+          width: 150.w,
+          decoration: BoxDecoration(
+            color: Colors.blue,
+            borderRadius: BorderRadius.circular(10)
+          ),
+          child: Center(
+            child: Text(
+              'Add Product',
+              style: TextStyle(
+                fontSize: 16.sp,
+                color: Colors.white
+              ),
+            ),
+          ),
         ),
       ),
     );
@@ -36,7 +66,7 @@ class StoreProducts extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(10.0.w),
       child: GestureDetector(
-        onTap: (){Get.to(() => ProductDetailsScreen());},
+        onTap: (){Get.to(() => ProductDetailSellerScreen());},
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
@@ -50,8 +80,8 @@ class StoreProducts extends StatelessWidget {
                   border: Border.all(color: Colors.blue,width: 2),
                   color: Colors.lightGreen
               ),
-              height: 230.h,
-              width: 190.w,
+              height: 225.h,
+              width: 180.w,
             ),
             Container(
               height: 45.h,
@@ -64,7 +94,7 @@ class StoreProducts extends StatelessWidget {
                 ),
               ),
               child: Padding(
-                padding: EdgeInsets.only(left:15.0.w, right: 10.0.w),
+                padding: EdgeInsets.only(left:7.0.w, right: 7.0.w),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

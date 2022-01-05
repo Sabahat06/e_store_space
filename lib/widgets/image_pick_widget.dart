@@ -8,7 +8,7 @@ import 'package:e_store_space/statics/static_var.dart';
 
 class MyImagePicker extends StatefulWidget {
   File file;
-  String centerText='';
+  String centerText;
   MyImagePicker({this.file, this.centerText});
 
   @override
@@ -28,11 +28,19 @@ class _MyimagePickerState extends State<MyImagePicker> {
               width: double.maxFinite,
               height: 200,
               padding: const EdgeInsets.all(10),
-              color: Colors.black12,
-              child: const Icon(
-                Icons.camera_alt,
-                size: 65,
-                color: Colors.grey,
+              color: Colors.blue.shade50,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: const [
+                  Icon(
+                    Icons.camera_alt,
+                    size: 65,
+                    color: Colors.blue,
+                  ),
+                  SizedBox(height: 3,),
+                  Text("Pick Image", style: TextStyle(color: Colors.blue),)
+                ],
               ),
             )
                 :Container(
@@ -54,7 +62,7 @@ class _MyimagePickerState extends State<MyImagePicker> {
                   backgroundColor: Colors.white38,
                   child: Icon(
                     Icons.camera_alt,
-                    color: Colors.black54,
+                    color: Colors.blue,
                   ),
                 ),
               ),
@@ -99,10 +107,10 @@ class _MyimagePickerState extends State<MyImagePicker> {
                     children: const [
                       Icon(
                         Icons.image,
-                        color: Colors.orange,
+                        color: Colors.blue,
                         size: 30,
                       ),
-                      Text("Gallery")
+                      Text("Gallery", style: TextStyle(color: Colors.blue),)
                     ],
                   ),
                 ),
@@ -118,10 +126,10 @@ class _MyimagePickerState extends State<MyImagePicker> {
                     children: const [
                       Icon(
                         Icons.camera_alt,
-                        color: Colors.orange,
+                        color: Colors.blue,
                         size: 30,
                       ),
-                      Text("Camera")
+                      Text("Camera", style: TextStyle(color: Colors.blue),)
                     ],
                   ),
                 ),

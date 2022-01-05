@@ -1,5 +1,6 @@
 import 'package:e_store_space/view/product/product_detail_screen.dart';
-import 'package:e_store_space/view/product/store_dart.dart';
+import 'package:e_store_space/view/seller%20screens/store_product_seller.dart';
+import 'package:e_store_space/view/seller%20screens/adding_deal.dart';
 import 'package:e_store_space/widgets/my_appbar.dart';
 import 'package:e_store_space/widgets/my_text_field.dart';
 import 'package:flutter/material.dart';
@@ -26,87 +27,107 @@ class HomeScreenTabSeller extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                expandedHeight: 210.0.h,
-                flexibleSpace: FlexibleSpaceBar(
-                  background: Image.asset("assets/image/appimage.jpeg", fit: BoxFit.cover,),
-                ),
+          slivers: [
+            SliverAppBar(
+              expandedHeight: 210.0.h,
+              flexibleSpace: FlexibleSpaceBar(
+                background: Image.asset("assets/image/appimage.jpeg", fit: BoxFit.cover,),
               ),
-              SliverAppBar(
-                backgroundColor: Colors.blue,
-                pinned: true,
-                flexibleSpace: FlexibleSpaceBar(
-                  titlePadding: const EdgeInsetsDirectional.only(
-                    start: 5.0,
-                    bottom: 5.0,
-                    top: 5,
-                    end: 5
-                  ),
-                  centerTitle: true,
-                  title: Container(
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
+            ),
+            SliverAppBar(
+              backgroundColor: Colors.blue,
+              pinned: true,
+              flexibleSpace: FlexibleSpaceBar(
+                titlePadding: const EdgeInsetsDirectional.only(
+                  start: 5.0,
+                  bottom: 5.0,
+                  top: 5,
+                  end: 5
+                ),
+                centerTitle: true,
+                title: Container(
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          height: 70.h,
+                          width: 50.w,
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage("assets/image/appbar.jpg"),
+                              fit: BoxFit.cover
+                            )
+                          ),
+                        ),
+                        Container(
+                            width: 290.w,
                             height: 70.h,
-                            width: 50.w,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage("assets/image/appbar.jpg"),
-                                fit: BoxFit.cover
-                              )
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15.r),
+                              color: Colors.white,
                             ),
-                          ),
-                          Container(
-                              width: 290.w,
-                              height: 70.h,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15.r),
-                                color: Colors.white,
+                            child: TextFormField(
+                              controller: searchController,
+                              decoration: const InputDecoration(
+                                hintText: "Search",
+                                prefixIcon: Icon(Icons.search),
+                                border: InputBorder.none,
                               ),
-                              child: TextFormField(
-                                controller: searchController,
-                                decoration: const InputDecoration(
-                                  hintText: "Search",
-                                  prefixIcon: Icon(Icons.search),
-                                  border: InputBorder.none,
-                                ),
-                              )
-                          ),
-                          // const Icon(Icons.sort_outlined, color: Colors.white,),
-                          // const Icon(Icons.sort_outlined, color: Colors.white,),
-                        ]
-                    ),
+                            )
+                        ),
+                        // const Icon(Icons.sort_outlined, color: Colors.white,),
+                        // const Icon(Icons.sort_outlined, color: Colors.white,),
+                      ]
                   ),
                 ),
               ),
-              SliverList(
-                delegate: SliverChildListDelegate([
-                  SingleChildScrollView(
-                    child: Container(
-                      width: double.infinity,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 7,
-                        itemBuilder: (BuildContext context, int index) {
-                          return renderingStore(index, context);
-                        }
-                      )
-                    ),
+            ),
+            SliverList(
+              delegate: SliverChildListDelegate([
+                SingleChildScrollView(
+                  child: Container(
+                    width: double.infinity,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: 7,
+                      itemBuilder: (BuildContext context, int index) {
+                        return renderingStore(index, context);
+                      }
+                    )
                   ),
-                ]),
-              )
-            ],
-          )
+                ),
+              ]),
+            )
+          ],
+        ),
+        floatingActionButton: GestureDetector(
+          onTap: (){Get.to(() => AddingDealScreen());},
+          child: Container(
+            height: 40.h,
+            width: 130.w,
+            decoration: BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.circular(10)
+            ),
+            child: Center(
+              child: Text(
+                'Add Deal',
+                style: TextStyle(
+                    fontSize: 16.sp,
+                    color: Colors.white
+                ),
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
 
   renderingStore(int index, BuildContext context) {
     return GestureDetector(
-      onTap: (){Get.to(() => StoreProducts());},
+      onTap: (){Get.to(() => StoreProductsSeller());},
       child: Padding(
         padding: const EdgeInsets.only(left: 12.0, right: 12, top: 12),
         child: Card(

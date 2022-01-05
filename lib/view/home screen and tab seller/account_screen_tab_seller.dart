@@ -177,8 +177,6 @@ class AccountScreenTabSeller extends StatelessWidget {
                   ),
                   const Divider(),
                   SizedBox(height: 10.h,),
-                  const Divider(),
-                  SizedBox(height: 10.h,),
                   GestureDetector(
                     onTap: (){
                       showDialog(
