@@ -25,90 +25,7 @@ class HomeScreenTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Obx(
-          () => bottomBarController.isSeller.value
-            ? CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                expandedHeight: 210.0.h,
-                flexibleSpace: FlexibleSpaceBar(
-                  background: Image.asset("assets/image/shirt.jpg", fit: BoxFit.cover,),
-                ),
-              ),
-              SliverAppBar(
-                backgroundColor: Colors.blue,
-                pinned: true,
-                flexibleSpace: FlexibleSpaceBar(
-                  titlePadding: const EdgeInsetsDirectional.only(
-                    start: 5.0,
-                    bottom: 5.0,
-                    top: 5,
-                    end: 5
-                  ),
-                  centerTitle: true,
-                  title: Container(
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            height: 70.h,
-                            width: 50.w,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage("assets/image/appbar.jpg"),
-                                fit: BoxFit.cover
-                              )
-                            ),
-                          ),
-                          Container(
-                              width: 290.w,
-                              height: 70.h,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15.r),
-                                color: Colors.white,
-                              ),
-                              child: TextFormField(
-                                controller: searchController,
-                                decoration: const InputDecoration(
-                                  hintText: "Search",
-                                  prefixIcon: Icon(Icons.search),
-                                  border: InputBorder.none,
-                                ),
-                              )
-                          ),
-                          // const Icon(Icons.sort_outlined, color: Colors.white,),
-                          // const Icon(Icons.sort_outlined, color: Colors.white,),
-                        ]
-                    ),
-                  ),
-                ),
-              ),
-              SliverList(
-                delegate: SliverChildListDelegate([
-                  SingleChildScrollView(
-                    child: Container(
-                      width: double.infinity,
-                      child: GridView.builder(
-                          itemCount: 25,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              mainAxisSpacing: 1.1
-                          ),
-                          itemBuilder: (BuildContext context, int index) {
-                            return GestureDetector(
-                              child: MyStore(index),
-                            );
-                          }
-                      ),
-                    ),
-                  ),
-                ]),
-              )
-            ],
-          )
-            : CustomScrollView(
+        body: CustomScrollView(
             slivers: [
               SliverAppBar(
                 expandedHeight: 210.0.h,
@@ -189,7 +106,6 @@ class HomeScreenTab extends StatelessWidget {
               )
             ],
           ),
-        ),
       ),
     );
   }

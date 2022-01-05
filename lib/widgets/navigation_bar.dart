@@ -10,14 +10,41 @@ class BottomNavigateBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetX<BottomBarController>(
         builder: (controller) {
-          return  BottomNavigationBar(
+          return bottomController.isSeller.value
+              ? BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             showUnselectedLabels: true,
             currentIndex: controller.currentBNBIndex.value,
             onTap: controller.indexChanged,
             selectedItemColor: Colors.blue,
             unselectedItemColor: Colors.black54,
-            items: const <BottomNavigationBarItem>[
+            items: const <BottomNavigationBarItem> [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home_outlined),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.notification_add_outlined),
+                label: 'Notifications',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.calendar_view_day_outlined),
+                label: 'Status',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.perm_identity),
+                label: 'Account',
+              ),
+            ],
+          )
+              : BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            showUnselectedLabels: true,
+            currentIndex: controller.currentBNBIndex.value,
+            onTap: controller.indexChanged,
+            selectedItemColor: Colors.blue,
+            unselectedItemColor: Colors.black54,
+            items: const <BottomNavigationBarItem> [
               BottomNavigationBarItem(
                 icon: Icon(Icons.home_outlined),
                 label: 'Home',

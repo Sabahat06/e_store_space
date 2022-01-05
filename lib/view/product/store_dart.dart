@@ -18,10 +18,9 @@ class StoreProducts extends StatelessWidget {
         child: GridView.builder(
             itemCount: 25,
             shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 1.1
+              crossAxisCount: 2,
+              mainAxisSpacing: 1.1
             ),
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(

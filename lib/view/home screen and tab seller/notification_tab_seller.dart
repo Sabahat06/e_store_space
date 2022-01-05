@@ -11,7 +11,7 @@ import 'package:e_store_space/view/used_mobiles_request_screen.dart';
 import 'package:e_store_space/widgets/my_appbar.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class CartScreenTab extends StatelessWidget {
+class NotificationScreenTabSeller extends StatelessWidget {
   BottomBarController bottomBarController = Get.find();
   RxInt quantity = 0.obs;
   @override
@@ -31,59 +31,7 @@ class CartScreenTab extends StatelessWidget {
             ],
           ),
         ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: 25,
-              shrinkWrap: true,
-              itemBuilder: (BuildContext context, int index) {
-                return GestureDetector(
-                  child: MyProduct(),
-                );
-              }
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(bottom: 7.0.w, left: 3.w, right: 3.w, top: 3.w),
-            child: GestureDetector(
-              onTap: (){
-                Get.to(PlaceOrderLoginScreen());
-              },
-              child: Container(
-                height: 40.h,
-                color: Colors.blue,
-                width: double.infinity,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(8.w),
-                      child: Text('PLACE ORDER', style: TextStyle(color: Colors.white, fontSize: 18.sp),),
-                    ),
-                    Row(
-                      children: [
-                        Text("Rs ", style: TextStyle(color: Colors.white, fontSize: 18.sp),),
-                        Text("100", style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.bold),),
-                        SizedBox(width: 7.w,),
-                        Container(width: 2.w, color: Colors.white,),
-                        SizedBox(width: 7.w,),
-                        Center(
-                          child: IconButton(
-                            icon: const Icon(Icons.arrow_forward_outlined,
-                              color: Colors.white,
-                            ), iconSize: 30.w,
-                          )
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+      body: Container(child: Center(child: Text("Favorite Tab"),),)
     );
   }
 

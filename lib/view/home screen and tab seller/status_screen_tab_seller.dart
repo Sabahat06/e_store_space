@@ -12,7 +12,7 @@ import 'package:e_store_space/view/product/cart_screen.dart';
 import 'package:e_store_space/view/product/product_screen.dart';
 import 'package:e_store_space/widgets/my_appbar.dart';
 
-class FavoriteScreenTab extends StatelessWidget {
+class StatusScreenTabSeller extends StatelessWidget {
   BottomBarController bottomBarController = Get.find();
 
   @override
@@ -24,21 +24,7 @@ class FavoriteScreenTab extends StatelessWidget {
         leadingWidth: 5,
         title: const Text('Favorite', style: TextStyle(color: Colors.white),),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-                itemCount: 25,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                    child: MyProduct(context),
-                  );
-                }
-            ),
-          ),
-        ],
-      ),
+      body: Container(child: Center(child: Text("Favorite Tab"),),)
     );
   }
 

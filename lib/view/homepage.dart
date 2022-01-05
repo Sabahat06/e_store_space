@@ -2,6 +2,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:e_store_space/view/home%20screen%20and%20tab%20seller/status_screen_tab_seller.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,6 +23,9 @@ import 'package:e_store_space/widgets/my_appbar.dart';
 import 'package:e_store_space/widgets/navigation_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'home screen and tab seller/account_screen_tab_seller.dart';
+import 'home screen and tab seller/home_screen_tab_seller.dart';
+import 'home screen and tab seller/notification_tab_seller.dart';
 import 'home_screen_tabs/account_Screen_tab.dart';
 import 'home_screen_tabs/home_screen_tab.dart';
 import 'home_screen_tabs/favorite_screen_tab.dart';
@@ -41,12 +45,18 @@ class _HomePageState extends State<HomePage> {
   BottomBarController bottomBarController=Get.find();
   CategoryController categoryController = Get.put(CategoryController());
 
-  final List _tabs = [
+  final List _tabs =  [
     HomeScreenTab(),
     FavoriteScreenTab(),
     CartScreenTab(),
     AccountScreenTab(),
+  ];
 
+  final List _tabs_seller =  [
+    HomeScreenTabSeller(),
+    NotificationScreenTabSeller(),
+    StatusScreenTabSeller(),
+    AccountScreenTabSeller(),
   ];
 
 
@@ -57,7 +67,9 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
 //      appBar: MyAppBarWidgets().getMyAppBar(),
       body:Obx(
-        ()=>_tabs[bottomBarController.currentBNBIndex.value]
+        ()=>bottomBarController.isSeller.value
+            ?  _tabs_seller[bottomBarController.currentBNBIndex.value]
+            : _tabs[bottomBarController.currentBNBIndex.value]
       ),
       bottomNavigationBar: BottomNavigateBar(),
     );
