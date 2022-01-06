@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:e_store_space/controller/bottom_bar_controller.dart';
 import 'package:e_store_space/settings/color_palates.dart';
@@ -14,6 +15,8 @@ class BottomNavigateBar extends StatelessWidget {
               ? BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             showUnselectedLabels: true,
+            selectedFontSize: 12.sp,
+            unselectedFontSize: 12.sp,
             currentIndex: controller.currentBNBIndex.value,
             onTap: controller.indexChanged,
             selectedItemColor: Colors.blue,

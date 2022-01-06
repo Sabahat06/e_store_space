@@ -232,20 +232,21 @@ class ProductDetailSellerScreen extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  Text("Product Price : ", style: TextStyle(fontSize: 16.sp, color: Colors.blue),),
+                                  Text("Product Price : ", style: TextStyle(fontSize: 16.sp, color: Colors.blue, fontWeight: FontWeight.bold),),
                                   Text('30\$', style: TextStyle(fontSize: 16.sp, color: Colors.black),),
                                 ],
                               ),
                               SizedBox(height: 3.h,),
                               Row(
                                 children: [
-                                  Text("Product Quantity : ", style: TextStyle(fontSize: 16.sp, color: Colors.blue),),
+                                  Text("Product Quantity : ", style: TextStyle(fontSize: 16.sp, color: Colors.blue, fontWeight: FontWeight.bold),),
                                   Text('5', style: TextStyle(fontSize: 16.sp, color: Colors.black),),
                                 ],
-                              ),                              SizedBox(height: 3.h,),
+                              ),
+                              SizedBox(height: 3.h,),
                               Row(
                                 children: [
-                                  Text("Product Sales : ", style: TextStyle(fontSize: 16.sp, color: Colors.blue),),
+                                  Text("Product Sales : ", style: TextStyle(fontSize: 16.sp, color: Colors.blue, fontWeight: FontWeight.bold),),
                                   Text('3', style: TextStyle(fontSize: 16.sp, color: Colors.black),),
                                 ],
                               ),                            ],

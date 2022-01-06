@@ -28,15 +28,15 @@ class NotificationScreenTabSeller extends StatelessWidget {
         ),
       body: SingleChildScrollView(
         child: Container(
-            width: double.infinity,
-            child: ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: 2,
-                itemBuilder: (BuildContext context, int index) {
-                  return renderingNotification(index, context);
-                }
-            )
+          width: double.infinity,
+          child: ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: 2,
+            itemBuilder: (BuildContext context, int index) {
+              return renderingNotification(index, context);
+            }
+          )
         ),
       ),
     );
@@ -47,7 +47,7 @@ class NotificationScreenTabSeller extends StatelessWidget {
       padding: const EdgeInsets.only(left: 12.0, right: 12, top: 10),
       child: Card(
         color: Colors.green,
-        elevation: 16,
+        elevation: 10,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
