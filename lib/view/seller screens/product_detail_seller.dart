@@ -129,15 +129,15 @@ class ProductDetailSellerScreen extends StatelessWidget {
                               ),
                               Container(
                                 decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(10),
-                                        bottomLeft: Radius.circular(10)
-                                    ),
-                                    color: Colors.transparent
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      bottomLeft: Radius.circular(10)
+                                  ),
+                                  color: Colors.transparent
                                 ),
                                 width: 60.w,
                                 height: 60.h,
-                                child: Center(
+                                child: const Center(
                                   child: Icon(Icons.favorite, size: 30, color: Colors.red,),
                                 ),
                               ),
@@ -158,53 +158,32 @@ class ProductDetailSellerScreen extends StatelessWidget {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(left:10.0, right: 10),
-                            child: Container(
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.only(
-                                  topRight: Radius.circular(20),
-                                  topLeft: Radius.circular(20),
-                                ),
-                                color: Colors.blue.shade100,
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(left:15, right: 15, top: 15, bottom: 15),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left:15, right: 15,),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(height: 10.h,),
+                                  Container(
+                                    height: 40.h,
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      // mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Text("Product Quantity : 2", style: TextStyle(color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.bold),),
+                                        Center(child: Text('Color', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, color: Colors.blue), textAlign: TextAlign.center,)),
+                                        ListView.builder(
+                                          itemBuilder: (context, index){
+                                            return renderingColors(colorCode[index] ,index);
+                                          },
+                                          itemCount: colorCode.length,
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.horizontal,
+                                        )
                                       ],
                                     ),
-                                    SizedBox(height: 10.h,),
-                                    Row(
-                                      children: [
-                                        Text("Product Sale : 3", style: TextStyle(color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.bold),),
-                                      ],
-                                    ),
-                                    SizedBox(height: 10.h,),
-                                    Container(
-                                      height: 40.h,
-                                      child: Row(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        // mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Center(child: Text('Color', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, color: Colors.blue), textAlign: TextAlign.center,)),
-                                          ListView.builder(
-                                            itemBuilder: (context, index){
-                                              return renderingColors(colorCode[index] ,index);
-                                            },
-                                            itemCount: colorCode.length,
-                                            shrinkWrap: true,
-                                            scrollDirection: Axis.horizontal,
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(height: 5.h,),
-                                  ],
-                                ),
+                                  ),
+                                  SizedBox(height: 5.h,),
+                                ],
                               ),
                             ),
                           ),
@@ -236,6 +215,42 @@ class ProductDetailSellerScreen extends StatelessWidget {
                           //   ),
                           // ),
                         ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Container(
+                      width: double.infinity,
+                      child: Card(
+                        elevation: 10,
+                        color: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Text("Product Price : ", style: TextStyle(fontSize: 16.sp, color: Colors.blue),),
+                                  Text('30\$', style: TextStyle(fontSize: 16.sp, color: Colors.black),),
+                                ],
+                              ),
+                              SizedBox(height: 3.h,),
+                              Row(
+                                children: [
+                                  Text("Product Quantity : ", style: TextStyle(fontSize: 16.sp, color: Colors.blue),),
+                                  Text('5', style: TextStyle(fontSize: 16.sp, color: Colors.black),),
+                                ],
+                              ),                              SizedBox(height: 3.h,),
+                              Row(
+                                children: [
+                                  Text("Product Sales : ", style: TextStyle(fontSize: 16.sp, color: Colors.blue),),
+                                  Text('3', style: TextStyle(fontSize: 16.sp, color: Colors.black),),
+                                ],
+                              ),                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ),

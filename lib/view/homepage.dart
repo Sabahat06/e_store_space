@@ -2,7 +2,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:e_store_space/view/home%20screen%20and%20tab%20seller/status_screen_tab_seller.dart';
+import 'package:e_store_space/view/home%20screen%20and%20tab%20seller/buyer_screen_tab_seller.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
   final List _tabs_seller =  [
     HomeScreenTabSeller(),
     NotificationScreenTabSeller(),
-    StatusScreenTabSeller(),
+    BuyerScreenTabSeller(),
     AccountScreenTabSeller(),
   ];
 

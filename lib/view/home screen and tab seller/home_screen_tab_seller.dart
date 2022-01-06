@@ -87,12 +87,16 @@ class HomeScreenTabSeller extends StatelessWidget {
                 SingleChildScrollView(
                   child: Container(
                     width: double.infinity,
-                    child: ListView.builder(
+                    child: GridView.builder(
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 1.1
+                      ),
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 7,
+                      itemCount: 3,
                       itemBuilder: (BuildContext context, int index) {
-                        return renderingStore(index, context);
+                        return renderingStore(index);
                       }
                     )
                   ),
@@ -125,76 +129,124 @@ class HomeScreenTabSeller extends StatelessWidget {
     );
   }
 
-  renderingStore(int index, BuildContext context) {
-    return GestureDetector(
-      onTap: (){Get.to(() => StoreProductsSeller());},
-      child: Padding(
-        padding: const EdgeInsets.only(left: 12.0, right: 12, top: 12),
-        child: Card(
-          color: Colors.green,
-          elevation: 16,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Container(
-            height: 85.h,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color: Colors.white,
+  renderingStore(int index){
+    return Padding(
+      padding: EdgeInsets.all(10.0.w),
+      child: GestureDetector(
+        onTap: (){Get.to(() => StoreProductsSeller());},
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: index%2==0 ? AssetImage( "assets/image/apple.jpg",) :  AssetImage( "assets/image/shoes.jpg",),
+                      fit: BoxFit.cover
+                  ),
+                  borderRadius: BorderRadius.circular(15.r),
+                  border: Border.all(color: Colors.blue,width: 2),
+                  color: Colors.lightGreen
+              ),
+              height: 230.h,
+              width: 190.w,
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                      child: Text("Store Name", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold), textAlign: TextAlign.left,)
-                  ),
-                  SizedBox(height: 5.h,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 300.w,
-                        padding: const EdgeInsets.only(bottom: 4.0),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(child: Text("Store Product Short Details", style: TextStyle(fontSize: 14.sp, color: Colors.black54), maxLines: 3,)),
-                              SizedBox(height: 5.h,),
-                              Row(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(right: 12.0.w),
-                                    child: Container(
-                                        color: Colors.blue,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(5.0),
-                                          child: Text("Store Status",
-                                            style: TextStyle(
-                                              fontSize: 14.sp,
-                                              fontWeight: FontWeight.bold
-                                            ),
-                                          ),
-                                        )
-                                    )
-                                  ),
-                                ],
-                              ),
-                            ],
-                          )
-                      ),
-                    ],
-                  ),
-                ],
+            Container(
+              height: 45.h,
+              width: 190.w,
+              decoration: BoxDecoration(
+                color: Colors.black54,
+                borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(15.r),
+                    bottomLeft: Radius.circular(15.r)
+                ),
+              ),
+              child: Padding(
+                padding: EdgeInsets.only(left:15.0.w, right: 10.0.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Store ${index}', style: const TextStyle(color: Colors.white),),
+                    const Text('Status', style: TextStyle(color: Colors.blue),),
+                  ],
+                ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );
   }
+
+  // renderingStore(int index, BuildContext context) {
+  //   return GestureDetector(
+  //     onTap: (){Get.to(() => StoreProductsSeller());},
+  //     child: Padding(
+  //       padding: const EdgeInsets.only(left: 12.0, right: 12, top: 12),
+  //       child: Card(
+  //         color: Colors.green,
+  //         elevation: 16,
+  //         shape: RoundedRectangleBorder(
+  //           borderRadius: BorderRadius.circular(10),
+  //         ),
+  //         child: Container(
+  //           height: 85.h,
+  //           width: double.infinity,
+  //           decoration: BoxDecoration(
+  //             borderRadius: BorderRadius.circular(5),
+  //             color: Colors.white,
+  //           ),
+  //           child: Padding(
+  //             padding: const EdgeInsets.all(8.0),
+  //             child: Column(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 Container(
+  //                     child: Text("Store Name", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold), textAlign: TextAlign.left,)
+  //                 ),
+  //                 SizedBox(height: 5.h,),
+  //                 Row(
+  //                   mainAxisAlignment: MainAxisAlignment.start,
+  //                   children: [
+  //                     Container(
+  //                       width: 300.w,
+  //                       padding: const EdgeInsets.only(bottom: 4.0),
+  //                       child: Column(
+  //                           crossAxisAlignment: CrossAxisAlignment.start,
+  //                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                           children: [
+  //                             Container(child: Text("Store Product Short Details", style: TextStyle(fontSize: 14.sp, color: Colors.black54), maxLines: 3,)),
+  //                             SizedBox(height: 5.h,),
+  //                             Row(
+  //                               children: [
+  //                                 Padding(
+  //                                   padding: EdgeInsets.only(right: 12.0.w),
+  //                                   child: Container(
+  //                                       color: Colors.blue,
+  //                                       child: Padding(
+  //                                         padding: const EdgeInsets.all(5.0),
+  //                                         child: Text("Store Status",
+  //                                           style: TextStyle(
+  //                                             fontSize: 14.sp,
+  //                                             fontWeight: FontWeight.bold
+  //                                           ),
+  //                                         ),
+  //                                       )
+  //                                   )
+  //                                 ),
+  //                               ],
+  //                             ),
+  //                           ],
+  //                         )
+  //                     ),
+  //                   ],
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
 }

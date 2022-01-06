@@ -40,13 +40,9 @@ class AddingDealScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Center(
-                child: Container(
-                    width: 150,
-                    height: 150,
-                    child: Image.asset("assets/image/appimage.jpeg",)
-                ),
-              ),
+              const SizedBox(height: 10),
+              MyImagePicker(file: file, centerText: "Pick Image",),
+              const SizedBox(height: 10),
               MyTextField(
                 // prefixIcon: IconButton(icon: Icon(Icons.person_outlined, color: Colors.blue,)),
                 controller: dealName,
@@ -54,7 +50,7 @@ class AddingDealScreen extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               MyTextField(
-                prefixIcon: IconButton(icon: Icon(Icons.lock_outlined, color: Colors.blue,)),
+                // prefixIcon: IconButton(icon: Icon(Icons.lock_outlined, color: Colors.blue,)),
                 controller: dealType,
                 label: 'Deal Type',
               ),

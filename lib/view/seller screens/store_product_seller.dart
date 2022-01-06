@@ -21,7 +21,7 @@ class StoreProductsSeller extends StatelessWidget {
           child: Container(
             width: double.infinity,
             child: GridView.builder(
-                itemCount: 25,
+                itemCount: 7,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

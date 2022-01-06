@@ -29,7 +29,7 @@ class BottomNavigateBar extends StatelessWidget {
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.calendar_view_day_outlined),
-                label: 'Status',
+                label: 'Buyer Request',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.perm_identity),

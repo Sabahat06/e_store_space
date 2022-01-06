@@ -12,7 +12,7 @@ import 'package:e_store_space/view/product/cart_screen.dart';
 import 'package:e_store_space/view/product/product_screen.dart';
 import 'package:e_store_space/widgets/my_appbar.dart';
 
-class StatusScreenTabSeller extends StatelessWidget {
+class BuyerScreenTabSeller extends StatelessWidget {
   BottomBarController bottomBarController = Get.find();
 
   @override
@@ -22,9 +22,9 @@ class StatusScreenTabSeller extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () {Get.back();}, color: Colors.white, iconSize: 0,),
         leadingWidth: 5,
-        title: const Text('Status', style: TextStyle(color: Colors.white),),
+        title: const Text('Buyer Request', style: TextStyle(color: Colors.white),),
       ),
-      body: Container(child: Center(child: Text("Status Tab"),),)
+      body: Container(child: Center(child: Text("Buyer Request"),),)
     );
   }
 }

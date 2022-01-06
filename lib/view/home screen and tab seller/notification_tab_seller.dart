@@ -72,8 +72,8 @@ class NotificationScreenTabSeller extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Store Name", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold), textAlign: TextAlign.left,),
-                        Text("Time", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold), textAlign: TextAlign.left,),
+                        Text("Store ${index}", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Colors.blue), textAlign: TextAlign.left,),
+                        Text("6:00 PM", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Colors.blue), textAlign: TextAlign.left,),
                       ],
                     ),
                   )
@@ -89,7 +89,7 @@ class NotificationScreenTabSeller extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Our New Winter Collection is In! Come By 36th Street to see it by yourself", style: TextStyle(fontSize: 16.sp, color: Colors.blue.shade600), textAlign: TextAlign.left,),
+                          Text("Our New Winter Collection is In! Come By 36th Street to see it by yourself", style: TextStyle(fontSize: 16.sp, color: Colors.black), textAlign: TextAlign.left,),
                           SizedBox(height: 4.h,),
                           Text("SHOP NOW", style: TextStyle(fontSize: 12.sp, color: Colors.black54), textAlign: TextAlign.left,),
                         ],

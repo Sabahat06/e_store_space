@@ -18,15 +18,6 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () {Get.back();}, color: Colors.white,),
-      //   leadingWidth: 30,
-      //   title: const Text('Product Name', style: TextStyle(color: Colors.white),),
-      //   actions: const [
-      //     Center(child: Text('Rating', style: TextStyle(fontSize: 16, color: Colors.white),)),
-      //
-      //   ],
-      // ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -146,7 +137,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                 ),
                                 width: 60.w,
                                 height: 60.h,
-                                child: Center(
+                                child: const Center(
                                   child: Icon(Icons.favorite, size: 30, color: Colors.red,),
                                 ),
                               ),
@@ -193,7 +184,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                             borderRadius: BorderRadius.circular(10),
                                             border: Border.all(color: Colors.blue, width: 2),
                                           ),
-                                          child: Center(
+                                          child: const Center(
                                             child: Icon(Icons.location_city_outlined, color: Colors.blue,),
                                           ),
                                         ),
@@ -211,7 +202,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                             borderRadius: BorderRadius.circular(10),
                                             border: Border.all(color: Colors.blue, width: 2),
                                           ),
-                                          child: Center(
+                                          child: const Center(
                                             child: Icon(Icons.lock_clock_outlined, color: Colors.blue,),
                                           ),
                                         ),
@@ -293,7 +284,7 @@ class ProductDetailsScreen extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 20, right: 20),
+                            padding: const EdgeInsets.only(left: 20, right: 20),
                             child: Container(
                               height: 65.h,
                               width: double.infinity,
