@@ -70,6 +70,12 @@ class AddingProductScreen extends StatelessWidget {
               const SizedBox(height: 10),
               MyTextField(
                 // prefixIcon: IconButton(icon: Icon(Icons.lock_outlined, color: Colors.blue,)),
+                controller: productPrice,
+                label: 'Product Price',
+              ),
+              const SizedBox(height: 10),
+              MyTextField(
+                // prefixIcon: IconButton(icon: Icon(Icons.lock_outlined, color: Colors.blue,)),
                 controller: productColor,
                 label: 'Product Color',
               ),

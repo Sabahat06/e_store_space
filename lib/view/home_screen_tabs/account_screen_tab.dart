@@ -1,4 +1,5 @@
 import 'package:e_store_space/controller/bottom_bar_controller.dart';
+import 'package:e_store_space/view/account_screens/became_a_seller.dart';
 import 'package:e_store_space/view/account_screens/privacy_policy.dart';
 import 'package:e_store_space/view/account_screens/term_and_condition.dart';
 import 'package:flutter/material.dart';
@@ -71,7 +72,7 @@ class AccountScreenTab extends StatelessWidget {
                     SizedBox(height: 10.h,),
                     GestureDetector(
                         onTap: () {
-                          Get.to(() => DashboardScreen());
+                          Get.to(() => BecomeASeller());
                         },
                         child: Row(
                           children: [
@@ -117,7 +118,7 @@ class AccountScreenTab extends StatelessWidget {
                     const Divider(),
                     GestureDetector(
                       onTap: () {
-                        Get.off(OrderHistoryScreen());
+                        Get.to(() => OrderHistoryScreen());
                       },
                       child: Row(
                         children: [
