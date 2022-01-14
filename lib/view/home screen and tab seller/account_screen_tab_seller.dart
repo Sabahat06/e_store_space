@@ -44,27 +44,27 @@ class AccountScreenTabSeller extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Is Seller',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18.sp,
-                              color: Colors.black
-                          ),
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Is Seller',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18.sp,
+                            color: Colors.black
                         ),
-                        Obx(
-                              () => IconButton(
-                            onPressed: (){
-                              bottomBarController.isSeller.value =!bottomBarController.isSeller.value;
-                            },
-                            icon: bottomBarController.isSeller.value
-                                ? const Icon(Icons.toggle_on_outlined, size: 35, color: Colors.blue,)
-                                : const Icon(Icons.toggle_off_outlined, size: 35, color: Colors.blue,),
-                          ),
+                      ),
+                      Obx(
+                            () => IconButton(
+                          onPressed: (){
+                            bottomBarController.isSeller.value =!bottomBarController.isSeller.value;
+                          },
+                          icon: bottomBarController.isSeller.value
+                              ? const Icon(Icons.toggle_on_outlined, size: 35, color: Colors.blue,)
+                              : const Icon(Icons.toggle_off_outlined, size: 35, color: Colors.blue,),
                         ),
+                      ),
 
-                      ]
+                    ]
                   ),
                   const Divider(),
                   SizedBox(height: 12.h,),
@@ -180,18 +180,18 @@ class AccountScreenTabSeller extends StatelessWidget {
                   GestureDetector(
                     onTap: (){
                       showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialogWidget(
-                              title: 'Log Out Alert',
-                              subTitle: "Are you sure to logout?",
-                              onPositiveClick: () {
-                                isLogedIn.value = false;
-                                // authController.logOut();
-                                Get.back();
-                              },
-                            );
-                          }
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialogWidget(
+                            title: 'Log Out Alert',
+                            subTitle: "Are you sure to logout?",
+                            onPositiveClick: () {
+                              isLogedIn.value = false;
+                              // authController.logOut();
+                              Get.back();
+                            },
+                          );
+                        }
                       );
                     },
                     child: Container(
