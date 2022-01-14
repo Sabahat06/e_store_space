@@ -1,8 +1,10 @@
+import 'package:e_store_space/controller/wish_list_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
+  WishListController wishListController = Get.find();
   // Products products;
   //
   // ProductDetailsScreen({@required this.products}) {
@@ -137,8 +139,21 @@ class ProductDetailsScreen extends StatelessWidget {
                                 ),
                                 width: 60.w,
                                 height: 60.h,
-                                child: const Center(
-                                  child: Icon(Icons.favorite, size: 30, color: Colors.red,),
+                                child: Center(
+                                  child:
+                                  // IconButton(
+                                  //   icon: Icon(
+                                  //     wishListController.items.any((element) => element.id==product.id)
+                                  //         ? Icons.favorite
+                                  //         : Icons.favorite_border,
+                                  //     color: AppColors.primaryColor,),
+                                  //   onPressed: (){
+                                  //     wishListController.addOrRemoveItem(product);
+                                  //   },
+                                  // ),
+                                  Icon(
+                                    Icons.favorite, size: 30, color: Colors.red,
+                                  ),
                                 ),
                               ),
                             ],

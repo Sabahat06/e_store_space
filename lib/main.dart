@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:e_store_space/controller/auth_controller.dart';
 import 'package:e_store_space/controller/cart/shop_cart_screen_controller.dart';
+import 'package:e_store_space/controller/wish_list_controller.dart';
 import 'package:e_store_space/intro/splash_screen.dart';
 import 'package:e_store_space/services/http_services.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -83,7 +84,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     final cartControllerNew= Get.put(CartControllerNew());
     final authController = Get.put(AuthController());
-    final dummyController=Get.put(DummyOrderController(context));
+    final wishListController = Get.put(WishListController());
     final bottomController = Get.put(BottomBarController());
     return Sizer(
       builder: (context,orientation,deviceType){
