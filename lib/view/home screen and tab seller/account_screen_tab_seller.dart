@@ -115,7 +115,7 @@ class AccountScreenTabSeller extends StatelessWidget {
                   const Divider(),
                   SizedBox(height: 12.h,),
                   GestureDetector(
-                      onTap: () {Get.to(FAQScreen());},
+                      onTap: () {Get.to(() => FAQScreen());},
                       child: Row(
                         children: [
                           const Icon(Icons.help_outline_outlined,),
@@ -136,7 +136,7 @@ class AccountScreenTabSeller extends StatelessWidget {
                   const Divider(),
                   SizedBox(height: 12.h,),
                   GestureDetector(
-                      onTap: () {Get.to(PrivacyPolicy());},
+                      onTap: () {Get.to(() => PrivacyPolicy());},
                       child: Row(
                         children: [
                           const Icon(Icons.library_books_outlined,),
@@ -157,7 +157,7 @@ class AccountScreenTabSeller extends StatelessWidget {
                   const Divider(),
                   SizedBox(height: 12.h,),
                   GestureDetector(
-                      onTap: () {Get.to(TermAndCondition());},
+                      onTap: () {Get.to(() => TermAndCondition());},
                       child: Row(
                         children: [
                           const Icon(Icons.description_outlined,),

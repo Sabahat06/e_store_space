@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:package_info/package_info.dart';
 import 'package:e_store_space/Utils/httpHelper.dart';
 import 'package:e_store_space/controller/bottom_bar_controller.dart';
-import 'package:e_store_space/controller/category_controller.dart';
+import 'package:e_store_space/controller/page_controller.dart';
 import 'package:e_store_space/controller/product_controller.dart';
 import 'package:e_store_space/main.dart';
 import 'package:e_store_space/models/order_history_model.dart';
@@ -40,10 +40,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-
-
   BottomBarController bottomBarController=Get.find();
-  CategoryController categoryController = Get.put(CategoryController());
+  HtmlPageController htmlPageController = Get.put(HtmlPageController());
 
   final List _tabs =  [
     HomeScreenTab(),

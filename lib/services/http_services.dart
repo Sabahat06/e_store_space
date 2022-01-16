@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:e_store_space/models/page.dart';
 import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
@@ -28,15 +29,15 @@ class HttpService {
   static Uri _uri = Uri.parse("https://imrans15.sg-host.com/app/app.php");
   static String _url = "https://imrans15.sg-host.com/app/app.php";
 
-  static Future<List<CategoryModel>> getAllCategories() async {
+  static Future<HtmlPageModel> getAllPages() async {
+    Uri _uriPage = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/getPages');
     try {
-      var response = await http.post(
-        _uri,
-        body: {'get_all_categories': '1'},
+      var response = await http.get(
+        _uriPage,
       );
       if (response.statusCode == 200) {
-        List rawList = jsonDecode(response.body);
-        return rawList.map((json) => CategoryModel.fromJson(json)).toList();
+        // List rawList = jsonDecode(response.body);
+        return HtmlPageModel.fromJson(jsonDecode(response.body));
       } else
         return null;
     }

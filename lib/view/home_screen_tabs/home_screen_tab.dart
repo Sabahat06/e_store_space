@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:e_store_space/controller/auth_controller.dart';
 import 'package:e_store_space/controller/bottom_bar_controller.dart';
 import 'package:e_store_space/controller/cart/shop_cart_screen_controller.dart';
-import 'package:e_store_space/controller/category_controller.dart';
+import 'package:e_store_space/controller/page_controller.dart';
 import 'package:e_store_space/services/http_services.dart';
 import 'package:e_store_space/statics/static_var.dart';
 import 'package:e_store_space/view/product/cart_screen.dart';
