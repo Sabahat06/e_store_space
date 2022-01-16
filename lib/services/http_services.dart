@@ -564,23 +564,20 @@ class HttpService {
 
   static Future<String> contactUs
       ({String name, String email, String phone, String subject, String message}) async {
+    Uri _uriContactUs = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/addContactUs');
     try {
       var response = await http.post(
-        _uri,
+        _uriContactUs,
         body: {
-          'contact_us': '1',
           'name': name,
           'email': email,
-          'phone': phone,
+          'phone no': phone,
           'subject': subject,
           'message': message
         },
       );
-      if (response.statusCode == 200) {
-        if(jsonDecode(response.body)['status']==0){
-          Fluttertoast.showToast(msg: jsonDecode(response.body)['status']);
-        }
-        return jsonDecode(response.body)['msg'];
+      if (response.statusCode == 201) {
+        return jsonDecode(response.body)['message'];
 
       } else
         return "Some error accoured";

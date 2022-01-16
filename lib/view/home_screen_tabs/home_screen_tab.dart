@@ -1,4 +1,5 @@
 import 'package:e_store_space/view/product/product_detail_screen.dart';
+import 'package:e_store_space/view/product/product_screen.dart';
 import 'package:e_store_space/view/seller%20screens/store_product_seller.dart';
 import 'package:e_store_space/widgets/my_appbar.dart';
 import 'package:e_store_space/widgets/my_text_field.dart';
@@ -96,7 +97,7 @@ class HomeScreenTab extends StatelessWidget {
                         ),
                         itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(
-                            child: MyProduct(index),
+                            child: MyProduct(context, index),
                           );
                         }
                       ),
@@ -110,56 +111,58 @@ class HomeScreenTab extends StatelessWidget {
     );
   }
 
-  MyProduct(int index){
-    return Padding(
-      padding: EdgeInsets.all(10.0.w),
-      child: GestureDetector(
-        onTap: (){Get.to(() => ProductDetailsScreen());},
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: index%2==0 ? AssetImage( "assets/image/apple.jpg",) :  AssetImage( "assets/image/shoes.jpg",),
-                  fit: BoxFit.cover
+  MyProduct(BuildContext context, int index){
+    double width = MediaQuery.of(context).size.width;
+    return GestureDetector(
+      onTap: (){Get.to(() => ProductScreen());},
+      child: Padding(
+        padding: EdgeInsets.all(8),
+        child: Card(
+          elevation: 3,
+          child: Container(
+            height: width*0.5,
+            // width: width*0.45,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.grey[100],
+              // border: Border.all(color: Colors.grey),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.2),
+                  spreadRadius: 3,
+                  blurRadius: 3,
+                  offset: const Offset(1, 1), // changes position of shadow
                 ),
-                borderRadius: BorderRadius.circular(15.r),
-                border: Border.all(color: Colors.blue,width: 2),
-                color: Colors.lightGreen
-              ),
-              height: 230.h,
-              width: 190.w,
+              ],
             ),
-            Container(
-              height: 45.h,
-              width: 190.w,
-              decoration: BoxDecoration(
-                color: Colors.black54,
-                borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(15.r),
-                  bottomLeft: Radius.circular(15.r)
-                ),
-              ),
-              child: Padding(
-                padding: EdgeInsets.only(left:15.0.w, right: 10.0.w),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 10.h,),
-                        Text('Product Name', style: TextStyle(color: Colors.white),),
-                        Text('Price', style: TextStyle(color: Colors.white),),
-                      ],
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: width*0.35,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(10.0),
+                      topLeft: Radius.circular(10.0),
                     ),
-                    const Text('Rating', style: TextStyle(color: Colors.white),),
-                  ],
+                    color: Colors.white,
+                  ),
+                  child: Image.asset('assets/image/shirt.jpg', fit: BoxFit.cover,),
                 ),
-              ),
+                Center(
+                  child: Padding(
+                      padding: const EdgeInsets.only(left: 10,top: 5),
+                      child: index%2==0
+                          ? Text("Bottle",style: TextStyle(fontWeight: FontWeight.bold),)
+                          : Text("Cloths",style: TextStyle(fontWeight: FontWeight.bold),)
+                  ),
+                )
+
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

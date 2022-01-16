@@ -82,19 +82,19 @@ class ContactUs extends StatelessWidget {
                 SizedBox(height: 15.h,),
                 MyFilledButton(
                   ontap: () async {
-                    // if(contactUsValidation()){
-                    //   progressing.value = true;
-                    //   String response = await HttpService.contactUs(
-                    //       phone: phone.text,
-                    //       email: email.text,
-                    //       name: name.text,
-                    //       message: message.text,
-                    //       subject: subject.text
-                    //   );
-                    //   progressing.value = false;
-                    //   Fluttertoast.showToast(msg: response);
-                    //   Get.back();
-                    // }
+                    if(contactUsValidation()){
+                      progressing.value = true;
+                      String response = await HttpService.contactUs(
+                          phone: phone.text,
+                          email: email.text,
+                          name: name.text,
+                          message: message.text,
+                          subject: subject.text
+                      );
+                      progressing.value = false;
+                      Fluttertoast.showToast(msg: response);
+                      Get.back();
+                    }
                   },
                   color: Colors.blue,
                   width: double.infinity,
@@ -126,22 +126,30 @@ class ContactUs extends StatelessWidget {
       Fluttertoast.showToast(msg: 'Name is Required');
       return false;
     }
-    // else if
-    // (!GetUtils.isEmail(email.text)){
-    //   Fluttertoast.showToast(msg: 'Email format is not correct');
-    //   return false;
-    // }
-    // else if
-    // (email.text.trim().length==0){
-    //   Utils.showToast('Email is Required');
-    //   return false;
-    // }
+    else if
+    (!GetUtils.isEmail(email.text)){
+      Fluttertoast.showToast(msg: 'Email format is not correct');
+      return false;
+    }
+    else if
+    (email.text.trim().length==0){
+      Fluttertoast.showToast(msg: 'Email is Required');
+      return false;
+    }
     else if (phone.text.trim().length == 0){
       Fluttertoast.showToast(msg: 'Phone Number is required');
       return false;
     }
     else if (phone.text.trim().length <= 9){
       Fluttertoast.showToast(msg: 'Enter Valid Phone Number');
+      return false;
+    }
+    else if (subject.text.trim().length <= 0){
+      Fluttertoast.showToast(msg: 'Subject is required');
+      return false;
+    }
+    else if (message.text.trim().length <= 0){
+      Fluttertoast.showToast(msg: 'Message is required');
       return false;
     }
     else
