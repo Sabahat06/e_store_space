@@ -1,24 +1,11 @@
 import 'dart:ui';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:e_store_space/controller/auth_controller.dart';
-import 'package:e_store_space/controller/cart/shop_cart_screen_controller.dart';
-import 'package:e_store_space/controller/cart_controller.dart';
 import 'package:e_store_space/controller/dummy_order_controller.dart';
 import 'package:e_store_space/controller/place_order_login_controler.dart';
-import 'package:e_store_space/controller/time_slots_controller.dart';
-import 'package:e_store_space/models/order_history_model.dart';
-import 'package:e_store_space/models/place_order_detail_modal.dart';
-import 'package:e_store_space/models/time_slot.dart';
-import 'package:e_store_space/services/http_services.dart';
-import 'package:e_store_space/settings/color_palates.dart';
-import 'package:e_store_space/statics/static_var.dart';
 import 'package:e_store_space/view/homepage.dart';
-import 'package:e_store_space/view/order%20screen/order_status_screen.dart';
-import 'package:e_store_space/widgets/my_filled_button.dart';
 import 'package:e_store_space/widgets/my_text_field.dart';
 import 'dart:io' show Platform;
 

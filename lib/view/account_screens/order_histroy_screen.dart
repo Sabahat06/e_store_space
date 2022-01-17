@@ -5,21 +5,12 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:e_store_space/controller/auth_controller.dart';
 import 'package:e_store_space/controller/bottom_bar_controller.dart';
 import 'package:e_store_space/controller/order_history_screen_controller.dart';
-import 'package:e_store_space/models/order_history_model.dart';
-import 'package:e_store_space/settings/color_palates.dart';
-import 'package:e_store_space/view/home_screen_tabs/account_screen_tab.dart';
-import 'package:e_store_space/view/homepage.dart';
-import 'package:e_store_space/view/order%20screen/order_status_screen.dart';
 import 'package:e_store_space/widgets/my_label.dart';
 
 
 class OrderHistoryScreen extends StatelessWidget {
   OrderHistoryController controller = OrderHistoryController();
-  // AuthController authController = Get.find();
-  // RefreshController refreshController = RefreshController();
-  // final BottomBarController _barController=Get.find();
 
-  List<String> sortedTerms = ['All Orders','Pending','Verified','Completed','Cancelled'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,8 +18,7 @@ class OrderHistoryScreen extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Get.off(HomePage());
-            // Get.back();
+            Get.back();
             },
           color: Colors.white,
         ),
@@ -41,101 +31,19 @@ class OrderHistoryScreen extends StatelessWidget {
       Container(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Obx(
-            ()=> Column(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.grey[600],
-                    ),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Stack(
-                      alignment: Alignment.centerLeft,
-                      children: [
-                        Text(controller.sorteditem.value, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold,)),
-                        DropdownButton<String>(
-                            isExpanded: true,
-                            icon: Padding(
-                              padding: const EdgeInsets.only(right: 3.0),
-                              child: Icon(
-                                Icons.arrow_drop_down,
-                                color: Colors.grey[600],
-                              ),
-                            ),
-                            iconSize: 30,
-                            style: TextStyle(color: ColorPalette.green),
-                            underline: Container(
-                              color: Colors.transparent,
-                            ),
-                            onChanged: (newValue) {
-                              controller.sorteditem.value = newValue;
-                              // controller.sortItems();
-                            },
-                            items: sortedTerms.map((value) =>
-                                DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value, style: TextStyle(color: Colors.black),),
-                                )
-                            ).toList()
-                        ),
-                      ],
-                    ),
-                  ),
+          child: Column(
+            children: [
+              SizedBox(height: 10.h,),
+              Container(
+                height: Get.height-190.h,
+                child: ListView.builder(
+                  itemCount: 10,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index)=> renderListItem(),
                 ),
-                SizedBox(height: 10.h,),
-                Container(
-                  height: Get.height-190.h,
-                  child:
-                  //     controller.modal.orders.length ==0
-                  //     ? Center(
-                  //   child: Column(
-                  //     mainAxisAlignment: MainAxisAlignment.center,
-                  //     children: [
-                  //       IconButton(icon: Icon(Icons.search), iconSize: 50,),
-                  //       SizedBox(height: 15,),
-                  //       Text('You have no orders yet', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
-                  //     ],
-                  //   ),
-                  // )
-                  //     :
-                  //   Center(
-                  //     child: Column(
-                  //       mainAxisAlignment: MainAxisAlignment.center,
-                  //       children: const [
-                  //         IconButton(icon: Icon(Icons.search), iconSize: 50,),
-                  //         SizedBox(height: 15,),
-                  //         Text('No Order Found', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
-                  //         SizedBox(height: 15,),
-                  //         Text('Manage your orders here', style: TextStyle(fontSize: 16),),
-                  //       ],
-                  //     ),
-                  //   )
-                  //       :
-                  // SmartRefresher(
-                  //     controller: refreshController,
-                  //     onLoading: (){
-                  //       controller.loadMoreOrders().then((value) =>refreshController.loadComplete());
-                  //     },
-                  //     onRefresh: (){
-                  //       controller.loadOrders().then((value) => refreshController.refreshCompleted());
-                  //     },
-                  //     enablePullUp: controller.currentPage<controller.modal.totalPages.value,
-                  //     child:
-                      ListView.builder(
-                        itemCount: 10,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index)=> renderListItem(),
-                      ),
-                  //   ),
-                //   ),
-                ),
+              ),
 //                ...controller.orderHistoryList.map((order) => renderListItem(order)).toList(),
-              ],
-            ),
+            ],
           ),
         ),
       ),
@@ -160,7 +68,7 @@ class OrderHistoryScreen extends StatelessWidget {
     // }
     return GestureDetector(
       onTap: (){
-        Get.to(OrderStatusScreen());
+        // Get.to(OrderStatusScreen());
       },
       child: Column(
         children: [

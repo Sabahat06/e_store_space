@@ -1,28 +1,11 @@
 
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:e_store_space/view/home%20screen%20and%20tab%20seller/buyer_screen_tab_seller.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:package_info/package_info.dart';
-import 'package:e_store_space/Utils/httpHelper.dart';
 import 'package:e_store_space/controller/bottom_bar_controller.dart';
 import 'package:e_store_space/controller/page_controller.dart';
-import 'package:e_store_space/controller/product_controller.dart';
-import 'package:e_store_space/main.dart';
-import 'package:e_store_space/models/order_history_model.dart';
-import 'package:e_store_space/services/http_services.dart';
-import 'package:e_store_space/services/local_notification_service.dart';
-import 'package:e_store_space/statics/static_var.dart';
-import 'package:e_store_space/update_prompt/update_prompt_screen.dart';
 import 'package:e_store_space/view/home_screen_tabs/cart_screen_tab.dart';
-import 'package:e_store_space/view/order%20screen/order_status_screen.dart';
-import 'package:e_store_space/widgets/my_appbar.dart';
 import 'package:e_store_space/widgets/navigation_bar.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import 'home screen and tab seller/account_screen_tab_seller.dart';
 import 'home screen and tab seller/home_screen_tab_seller.dart';
 import 'home screen and tab seller/notification_tab_seller.dart';

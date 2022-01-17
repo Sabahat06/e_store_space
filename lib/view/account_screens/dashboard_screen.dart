@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:e_store_space/controller/dashboard_controller.dart';
-import 'package:e_store_space/view/order%20screen/order_status_screen.dart';
 import 'package:e_store_space/widgets/my_label.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -22,7 +20,7 @@ class DashboardScreen extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: (){
-                Get.to(OrderStatusScreen());
+                // Get.to(OrderStatusScreen());
               },
               child: Column(
                 children: [
