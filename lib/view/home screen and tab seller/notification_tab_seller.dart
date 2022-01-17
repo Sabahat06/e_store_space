@@ -1,15 +1,7 @@
 import 'package:e_store_space/controller/bottom_bar_controller.dart';
-import 'package:e_store_space/settings/color_palates.dart';
-import 'package:e_store_space/view/order%20screen/place_order_login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:e_store_space/controller/auth_controller.dart';
-import 'package:e_store_space/controller/used_mobile_controller.dart';
-import 'package:e_store_space/models/used_mobile_model.dart';
-import 'package:e_store_space/view/used_mobiles_request_screen.dart';
-import 'package:e_store_space/widgets/my_appbar.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class NotificationScreenTabSeller extends StatelessWidget {
   BottomBarController bottomBarController = Get.find();

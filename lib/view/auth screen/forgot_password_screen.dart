@@ -33,7 +33,7 @@ class ForgotPasswordScreen extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   if(forgotPasswordValidation()){
-                    controller.forgotPassword(email.text);
+                    // controller.forgotPassword(email.text);
                   }
                 },
                 child: Container(

@@ -40,98 +40,98 @@ class AuthController extends GetxController{
 
 
 
-  void login(String email, String password) async {
-      progressing.value = true;
-      AuthResponse response = await HttpService.loginUser(
-          email,
-          password
-      );
-      progressing.value = false;
-      if(response.user==null){
-        Fluttertoast.showToast(msg: response.msg);
-      }
-      else
-      {
-
-        User.saveUserToCache(response.user);
-        user.value = response.user;
-
-        pref.setString('userId',user.value.id);
-        isLogedIn.value = true;
-        Get.off(HomePage());
-
-        sendToken(user.value.id);
-      }
-  }
+  // void login(String email, String password) async {
+  //     progressing.value = true;
+  //     AuthResponse response = await HttpService.loginUser(
+  //         email,
+  //         password
+  //     );
+  //     progressing.value = false;
+  //     if(response.user==null){
+  //       Fluttertoast.showToast(msg: response.msg);
+  //     }
+  //     else
+  //     {
+  //
+  //       User.saveUserToCache(response.user);
+  //       user.value = response.user;
+  //
+  //       pref.setString('userId',user.value.id);
+  //       isLogedIn.value = true;
+  //       Get.off(HomePage());
+  //
+  //       sendToken(user.value.id);
+  //     }
+  // }
 
   logOut(){
-    deleteToken();
+    // deleteToken();
     user.value = null;
     User.deleteCachedUser();
     isLogedIn.value = false;
   }
-  void register({String name, String email,String password, String city, String phone, String address, bool backtoCartScreen, String shopName, String shopImage})async {
-
-      progressing.value = true;
-      AuthResponse response = await HttpService.registerUser(
-          name:name,
-          email: email,
-          phone: phone,
-          password: password,
-          address: address,
-          city: city,
-          shopName: shopName,
-          shopPhoto: shopImage
-      );
-      progressing.value = false;
-      if(response.user==null){
-        Fluttertoast.showToast(msg: response.msg);
-      }
-      else
-      {
-
-        Fluttertoast.showToast(msg: response.msg);
-        User.saveUserToCache(response.user);
-        this.user.value = response.user;
-        pref.setString('userId', user.value.id);
-        this.isLogedIn.value = true;
-        sendToken(user.value.id);
-        backtoCartScreen ? Get.back() : Get.off(HomePage());
-      }
-
-  }
+  // void register({String name, String email,String password, String city, String phone, String address, bool backtoCartScreen, String shopName, String shopImage})async {
   //
-  void forgotPassword(String email) async {
+  //     progressing.value = true;
+  //     AuthResponse response = await HttpService.registerUser(
+  //         name:name,
+  //         email: email,
+  //         phone: phone,
+  //         password: password,
+  //         address: address,
+  //         city: city,
+  //         shopName: shopName,
+  //         shopPhoto: shopImage
+  //     );
+  //     progressing.value = false;
+  //     if(response.user==null){
+  //       Fluttertoast.showToast(msg: response.msg);
+  //     }
+  //     else
+  //     {
+  //
+  //       Fluttertoast.showToast(msg: response.msg);
+  //       User.saveUserToCache(response.user);
+  //       this.user.value = response.user;
+  //       pref.setString('userId', user.value.id);
+  //       this.isLogedIn.value = true;
+  //       sendToken(user.value.id);
+  //       backtoCartScreen ? Get.back() : Get.off(HomePage());
+  //     }
+  //
+  // }
 
-      progressing.value = true;
-      ForgotPasswordResponse response = await HttpService.forgotPassword(email
-      );
-      progressing.value = false;
-      if(response!=null){
-        Fluttertoast.showToast(msg: response.msg);
-      }
-      else
-      {
-        Get.back();
-      }
-  }
+  // void forgotPassword(String email) async {
+  //
+  //     progressing.value = true;
+  //     ForgotPasswordResponse response = await HttpService.forgotPassword(email
+  //     );
+  //     progressing.value = false;
+  //     if(response!=null){
+  //       Fluttertoast.showToast(msg: response.msg);
+  //     }
+  //     else
+  //     {
+  //       Get.back();
+  //     }
+  // }
 
-  updateUser(User updatedUSer){
-    this.user.value = updatedUSer;
-    User.saveUserToCache(updatedUSer);
-  }
-
-  sendToken(String id) async {
-    String token = await  FirebaseMessaging.instance.getToken();
-    String deviceID = await getDeviceId();
-    String status = await HttpService.createToken(id, deviceID, token);
-    // print("notification status: $status");
-  }
-
-  deleteToken() async {
-    String deviceID = await getDeviceId();
-    HttpService.deleteToken(deviceID);
-  }
+  // updateUser(User updatedUSer){
+  //   this.user.value = updatedUSer;
+  //   User.saveUserToCache(updatedUSer);
+  // }
+  //
+  // sendToken(String id) async {
+  //   String token = await  FirebaseMessaging.instance.getToken();
+  //   String deviceID = await getDeviceId();
+  //   String status = await HttpService.createToken(id, deviceID, token);
+  //   // print("notification status: $status");
+  // }
+  //
+  // deleteToken() async {
+  //   String deviceID = await getDeviceId();
+  //   HttpService.deleteToken(deviceID);
+  // }
 
   static Future<String> getDeviceId() async {
     var deviceInfo = DeviceInfoPlugin();

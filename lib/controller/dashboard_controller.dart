@@ -14,7 +14,7 @@ class DashBoardController extends GetxController {
 
   loadDashBoard() async {
     progressing.value = true;
-    dashBoard = await HttpService.getDashboard(authController.user.value.id);
+    // dashBoard = await HttpService.getDashboard(authController.user.value.id);
     progressing.value = false;
   }
 }

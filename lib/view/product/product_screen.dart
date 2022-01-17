@@ -1,20 +1,8 @@
 import 'package:e_store_space/view/product/product_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:e_store_space/controller/auth_controller.dart';
-import 'package:e_store_space/controller/cart/shop_cart_screen_controller.dart';
 import 'package:e_store_space/controller/product_controller.dart';
-import 'package:e_store_space/controller/send_request_controller.dart';
-import 'package:e_store_space/models/cart/new_cart_model.dart';
-import 'package:e_store_space/models/product_model.dart';
-import 'package:e_store_space/settings/color_palates.dart';
-import 'package:e_store_space/statics/static_var.dart';
-import 'package:e_store_space/widgets/my_appbar.dart';
-import 'package:e_store_space/widgets/my_filled_button.dart';
-import 'package:e_store_space/widgets/my_text_field.dart';
 
 
 class ProductScreen extends StatelessWidget {

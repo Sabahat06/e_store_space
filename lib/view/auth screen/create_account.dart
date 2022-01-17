@@ -123,19 +123,19 @@ class CreateAccount extends StatelessWidget {
                 color: Colors.blue,
                 borderRadius: 10,
                 ontap: () async {
-                  if(registerValidation()) {
-                    authController.register(
-                      shopImage: StaticVariable.baseString,
-                      name: name.text,
-                      email: email.text,
-                      phone: phone.text,
-                      password: password.text,
-                      address: address.text,
-                      city: city.text,
-                      backtoCartScreen: backToCartScreen,
-                      shopName: shopName.text
-                    );
-                  }
+                  // if(registerValidation()) {
+                  //   authController.register(
+                  //     shopImage: StaticVariable.baseString,
+                  //     name: name.text,
+                  //     email: email.text,
+                  //     phone: phone.text,
+                  //     password: password.text,
+                  //     address: address.text,
+                  //     city: city.text,
+                  //     backtoCartScreen: backToCartScreen,
+                  //     shopName: shopName.text
+                  //   );
+                  // }
                 },
               ),
             ],

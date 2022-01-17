@@ -29,7 +29,7 @@ class TimeSlotsController extends GetxController{
   }
 
   Future<void> loadSlots() async {
-    timeSlots.value =  await  HttpService.getTimeSlots();
+    // timeSlots.value =  await  HttpService.getTimeSlots();
     // showDatePicker  = await HttpService.getShowDatePickerStatus();
   }
 }

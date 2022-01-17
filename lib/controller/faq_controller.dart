@@ -14,7 +14,7 @@ class FAQController extends GetxController{
   }
 
   loadFaqs() async{
-    faqs = await HttpService.getFaqs();
+    // faqs = await HttpService.getFaqs();
     expandedIndex.value = faqs.length;
     loading.value = false;
   }

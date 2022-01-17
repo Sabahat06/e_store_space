@@ -1,3 +1,5 @@
+import 'package:e_store_space/controller/product_category_controller.dart';
+import 'package:e_store_space/models/product_category_model.dart';
 import 'package:e_store_space/view/product/product_detail_screen.dart';
 import 'package:e_store_space/view/product/product_screen.dart';
 import 'package:e_store_space/view/seller%20screens/store_product_seller.dart';
@@ -21,6 +23,7 @@ class HomeScreenTab extends StatelessWidget {
 
   TextEditingController searchController = TextEditingController();
   BottomBarController bottomBarController = Get.find();
+  ProductCategoryController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +91,7 @@ class HomeScreenTab extends StatelessWidget {
                     child: Container(
                       width: double.infinity,
                       child: GridView.builder(
-                        itemCount: 25,
+                        itemCount: controller.productCategory.productCategoryModel.length,
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -97,7 +100,7 @@ class HomeScreenTab extends StatelessWidget {
                         ),
                         itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(
-                            child: MyProduct(context, index),
+                            child: MyProduct(context, index, controller.productCategory.productCategoryModel[index]),
                           );
                         }
                       ),
@@ -111,7 +114,7 @@ class HomeScreenTab extends StatelessWidget {
     );
   }
 
-  MyProduct(BuildContext context, int index){
+  MyProduct(BuildContext context, int index, ProductCategoryModel productCategoryModel){
     double width = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: (){Get.to(() => ProductScreen());},
@@ -149,14 +152,12 @@ class HomeScreenTab extends StatelessWidget {
                     ),
                     color: Colors.white,
                   ),
-                  child: Image.asset('assets/image/shirt.jpg', fit: BoxFit.cover,),
+                  child: Image.network(productCategoryModel.picture, fit: BoxFit.cover,),
                 ),
                 Center(
                   child: Padding(
                       padding: const EdgeInsets.only(left: 10,top: 5),
-                      child: index%2==0
-                          ? Text("Bottle",style: TextStyle(fontWeight: FontWeight.bold),)
-                          : Text("Cloths",style: TextStyle(fontWeight: FontWeight.bold),)
+                      child:  Text(productCategoryModel.name,style: TextStyle(fontWeight: FontWeight.bold),)
                   ),
                 )
 
