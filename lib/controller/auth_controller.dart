@@ -14,7 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 class AuthController extends GetxController{
-  Rx<User> user= User().obs;
+  Rx<AuthResponse> user= AuthResponse().obs;
   RxBool isLogedIn = false.obs;
   RxBool progressing = false.obs;
   RxBool checkBoxValue = false.obs;
@@ -32,7 +32,7 @@ class AuthController extends GetxController{
   @override
   Future<void> onInit() async {
      pref = await SharedPreferences.getInstance();
-    user.value =await User.fromCache();
+    // user.value = await User.saveUserToCache();
     isLogedIn.value = user.value==null?false : true;
     // TODO: implement onInit
     super.onInit();
@@ -40,29 +40,19 @@ class AuthController extends GetxController{
 
 
 
-  // void login(String email, String password) async {
-  //     progressing.value = true;
-  //     AuthResponse response = await HttpService.loginUser(
-  //         email,
-  //         password
-  //     );
-  //     progressing.value = false;
-  //     if(response.user==null){
-  //       Fluttertoast.showToast(msg: response.msg);
-  //     }
-  //     else
-  //     {
-  //
-  //       User.saveUserToCache(response.user);
-  //       user.value = response.user;
-  //
-  //       pref.setString('userId',user.value.id);
-  //       isLogedIn.value = true;
-  //       Get.off(HomePage());
-  //
-  //       sendToken(user.value.id);
-  //     }
-  // }
+  void login(String email, String password) async {
+      progressing.value = true;
+      AuthResponse response = await HttpService.loginUser(
+          email,
+          password,
+      );
+      progressing.value = false;
+      User.saveUserToCache(response);
+      user.value = response;
+      pref.setString('userId',response.user.id.toString());
+      isLogedIn.value = true;
+      Get.off(HomePage());
+  }
 
   logOut(){
     // deleteToken();
@@ -70,36 +60,29 @@ class AuthController extends GetxController{
     User.deleteCachedUser();
     isLogedIn.value = false;
   }
-  // void register({String name, String email,String password, String city, String phone, String address, bool backtoCartScreen, String shopName, String shopImage})async {
-  //
-  //     progressing.value = true;
-  //     AuthResponse response = await HttpService.registerUser(
-  //         name:name,
-  //         email: email,
-  //         phone: phone,
-  //         password: password,
-  //         address: address,
-  //         city: city,
-  //         shopName: shopName,
-  //         shopPhoto: shopImage
-  //     );
-  //     progressing.value = false;
-  //     if(response.user==null){
-  //       Fluttertoast.showToast(msg: response.msg);
-  //     }
-  //     else
-  //     {
-  //
-  //       Fluttertoast.showToast(msg: response.msg);
-  //       User.saveUserToCache(response.user);
-  //       this.user.value = response.user;
-  //       pref.setString('userId', user.value.id);
-  //       this.isLogedIn.value = true;
-  //       sendToken(user.value.id);
-  //       backtoCartScreen ? Get.back() : Get.off(HomePage());
-  //     }
-  //
-  // }
+
+
+  void register({String name, String email,String password, String city, String phone, String address, bool backtoCartScreen, String shopName, String shopImage})async {
+
+      progressing.value = true;
+      AuthResponse response = await HttpService.registerUser(
+          name:name,
+          email: email,
+          password: password,
+          address: address,
+          city: city,
+        phoneNumber: phone,
+      );
+      progressing.value = false;
+      // Fluttertoast.showToast(msg: response.msg);
+      User.saveUserToCache(response);
+      this.user.value = response;
+      pref.setString('userId', user.value.user.id.toString());
+      this.isLogedIn.value = true;
+      // sendToken(user.value.id);
+      Get.off(HomePage());
+
+  }
 
   // void forgotPassword(String email) async {
   //
@@ -119,18 +102,6 @@ class AuthController extends GetxController{
   // updateUser(User updatedUSer){
   //   this.user.value = updatedUSer;
   //   User.saveUserToCache(updatedUSer);
-  // }
-  //
-  // sendToken(String id) async {
-  //   String token = await  FirebaseMessaging.instance.getToken();
-  //   String deviceID = await getDeviceId();
-  //   String status = await HttpService.createToken(id, deviceID, token);
-  //   // print("notification status: $status");
-  // }
-  //
-  // deleteToken() async {
-  //   String deviceID = await getDeviceId();
-  //   HttpService.deleteToken(deviceID);
   // }
 
   static Future<String> getDeviceId() async {

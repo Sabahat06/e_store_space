@@ -14,7 +14,6 @@ import 'package:e_store_space/controller/cart/shop_cart_screen_controller.dart';
 import 'package:e_store_space/controller/page_controller.dart';
 import 'package:e_store_space/services/http_services.dart';
 import 'package:e_store_space/statics/static_var.dart';
-import 'package:e_store_space/view/product/cart_screen.dart';
 import 'package:e_store_space/view/search_screen.dart';
 import 'package:e_store_space/widgets/my_category_box.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -90,19 +89,21 @@ class HomeScreenTab extends StatelessWidget {
                   SingleChildScrollView(
                     child: Container(
                       width: double.infinity,
-                      child: GridView.builder(
-                        itemCount: controller.productCategory.productCategoryModel.length,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 1.1
+                      child: Obx(
+                        () => GridView.builder(
+                          itemCount: controller.productCategory.value.productCategoryModel.length,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 1.1
+                          ),
+                          itemBuilder: (BuildContext context, int index) {
+                            return GestureDetector(
+                              child: MyProduct(context, index, controller.productCategory.value.productCategoryModel[index]),
+                            );
+                          }
                         ),
-                        itemBuilder: (BuildContext context, int index) {
-                          return GestureDetector(
-                            child: MyProduct(context, index, controller.productCategory.productCategoryModel[index]),
-                          );
-                        }
                       ),
                     ),
                   ),
@@ -117,7 +118,9 @@ class HomeScreenTab extends StatelessWidget {
   MyProduct(BuildContext context, int index, ProductCategoryModel productCategoryModel){
     double width = MediaQuery.of(context).size.width;
     return GestureDetector(
-      onTap: (){Get.to(() => ProductScreen());},
+      onTap: (){
+        Get.to(() => ProductScreen(categoryId: productCategoryModel.id.toString(), title: productCategoryModel.name,));
+      },
       child: Padding(
         padding: EdgeInsets.all(8),
         child: Card(

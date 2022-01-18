@@ -27,58 +27,52 @@ class Cart {
 }
 
 class Item {
-  String id;
+  int id;
   RxInt quantity = 0.obs;
-  String title;
-  String shortDetails;
-  String longDetails;
-  String salePrice;
-  String photo;
+  String userId;
   String categoryId;
-  String subCategoryId;
+  String name;
+  String description;
+  String price;
+  String picture;
   String choiceID;
-  String choiceColorName;
-  String discountedPrice;
-  String discount;
-
-  List<Choices> choices;
+  String createdAt="";
+  String updatedAt="";
+  String deletedAt='';
+  List<ProductColorsCart> productColors;
 
   Item(
       {this.id,
-        this.quantity,
-        this.title,
-        this.shortDetails,
-        this.longDetails,
-        this.salePrice,
-        this.photo,
+        this.userId,
         this.categoryId,
-        this.subCategoryId,
-        this.choiceID,
-        this.choices,
-        this.choiceColorName,
-        this.discountedPrice,
-        this.discount,
+        this.name,
+        this.description,
+        this.price,
+        this.picture,
+        this.createdAt,
+        this.updatedAt,
+        this.deletedAt,
+        this.productColors,
+        this.quantity,
+        this.choiceID
       });
 
   Item.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    quantity.value = json['quantity'];
-    title = json['title'];
-    shortDetails = json['short_details'];
-    longDetails = json['long_details'];
-    salePrice = json['sale_price'];
-    photo = json['photo'];
+    userId = json['user_id'];
     categoryId = json['category_id'];
-    subCategoryId = json['sub_category_id'];
-    choiceID = json['choiceID'];
-    choiceColorName = json['color_name'];
-    discountedPrice = json['discounted_price'];
-    discount = json['discount'];
-
-    if (json['choices'] != null) {
-      choices = new List<Choices>();
-      json['choices'].forEach((v) {
-        choices.add(new Choices.fromJson(v));
+    name = json['name'];
+    description = json['description'];
+    price = json['price'];
+    picture = json['picture'];
+    createdAt = json['created_at']??"";
+    updatedAt = json['updated_at']??"";
+    deletedAt = json['deleted_at']??"";
+    quantity.value = json['quantity']??0;
+    if (json['product_colors'] != null) {
+      productColors = <ProductColorsCart>[];
+      json['product_colors'].forEach((v) {
+        productColors.add(new ProductColorsCart.fromJson(v));
       });
     }
   }
@@ -86,21 +80,67 @@ class Item {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['quantity'] = this.quantity.value;
-    data['title'] = this.title;
-    data['short_details'] = this.shortDetails;
-    data['long_details'] = this.longDetails;
-    data['sale_price'] = this.salePrice;
-    data['photo'] = this.photo;
+    data['user_id'] = this.userId;
     data['category_id'] = this.categoryId;
-    data['sub_category_id'] = this.subCategoryId;
-    data['choiceID'] = this.choiceID;
-    data['color_name'] = this.choiceColorName;
-    data['discounted_price'] = this.discountedPrice;
-    data['discount'] = this.discount;
-    if (this.choices != null) {
-      data['choices'] = this.choices.map((v) => v.toJson()).toList();
+    data['name'] = this.name;
+    data['description'] = this.description;
+    data['price'] = this.price;
+    data['picture'] = this.picture;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    data['deleted_at'] = this.deletedAt;
+    data['quantity'] = this.quantity.value;
+    if (this.productColors != null) {
+      data['product_colors'] =
+          this.productColors.map((v) => v.toJson()).toList();
     }
+    return data;
+  }
+}
+
+
+class ProductColorsCart {
+  int id;
+  String productId;
+  String colorId;
+  String quantity;
+  String image;
+  String createdAt="";
+  String updatedAt="";
+  String deletedAt='';
+
+  ProductColorsCart(
+      {this.id,
+        this.productId,
+        this.colorId,
+        this.quantity,
+        this.image,
+        this.createdAt,
+        this.updatedAt,
+        this.deletedAt,
+      });
+
+  ProductColorsCart.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    productId = json['product_id'];
+    colorId = json['color_id'];
+    quantity = json['quantity'];
+    image = json['image'];
+    createdAt = json['created_at']??"";
+    updatedAt = json['updated_at']??"";
+    deletedAt = json['deleted_at']??"";
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['product_id'] = this.productId;
+    data['color_id'] = this.colorId;
+    data['quantity'] = this.quantity;
+    data['image'] = this.image;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    data['deleted_at'] = this.deletedAt;
     return data;
   }
 }

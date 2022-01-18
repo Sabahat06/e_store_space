@@ -66,7 +66,7 @@ class SignInScreen extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       if(loginValidation()){
-                       // controller.login(email.text,password.text);
+                       controller.login(email.text,password.text);
                     }
                   },
                   child: Container(

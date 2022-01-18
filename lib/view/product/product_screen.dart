@@ -1,3 +1,5 @@
+import 'package:e_store_space/models/product_model.dart';
+import 'package:e_store_space/services/http_services.dart';
 import 'package:e_store_space/view/product/product_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,13 +9,12 @@ import 'package:e_store_space/controller/product_controller.dart';
 
 class ProductScreen extends StatelessWidget {
   RxString id = '0'.obs;
-  String subCategoryID;
-  int pageNo;
   String title;
+  String categoryId;
   ProductController productController;
 
-  ProductScreen({this.subCategoryID, this.pageNo, this.title}){
-    productController =Get.put(ProductController(subCategoryID: subCategoryID,pageNo: pageNo));
+  ProductScreen({this.categoryId, this.title}){
+    productController =Get.put(ProductController(categoryId: categoryId));
   }
 
 
@@ -23,34 +24,43 @@ class ProductScreen extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () {Get.back();}, color: Colors.white,),
         leadingWidth: 30,
-        title: const Text('Category Title', style: TextStyle(color: Colors.white),),
+        title: Text(title, style: const TextStyle(color: Colors.white),),
       ),
-      body: GridView.builder(
-          itemCount: 25,
-          shrinkWrap: true,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisSpacing: 1.1
-          ),
-          itemBuilder: (BuildContext context, int index) {
-            return renderingProduct(index);
-          }
+      body: Obx(
+        () => productController.progressing.value
+            ? const Center(child: CircularProgressIndicator())
+            : GridView.builder(
+            itemCount: productController.productsModal.value.products.length,
+            shrinkWrap: true,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 1.1
+            ),
+            itemBuilder: (BuildContext context, int index) {
+              return renderingProduct(index, productController.productsModal.value.products[index]);
+            }
+        ),
       ),
     );
   }
 
-  renderingProduct(int index) {
+  renderingProduct(int index, Products products) {
     return Padding(
       padding: EdgeInsets.all(10.0.w),
       child: GestureDetector(
-        onTap: (){Get.to(() => ProductDetailsScreen());},
+        onTap: () async {
+          productController.progressing.value = true;
+          productController.productDetailsModel.value = await HttpService.getProductDetails(products.id.toString());
+          productController.progressing.value = false;
+          Get.to(() => ProductDetailsScreen(productDetailsModel: productController.productDetailsModel.value,));
+        },
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
             Container(
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: index%2==0 ? AssetImage( "assets/image/apple.jpg",) :  AssetImage( "assets/image/shoes.jpg",),
+                      image: NetworkImage(products.picture),
                       fit: BoxFit.cover
                   ),
                   borderRadius: BorderRadius.circular(15.r),
@@ -79,11 +89,11 @@ class ProductScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: 10.h,),
-                        Text('Product Name', style: TextStyle(color: Colors.white),),
-                        Text('Price', style: TextStyle(color: Colors.white),),
+                        Text(products.name, style: const TextStyle(color: Colors.white),),
+                        Text(products.price, style: const TextStyle(color: Colors.white),),
                       ],
                     ),
-                    const Text('Rating', style: TextStyle(color: Colors.white),),
+                    const Text('3.5', style: TextStyle(color: Colors.white),),
                   ],
                 ),
               ),

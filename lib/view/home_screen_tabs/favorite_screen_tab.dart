@@ -1,4 +1,6 @@
 import 'package:e_store_space/controller/bottom_bar_controller.dart';
+import 'package:e_store_space/controller/wish_list_controller.dart';
+import 'package:e_store_space/models/product_detail.dart';
 import 'package:e_store_space/widgets/AlertDialogeWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,12 +10,12 @@ import 'package:e_store_space/controller/cart_controller.dart';
 import 'package:e_store_space/controller/page_controller.dart';
 import 'package:e_store_space/models/sub_category_model.dart';
 import 'package:e_store_space/settings/color_palates.dart';
-import 'package:e_store_space/view/product/cart_screen.dart';
 import 'package:e_store_space/view/product/product_screen.dart';
 import 'package:e_store_space/widgets/my_appbar.dart';
 
 class FavoriteScreenTab extends StatelessWidget {
   BottomBarController bottomBarController = Get.find();
+  WishListController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +29,18 @@ class FavoriteScreenTab extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-                itemCount: 25,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                    child: MyProduct(context),
-                  );
-                }
+            child: Obx(
+              () => controller.items.length==0
+                  ? Center(child: Text("Your WishList is Empty", style: TextStyle(fontSize: 18),),)
+                  : ListView.builder(
+                  itemCount: controller.items.length,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                      child: MyProduct(controller.items[index], context),
+                    );
+                  }
+              ),
             ),
           ),
         ],
@@ -42,7 +48,7 @@ class FavoriteScreenTab extends StatelessWidget {
     );
   }
 
-  MyProduct(BuildContext context){
+  MyProduct(ProductDetailsModel product, BuildContext context){
     return Padding(
       padding: EdgeInsets.only(left: 8.0.w, right: 8.0.w, top: 8.0.w, bottom: 8.0.w),
       child: Container(
@@ -69,18 +75,29 @@ class FavoriteScreenTab extends StatelessWidget {
                   Container(
                       height: 75.h,
                       width: 75.w,
-                      child: Image.asset("assets/image/image6.jpg")
+                      child: Image.network(product.productDetails.picture)
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text('Product Name', style: TextStyle(color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.bold),),
+                      Text(product.productDetails.name, style: TextStyle(color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.bold),),
                       SizedBox(height: 5.h,),
-                      Text('Price', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, color: Colors.blue),),
+                      Text(product.productDetails.price, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, color: Colors.blue),),
                     ],
                   ),
-                  IconButton(onPressed: (){}, icon: Icon(Icons.favorite_outlined, color: Colors.red,) , iconSize: 30,),
+                  IconButton(
+                    icon: Icon(
+                      controller.items.any((element) => element.productDetails.id==product.productDetails.id)
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                      color: Colors.red,
+                      size: 30,
+                    ),
+                    onPressed: (){
+                      // controller.addOrRemoveItem(product);
+                    },
+                  ),
                   IconButton(
                     onPressed: (){
                       showDialog(
@@ -90,6 +107,7 @@ class FavoriteScreenTab extends StatelessWidget {
                               title: 'Remove Alert',
                               subTitle: "Are you sure to Remove from WishList?",
                               onPositiveClick: () {
+                                controller.addOrRemoveItem(product);
                                 Get.back();
                               },
                             );

@@ -10,7 +10,6 @@ import 'package:e_store_space/controller/cart_controller.dart';
 import 'package:e_store_space/controller/page_controller.dart';
 import 'package:e_store_space/models/sub_category_model.dart';
 import 'package:e_store_space/settings/color_palates.dart';
-import 'package:e_store_space/view/product/cart_screen.dart';
 import 'package:e_store_space/view/product/product_screen.dart';
 import 'package:e_store_space/widgets/my_appbar.dart';
 

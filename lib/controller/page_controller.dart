@@ -1,6 +1,5 @@
 import 'package:e_store_space/models/page.dart';
 import 'package:get/get.dart';
-import 'package:e_store_space/models/category_model.dart';
 import 'package:e_store_space/services/http_services.dart';
 
 

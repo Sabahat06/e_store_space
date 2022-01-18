@@ -71,7 +71,7 @@ class SearchScreen extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () {
                         Get.to(() => ProductScreen(
-                            subCategoryID: item.subCategoryId, pageNo: 0,title:  item.subCategoryTitle));
+                            categoryId: item.subCategoryId));
                       },
                       child: Container(
                         // height: 50,

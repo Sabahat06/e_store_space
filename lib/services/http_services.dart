@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'package:e_store_space/models/auth_model.dart';
 import 'package:e_store_space/models/page.dart';
 import 'package:e_store_space/models/product_category_model.dart';
+import 'package:e_store_space/models/product_detail.dart';
 import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
@@ -63,19 +65,86 @@ class HttpService {
   }
 
 
-  static Future<ProductModel> getProductsOfSubCategory(
-      String subCategoryID,int pageNo) async {
+  static Future<ProductModel> getProductsOfCategory(
+      String subCategoryID,) async {
+    Uri _uriCategoryProduct = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/getAllProductCategory/${subCategoryID}');
     try {
-      var response = await http.post(
-        _uri,
-        body: {
-          'sub_category_products': '1',
-          'sub_category_id': subCategoryID,
-          'page_no': pageNo.toString()
-        },
+      var response = await http.get(
+        _uriCategoryProduct,
       );
       if (response.statusCode == 200) {
         return ProductModel.fromJson(jsonDecode(response.body)) ;
+
+      } else {
+        return null;
+      }
+    }
+    catch (e) {
+      return null;
+    }
+  }
+
+  static Future<ProductDetailsModel> getProductDetails(
+      String productId,) async {
+    Uri _uriGetProductDetails = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/getProductDetails/${productId}');
+    try {
+      var response = await http.get(
+        _uriGetProductDetails,
+      );
+      if (response.statusCode == 200) {
+        return ProductDetailsModel.fromJson(jsonDecode(response.body)) ;
+
+      } else {
+        return null;
+      }
+    }
+    catch (e) {
+      return null;
+    }
+  }
+
+
+  static Future<AuthResponse> loginUser(
+      String email, String password,) async {
+    Uri _uriGetProductDetails = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/seller-login');
+    try {
+      var response = await http.post(
+        _uriGetProductDetails,
+        body: {
+          'email': email,
+          'password': password,
+        },
+      );
+      if (response.statusCode == 200) {
+        return AuthResponse.fromJson(jsonDecode(response.body)) ;
+
+      } else {
+        return null;
+      }
+    }
+    catch (e) {
+      return null;
+    }
+  }
+
+  static Future<AuthResponse> registerUser({
+      String name, String email, String address, String city, String password, String phoneNumber}) async {
+    Uri _uriGetProductDetails = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/seller-registration');
+    try {
+      var response = await http.post(
+        _uriGetProductDetails,
+        body: {
+          'name' : name,
+          'email': email,
+          'address': address,
+          'password': password,
+          'city': city,
+          'phone no' : phoneNumber
+
+        },
+      );
+      if (response.statusCode == 201) {
+        return AuthResponse.fromJson(jsonDecode(response.body)) ;
 
       } else {
         return null;

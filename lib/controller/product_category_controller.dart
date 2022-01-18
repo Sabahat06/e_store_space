@@ -3,7 +3,8 @@ import 'package:e_store_space/services/http_services.dart';
 import 'package:get/get.dart';
 
 class ProductCategoryController extends GetxController{
-  ProductCategory productCategory;
+  Rx<ProductCategory> productCategory = ProductCategory().obs;
+
 
   @override
   void onInit() {
@@ -12,7 +13,7 @@ class ProductCategoryController extends GetxController{
   }
 
   loadCategories() async {
-    productCategory = await HttpService.getProductCategories();
+    productCategory.value = await HttpService.getProductCategories();
     print(productCategory);
   }
 }

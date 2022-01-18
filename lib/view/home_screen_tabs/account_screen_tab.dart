@@ -33,7 +33,7 @@ class AccountScreenTab extends StatelessWidget {
             title: const Text('Account', style: TextStyle(color: Colors.white),),
           ),
           body: Obx(
-            () => isLogedIn.value
+            () => authController.isLogedIn.value
             ? SingleChildScrollView(
                 child: Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -274,8 +274,8 @@ class AccountScreenTab extends StatelessWidget {
                                 title: 'Log Out Alert',
                                 subTitle: "Are you sure to logout?",
                                 onPositiveClick: () {
-                                  isLogedIn.value = false;
-                                  // authController.logOut();
+                                  // isLogedIn.value = false;
+                                  authController.logOut();
                                   Get.back();
                                 },
                               );

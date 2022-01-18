@@ -1,3 +1,4 @@
+import 'package:e_store_space/models/product_detail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:e_store_space/models/product_model.dart';
@@ -9,38 +10,20 @@ class ProductController extends GetxController{
   RxInt currentSearchPage = 1.obs;
   RxBool search = false.obs;
   RxString isSelectedColors = "0".obs;
-  String subCategoryID;
+  String categoryId;
   int pageNo;
   RxBool progressing = false.obs;
-  ProductController({@required this.subCategoryID,@required this.pageNo})
+  Rx<ProductDetailsModel> productDetailsModel = ProductDetailsModel().obs;
+  ProductController({@required this.categoryId})
   {
     loadProducts(loadMore: false);
   }
-  var productsModal = ProductModel(products: [],totalPages: 0).obs;
+  var productsModal = ProductModel(products: []).obs;
 
   loadProducts({@required bool loadMore}) async {
-    if(!loadMore)
-    {
-      currentPage = 1.obs;
       progressing.value = true;
-      productsModal.value = await HttpService.getProductsOfSubCategory(subCategoryID, currentPage.value);
+      productsModal.value = await HttpService.getProductsOfCategory(categoryId);
       progressing.value = false;
-    }
-    else
-    {
-      currentPage.value++;
-      ProductModel productResult = await HttpService.getProductsOfSubCategory(subCategoryID, currentPage.value);
-      productsModal.value.products.addAll(productResult.products);
-      update();
-      print("added");
-    }
-    // progressing.value = true;
-    // productsModal.value = await HttpService.getProductsOfSubCategory(subCategoryID, pageNo);
-    // progressing.value = false;
   }
-  // loadMoreProducts(String subCategoryID,int pageNo) async {
-  //   ProductModel rawModal = await  HttpService.getProductsOfSubCategory(subCategoryID, pageNo);
-  //   productsModal.value.products.addAll(rawModal.products);
-  // }
 
 }

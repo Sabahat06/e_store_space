@@ -1,86 +1,88 @@
 import 'package:cached_map/cached_map.dart';
 
 class AuthResponse {
-  String status;
-  String msg;
+  String token;
   User user;
 
-  AuthResponse({this.status, this.msg, this.user});
+  AuthResponse({this.token, this.user});
 
   AuthResponse.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    msg = json['msg'];
-    user = json['record'] != null ? new User.fromJson(json['record']) : null;
+    token = json['token'];
+    user = json['user'] != null ? new User.fromJson(json['user']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['msg'] = this.msg;
+    data['token'] = this.token;
     if (this.user != null) {
-      data['record'] = this.user.toJson();
+      data['user'] = this.user.toJson();
     }
     return data;
   }
 }
 
 class User {
+  int id;
   String name;
   String email;
-  String password;
-  String phone;
-  String city;
+  String emailVerifiedAt='';
+  String phoneNo;
   String address;
-  String id;
+  String city;
+  String picture='';
+  String createdAt;
+  String updatedAt;
+  String deletedAt='';
+
   User(
-      {this.name,
+      {this.id,
+        this.name,
         this.email,
-        this.password,
-        this.phone,
-        this.city,
+        this.emailVerifiedAt,
+        this.phoneNo,
         this.address,
-        this.id});
+        this.city,
+        this.picture,
+        this.createdAt,
+        this.updatedAt,
+        this.deletedAt});
 
   User.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     name = json['name'];
     email = json['email'];
-    password = json['password'];
-    phone = json['phone'];
-    city = json['city'];
+    emailVerifiedAt = json['email_verified_at']??'';
+    phoneNo = json['phone_no'];
     address = json['address'];
-    id = json['id'].toString();
+    city = json['city'];
+    picture = json['picture']??"";
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    deletedAt = json['deleted_at']??"";
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
     data['name'] = this.name;
     data['email'] = this.email;
-    data['password'] = this.password;
-    data['phone'] = this.phone;
-    data['city'] = this.city;
+    data['email_verified_at'] = this.emailVerifiedAt;
+    data['phone_no'] = this.phoneNo;
     data['address'] = this.address;
-    data['id'] = this.id;
+    data['city'] = this.city;
+    data['picture'] = this.picture;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    data['deleted_at'] = this.deletedAt;
     return data;
-  }
-
-
-  ///custom functions
-  static Future<User> fromCache() async{
-    Mapped cacheJson = await Mapped.getInstance();
-    var cachedUser = cacheJson.loadFile(cachedFileName: "user");
-    print("user from cache: $cachedUser");
-    if(cachedUser==null)
-      return null;
-    else
-      return User.fromJson(cachedUser);
   }
 
   /// member functions
 
-  static Future<String> saveUserToCache(User user) async{
+  static Future<String> saveUserToCache(AuthResponse user) async{
     Mapped cacheJson = await Mapped.getInstance();
     try{
-      cacheJson.saveFile(file: user.toJson(), cachedFileName: "user");
+      cacheJson.saveFile(file: user.toJson(), cachedFileName: "AuthResponse");
     }
     catch(e){
       return "Failed to save user due to: $e";
@@ -93,7 +95,7 @@ class User {
   static Future<String> deleteCachedUser()async{
     Mapped cacheJson = await Mapped.getInstance();
     try{
-      cacheJson.deleteFile(cachedFileName: "user");
+      cacheJson.deleteFile(cachedFileName: "AuthResponse");
     }
     catch(e){
       return "Some Problem accoured while deleting user File:$e";

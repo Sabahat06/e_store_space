@@ -1,5 +1,6 @@
 import 'package:cached_map/cached_map.dart';
 import 'package:e_store_space/controller/auth_controller.dart';
+import 'package:e_store_space/controller/cart/shop_cart_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,7 @@ import 'package:e_store_space/view/homepage.dart';
 
 class SplashScreen extends StatelessWidget {
   AuthController authController = Get.put(AuthController());
+  CartControllerNew cartControllerNew = Get.put(CartControllerNew());
   @override
   Widget build(BuildContext context) {
     navigate();

@@ -123,19 +123,16 @@ class CreateAccount extends StatelessWidget {
                 color: Colors.blue,
                 borderRadius: 10,
                 ontap: () async {
-                  // if(registerValidation()) {
-                  //   authController.register(
-                  //     shopImage: StaticVariable.baseString,
-                  //     name: name.text,
-                  //     email: email.text,
-                  //     phone: phone.text,
-                  //     password: password.text,
-                  //     address: address.text,
-                  //     city: city.text,
-                  //     backtoCartScreen: backToCartScreen,
-                  //     shopName: shopName.text
-                  //   );
-                  // }
+                  if(registerValidation()) {
+                    authController.register(
+                      name: name.text,
+                      email: email.text,
+                      phone: phone.text,
+                      password: password.text,
+                      address: address.text,
+                      city: city.text,
+                    );
+                  }
                 },
               ),
             ],
@@ -154,8 +151,8 @@ class CreateAccount extends StatelessWidget {
   // }
 
   bool registerValidation(){
-    if(name.text.trim().length==0){
-      Fluttertoast.showToast(msg: 'Name is Required');
+    if(name.text.trim().length<=5){
+      Fluttertoast.showToast(msg: 'The name must be at least 5 characters');
       return false;
     }else if
     (!GetUtils.isEmail(email.text)){
@@ -182,11 +179,6 @@ class CreateAccount extends StatelessWidget {
       return false;
     }else if
     (city.text.trim().length==0){
-      Fluttertoast.showToast(msg: 'City is required');
-      return false;
-    }
-    else if
-    (shopName.text.trim().length==0){
       Fluttertoast.showToast(msg: 'City is required');
       return false;
     }
