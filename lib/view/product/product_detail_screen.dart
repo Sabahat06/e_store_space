@@ -324,9 +324,12 @@ class ProductDetailsScreen extends StatelessWidget {
                                     if(productDetailsModel.productDetails.quantity.value==0){
                                       Fluttertoast.showToast(msg: "Please Select Quantity");
                                     }else{
-                                      Map json = productDetailsModel.toJson();
-                                      json['choiceID'] = cartControllerNew.currentChoiceID.value;
+                                      Map json = productDetailsModel.productDetails.toJson();
+                                      // json['choiceID'] = cartControllerNew.currentChoiceID.value;
+                                      // json['quantity'] = productDetailsModel.productDetails.quantity.value;
                                       Item item = Item.fromJson(json);
+                                      item.quantity.value = productDetailsModel.productDetails.quantity.value;
+                                      item.choiceID = cartControllerNew.currentChoiceID.value;
                                       cartControllerNew.addItem(item);
                                     }
                                   },

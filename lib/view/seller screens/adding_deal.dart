@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:e_store_space/services/http_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -18,7 +19,6 @@ import 'package:e_store_space/widgets/my_text_field.dart';
 class AddingDealScreen extends StatelessWidget {
   AuthController authController = Get.find();
   TextEditingController dealName = TextEditingController();
-  TextEditingController dealShortDetail = TextEditingController();
   TextEditingController description = TextEditingController();
   TextEditingController dealType = TextEditingController();
   TextEditingController address = TextEditingController();
@@ -60,13 +60,13 @@ class AddingDealScreen extends StatelessWidget {
                 // any number you need (It works as the rows for the textarea)
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
-                controller: dealShortDetail,
+                controller: description,
                 decoration: const InputDecoration(
                   // prefixIcon: IconButton(icon: Icon(Icons.home_outlined, color: Colors.blue,)),
                   fillColor: Colors.blue,
                   focusColor: Colors.blue,
                   hoverColor: Colors.blue,
-                  labelText: 'Deal Short Detail',
+                  labelText: 'Description',
                   hintStyle:
                   TextStyle(color: Colors.black54, fontSize: 12),
                   labelStyle:
@@ -95,19 +95,15 @@ class AddingDealScreen extends StatelessWidget {
                 borderRadius: 10,
                 ontap: () async {
                   Get.back();
-                  // if(registerValidation()) {
-                  //   authController.register(
-                  //       shopImage: StaticVariable.baseString,
-                  //       name: name.text,
-                  //       email: email.text,
-                  //       phone: phone.text,
-                  //       password: password.text,
-                  //       address: address.text,
-                  //       city: city.text,
-                  //       backtoCartScreen: backToCartScreen,
-                  //       shopName: shopName.text
-                  //   );
-                  // }
+                  if(addingDealValidation()) {
+                    var dealResponse = await HttpService.addUserStore(
+                      token: authController.user.value.token,
+                      dealType: dealType.text,
+                      description: description.text,
+                      name: dealName.text
+                    );
+                    Get.back();
+                  }
                 },
               ),
             ],
@@ -121,36 +117,24 @@ class AddingDealScreen extends StatelessWidget {
     if(dealName.text.trim().length==0){
       Fluttertoast.showToast(msg: 'Name is Required');
       return false;
-    }else if
-    (!GetUtils.isEmail(dealShortDetail.text)){
-      Fluttertoast.showToast(msg: 'Email format is not correct');
-      return false;
     }
+    // else if
+    // (!GetUtils.isEmail(dealShortDetail.text)){
+    //   Fluttertoast.showToast(msg: 'Email format is not correct');
+    //   return false;
+    // }
+    // else if
+    // (dealShortDetail.text.trim().length==0){
+    //   Fluttertoast.showToast(msg: 'Email is required');
+    //   return false;
+    // }
     else if
-    (dealShortDetail.text.trim().length==0){
-      Fluttertoast.showToast(msg: 'Email is required');
-      return false;
-    }else if
     (description.text.trim().length == 0){
       Fluttertoast.showToast(msg: 'Phone Number is required');
       return false;
     }
     else if
-    (description.text.trim().length < 11){
-      Fluttertoast.showToast(msg: 'Enter Valid Phone Number');
-      return false;
-    }
-    else if
-    (address.text.trim().length==0){
-      Fluttertoast.showToast(msg: 'Address is required');
-      return false;
-    }else if
-    (city.text.trim().length==0){
-      Fluttertoast.showToast(msg: 'City is required');
-      return false;
-    }
-    else if
-    (shopName.text.trim().length==0){
+    (dealType.text.trim().length==0){
       Fluttertoast.showToast(msg: 'City is required');
       return false;
     }

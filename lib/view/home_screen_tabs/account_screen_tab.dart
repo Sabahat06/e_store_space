@@ -1,4 +1,6 @@
 import 'package:e_store_space/controller/bottom_bar_controller.dart';
+import 'package:e_store_space/controller/user_store_controller.dart';
+import 'package:e_store_space/services/http_services.dart';
 import 'package:e_store_space/view/account_screens/became_a_seller.dart';
 import 'package:e_store_space/view/account_screens/privacy_policy.dart';
 import 'package:e_store_space/view/account_screens/term_and_condition.dart';
@@ -20,8 +22,8 @@ import 'cart_screen_tab.dart';
 
 class AccountScreenTab extends StatelessWidget {
   BottomBarController bottomBarController = Get.find();
+  UserStoreController userStoreController = UserStoreController();
   AuthController authController = Get.find();
-  RxBool isLogedIn = true.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +54,16 @@ class AccountScreenTab extends StatelessWidget {
                         ),
                         Obx(
                           () => IconButton(
-                            onPressed: (){
-                              bottomBarController.isSeller.value =!bottomBarController.isSeller.value;
+                            onPressed: () {
+                              if(!bottomBarController.isSeller.value){
+                                UserStoreController userStoreController = UserStoreController();
+                                bottomBarController.isSeller.value =!bottomBarController.isSeller.value;
+                              }
+                              else{
+                                bottomBarController.isSeller.value =!bottomBarController.isSeller.value;
+                              }
+                              // userStoreController.userStore = await HttpService.getUserStore(token: authController.user.value.token);
+                              // bottomBarController.isSeller.value =!bottomBarController.isSeller.value;
                             },
                             icon: bottomBarController.isSeller.value
                                 ? const Icon(Icons.toggle_on_outlined, size: 35, color: Colors.blue,)

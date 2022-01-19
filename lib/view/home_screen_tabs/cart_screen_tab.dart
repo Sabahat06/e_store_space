@@ -24,23 +24,23 @@ class CartScreenTab extends StatelessWidget {
           centerTitle: true,
           title: Column(
             children: [
-              Text('Your Cart'),
-              // Text('2 Items', style: TextStyle(fontSize: 15.sp, color: Colors.black), ),
+              Text('Your Cart', style: TextStyle(fontSize: 15.sp, color: Colors.white),),
+              Obx(() => controller.items.length ==0 ? Text('') : Text('${controller.items.length}Items', style: TextStyle(fontSize: 15.sp, color: Colors.white), )),
             ],
           ),
         ),
       body: Obx(
-        () => controller.cart.items.length ==0
+        () => controller.items.length == 0
             ? const Center(child: Text("There is No item in the cart", style: TextStyle(fontSize: 18),))
             : Column(
           children: [
             Expanded(
               child: ListView.builder(
-                itemCount: controller.cart.items.length,
+                itemCount: controller.items.length,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
-                    child: MyProduct(controller.cart.items[index]),
+                    child: MyProduct(controller.items[index], index),
                   );
                 }
               ),
@@ -65,7 +65,7 @@ class CartScreenTab extends StatelessWidget {
                       Row(
                         children: [
                           Text("Rs ", style: TextStyle(color: Colors.white, fontSize: 18.sp),),
-                          Text("100", style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.bold),),
+                          Text(controller.calculateBillingAmount().toStringAsFixed(2), style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.bold),),
                           SizedBox(width: 7.w,),
                           Container(width: 2.w, color: Colors.white,),
                           SizedBox(width: 7.w,),
@@ -89,7 +89,11 @@ class CartScreenTab extends StatelessWidget {
     );
   }
 
-  MyProduct(Item item){
+  MyProduct(Item item, int index){
+    String valueString = item.productColors[index].color.colorCode.replaceAll('#', "0xff");
+    String valueString1 = valueString.replaceAll('\r', "");
+    String valueString2 = valueString1.replaceAll('\n', "");
+    int colorCodesss = int.parse(valueString2.toString());
     return Padding(
       padding: EdgeInsets.only(left: 8.0.w, right: 8.0.w, top: 8.0.w, bottom: 8.0.w),
       child: Container(
@@ -122,6 +126,12 @@ class CartScreenTab extends StatelessWidget {
                     )
                   ),
                 ),
+                Center(
+                  child: CircleAvatar(
+                    radius: 20,
+                    backgroundColor: Color(colorCodesss),
+                  ),
+                ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -138,7 +148,7 @@ class CartScreenTab extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: (){
-                          quantity.value++;
+                          controller.addItem(item);
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -149,11 +159,11 @@ class CartScreenTab extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 4.h,),
-                      Text(quantity.value.toString(), style: TextStyle(fontSize: 14.sp, color: Colors.black), ),
+                      Text(item.quantity.value.toString(), style: TextStyle(fontSize: 14.sp, color: Colors.black), ),
                       SizedBox(height: 4.h,),
                       GestureDetector(
                         onTap: () {
-                          quantity.value--;
+                          controller.removeItem(item);
                         },
                         child: Container(
                           decoration: BoxDecoration(

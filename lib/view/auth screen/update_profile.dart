@@ -103,7 +103,7 @@ class UpdateProfile extends StatelessWidget {
                     if(updateProfileValidation()){
                       authController.progressing.value = true;
                       var response = await HttpService.updateProfile(
-                          // customerId: authController.user.value.user.id,
+                          token: authController.user.value.token,
                           name: name.text,
                           email: email.text,
                           phone: phone.text,
@@ -124,7 +124,7 @@ class UpdateProfile extends StatelessWidget {
                       //   authController.user.value.password = newPassword.text;
                       //   authController.updateUser(authController.user.value);
                       // }
-                      // Fluttertoast.showToast(msg: response['msg']);
+                      Fluttertoast.showToast(msg: 'Your Profile has been Updated');
                       Get.back();
                     },
                     txt: 'Save Details',

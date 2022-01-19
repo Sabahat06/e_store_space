@@ -18,7 +18,6 @@ class AuthController extends GetxController{
   RxBool isLogedIn = false.obs;
   RxBool progressing = false.obs;
   RxBool checkBoxValue = false.obs;
-
   RxString account_status = ''.obs;
   RxString user_status = ''.obs;
 
@@ -31,9 +30,9 @@ class AuthController extends GetxController{
   SharedPreferences pref;
   @override
   Future<void> onInit() async {
-     pref = await SharedPreferences.getInstance();
-    // user.value = await User.saveUserToCache();
-    isLogedIn.value = user.value==null?false : true;
+    pref = await SharedPreferences.getInstance();
+    user.value = await User.fromCache();
+    isLogedIn.value = user.value == null ? false : true;
     // TODO: implement onInit
     super.onInit();
   }
@@ -49,7 +48,7 @@ class AuthController extends GetxController{
       progressing.value = false;
       User.saveUserToCache(response);
       user.value = response;
-      pref.setString('userId',response.user.id.toString());
+      // pref.setString('userId',response.user.id.toString());
       isLogedIn.value = true;
       Get.off(HomePage());
   }

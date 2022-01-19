@@ -1,3 +1,5 @@
+import 'package:e_store_space/controller/user_store_controller.dart';
+import 'package:e_store_space/models/user_store.dart';
 import 'package:e_store_space/view/product/product_detail_screen.dart';
 import 'package:e_store_space/view/seller%20screens/store_product_seller.dart';
 import 'package:e_store_space/view/seller%20screens/adding_deal.dart';
@@ -17,6 +19,8 @@ import 'package:e_store_space/widgets/my_category_box.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreenTabSeller extends StatelessWidget {
+
+  UserStoreController userStoreController = UserStoreController();
 
   TextEditingController searchController = TextEditingController();
   BottomBarController bottomBarController = Get.find();
@@ -81,7 +85,9 @@ class HomeScreenTabSeller extends StatelessWidget {
                 ),
               ),
             ),
-            SliverList(
+            userStoreController.userStore.store == null || userStoreController.userStore.store.length == 0
+                ? Center(child: Text('No Deal Added Yet Add Some', style: TextStyle(fontSize: 16.sp,),),)
+                : SliverList(
               delegate: SliverChildListDelegate([
                 SingleChildScrollView(
                   child: Container(
@@ -93,9 +99,9 @@ class HomeScreenTabSeller extends StatelessWidget {
                       ),
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 3,
+                      itemCount: userStoreController.userStore.store.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return renderingStore(index);
+                        return renderingStore(index, userStoreController.userStore.store[index]);
                       }
                     )
                   ),
@@ -128,7 +134,7 @@ class HomeScreenTabSeller extends StatelessWidget {
     );
   }
 
-  renderingStore(int index){
+  renderingStore(int index, Store store){
     return Padding(
       padding: EdgeInsets.all(10.0.w),
       child: GestureDetector(
@@ -164,8 +170,8 @@ class HomeScreenTabSeller extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Store ${index}', style: const TextStyle(color: Colors.white),),
-                    const Text('Status', style: TextStyle(color: Colors.blue),),
+                    Text(store.name, style: const TextStyle(color: Colors.white),),
+                    Text(store.description, style: const TextStyle(color: Colors.blue),),
                   ],
                 ),
               ),

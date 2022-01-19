@@ -39,7 +39,7 @@ class AccountScreenTabSeller extends StatelessWidget {
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18.sp,
-                            color: Colors.black
+                            color: Colors.blue
                         ),
                       ),
                       Obx(
@@ -176,8 +176,8 @@ class AccountScreenTabSeller extends StatelessWidget {
                             subTitle: "Are you sure to logout?",
                             onPositiveClick: () {
                               isLogedIn.value = false;
-                              // authController.logOut();
-                              Get.back();
+                              authController.logOut();
+                              // Get.back();
                             },
                           );
                         }

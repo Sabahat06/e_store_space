@@ -33,55 +33,51 @@ class CartControllerNew extends GetxController {
   // }
 
 
- // int  calculateTotalItems(){
- //    int total=0;
- //    cart.items.forEach((item) {
- //      total=total+item.quantity.value;
- //    });
- //    totalItems.value = total;
- //    return total;
- //  }
+ int  calculateTotalItems(){
+    int total=0;
+    cart.items.forEach((item) {
+      total=total+item.quantity.value;
+    });
+    totalItems.value = total;
+    return total;
+  }
 
 
 
 
   addItem(Item item) {
-    if (items.any((element) =>
-    element.choiceID == item.choiceID)) {
-      int index = items.indexWhere((element) =>
-      element.id == item.id &&
-          element.choiceID == item.choiceID
-      );
-      if (index != null) {
+    if (items.any((element) => element.choiceID == item.choiceID)) {
+      int index = items.indexWhere((element) => element.id == item.id && element.choiceID == item.choiceID);
+      if (index != -1) {
         items[index].quantity++;
       }
     } else {
       items.add(item);
+      Fluttertoast.showToast(msg: "Added to bag successfully");
     }
-    Mapped.saveFileDirectly(file: Cart(items: items).toJson(), cachedFileName: 'Cart');
-    Fluttertoast.showToast(msg: "Added to bag successfully");
-    // calculateTotalItems();
+    // Mapped.saveFileDirectly(file: Cart(items: items).toJson(), cachedFileName: 'Cart');
+    calculateTotalItems();
   }
 
   removeItem(Item item) {
-    int cartIndex = cart.items.indexWhere((element) => element.id == item.id);
-    if (cart.items[cartIndex].quantity > 1) {
-      cart.items[cartIndex].quantity--;
+    int cartIndex = items.indexWhere((element) => element.id == item.id && element.choiceID == item.choiceID);
+    if (items[cartIndex].quantity.value > 1) {
+      items[cartIndex].quantity.value--;
     } else {
-      cart.items[cartIndex].quantity.value--;
-      cart.items.removeAt(cartIndex);
+      items[cartIndex].quantity.value--;
+      items.removeAt(cartIndex);
       Fluttertoast.showToast(msg: "Item removed");
     }
-    Mapped.saveFileDirectly(file: cart.toJson(), cachedFileName: 'Cart');
-//    calculateTotalItems();
+    // Mapped.saveFileDirectly(file: cart.toJson(), cachedFileName: 'Cart');
+   calculateTotalItems();
   }
 
 
-  // double calculateBillingAmount(){
-  //   double price=0;
-  //   cart.items.forEach((element) {
-  //     price+= double.parse(element.discount == "0" ? element.salePrice : element.discountedPrice)*element.quantity.value;
-  //   });
-  //   return price;
-  // }
+  double calculateBillingAmount(){
+    double price=0;
+    items.forEach((element) {
+      price+= double.parse(element.price)*element.quantity.value;
+    });
+    return price;
+  }
 }

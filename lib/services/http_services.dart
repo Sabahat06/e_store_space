@@ -3,6 +3,7 @@ import 'package:e_store_space/models/auth_model.dart';
 import 'package:e_store_space/models/page.dart';
 import 'package:e_store_space/models/product_category_model.dart';
 import 'package:e_store_space/models/product_detail.dart';
+import 'package:e_store_space/models/user_store.dart';
 import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
@@ -183,11 +184,12 @@ class HttpService {
 
 
   static Future<String> updateProfile
-      ({String name, String email, String phone, String address, String city, String oldPassword, String newPassword}) async {
-    Uri _uriContactUs = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/seller-update');
+      ({String token, String name, String email, String phone, String address, String city, String oldPassword, String newPassword}) async {
+    Uri _updateProfile = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/seller-update');
     try {
       var response = await http.post(
-        _uriContactUs,
+        _updateProfile,
+        headers: {'Authorization': 'Bearer $token'},
         body: {
           'name': name,
           'email': email,
@@ -208,6 +210,48 @@ class HttpService {
       return "Some error accoured";
     }
   }
+
+
+  static Future<UserStore> getUserStore
+      ({String token}) async {
+    Uri _getUserStore = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/getUserStore');
+    try {
+      var response = await http.get(
+        _getUserStore,
+        headers: {'Authorization': 'Bearer $token'},
+      );
+      if (response.statusCode == 200) {
+        return UserStore.fromJson(jsonDecode(response.body));
+      }
+    }
+    catch (e) {
+      return null;
+    }
+  }
+
+
+  static Future<String> addUserStore
+      ({String token, String name, String dealType, String description}) async {
+    Uri _addUserStore = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/addStore');
+    try {
+      var response = await http.post(
+        _addUserStore,
+        headers: {'Authorization': 'Bearer $token'},
+        body: {
+          'name': name,
+          'deal_type': dealType,
+          'description': description
+        }
+      );
+      if (response.statusCode == 201) {
+        return jsonDecode(response.body);
+      }
+    }
+    catch (e) {
+      return null;
+    }
+  }
+
 
   static Future<dynamic> getAppSettings({String userID}) async {
     try {

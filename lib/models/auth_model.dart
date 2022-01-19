@@ -79,6 +79,17 @@ class User {
 
   /// member functions
 
+  ///custom functions
+  static Future<AuthResponse> fromCache() async{
+    Mapped cacheJson = await Mapped.getInstance();
+    var cachedUser = cacheJson.loadFile(cachedFileName: "AuthResponse");
+    print("user from cache: $cachedUser");
+    if(cachedUser==null)
+      return null;
+    else
+      return AuthResponse.fromJson(cachedUser);
+  }
+
   static Future<String> saveUserToCache(AuthResponse user) async{
     Mapped cacheJson = await Mapped.getInstance();
     try{
