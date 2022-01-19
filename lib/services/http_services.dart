@@ -182,6 +182,32 @@ class HttpService {
   }
 
 
+  static Future<String> updateProfile
+      ({String name, String email, String phone, String address, String city, String oldPassword, String newPassword}) async {
+    Uri _uriContactUs = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/seller-update');
+    try {
+      var response = await http.post(
+        _uriContactUs,
+        body: {
+          'name': name,
+          'email': email,
+          'phone_no': phone,
+          'address': address,
+          'city': city,
+          'password': oldPassword,
+          'password_confirmation': newPassword
+        },
+      );
+      if (response.statusCode == 201) {
+        return jsonDecode(response.body)['message'];
+
+      } else
+        return "Some error accoured";
+    }
+    catch (e) {
+      return "Some error accoured";
+    }
+  }
 
   static Future<dynamic> getAppSettings({String userID}) async {
     try {

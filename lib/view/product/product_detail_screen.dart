@@ -23,7 +23,7 @@ class ProductDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    cartControllerNew.colorCodeid.value = productDetailsModel.productDetails.productColors.first.colorId;
+    cartControllerNew.currentChoiceID.value = productDetailsModel.productDetails.productColors.first.colorId;
     subCategoryImages.value = "https://spinningsoft.co/projects/eStoreSpace/admin/images/product_images/${productDetailsModel.productDetails.productColors.first.image}";
     return Scaffold(
       body: SafeArea(
@@ -288,8 +288,8 @@ class ProductDetailsScreen extends StatelessWidget {
                                                   width: 25.w,
                                                   height: 25.h,
                                                   decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius.circular(20.r),
-                                                      color: Colors.transparent
+                                                    borderRadius: BorderRadius.circular(20.r),
+                                                    color: Colors.transparent
                                                   ),
                                                   child: Icon(Icons.add, size: 25.w, color: Colors.blue,),
                                                 ),
@@ -324,7 +324,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                     if(productDetailsModel.productDetails.quantity.value==0){
                                       Fluttertoast.showToast(msg: "Please Select Quantity");
                                     }else{
-                                      cartControllerNew.addItem(productDetailsModel);
+                                      // cartControllerNew.addItem(productDetailsModel);
                                     }
                                   },
                                   child: Container(
@@ -388,7 +388,8 @@ class ProductDetailsScreen extends StatelessWidget {
           backgroundColor: cartControllerNew.colorCodeid.value == index ? Colors.blue : Colors.transparent,
           child: GestureDetector(
             onTap: (){
-              cartControllerNew.colorCodeid.value = index.toString();
+              cartControllerNew.colorCodeid.value = index;
+              cartControllerNew.currentChoiceID.value = productColors.colorId.toString();
             },
             child: CircleAvatar(
               backgroundColor: Color(colorCodesss),

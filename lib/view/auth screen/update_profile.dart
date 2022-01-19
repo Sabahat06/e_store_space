@@ -13,7 +13,7 @@ import 'package:e_store_space/widgets/my_filled_button.dart';
 import 'package:e_store_space/widgets/my_text_field.dart';
 
 class UpdateProfile extends StatelessWidget {
-  // AuthController authController = Get.find();
+  AuthController authController = Get.find();
   RxBool checkBoxValue = false.obs;
 
   TextEditingController name;
@@ -29,20 +29,18 @@ class UpdateProfile extends StatelessWidget {
 
 
   UpdateProfile() {
-    name = TextEditingController(
-        // text: authController.user.value.name
-    );
+    name = TextEditingController(text: authController.user.value.user.name);
     email = TextEditingController(
-        // text: authController.user.value.email
+        text: authController.user.value.user.email
     );
     phone = TextEditingController(
-        // text: authController.user.value.phone
+        text: authController.user.value.user.phoneNo
     );
     address = TextEditingController(
-        // text: authController.user.value.address
+        text: authController.user.value.user.address
     );
     city = TextEditingController(
-        // text: authController.user.value.city
+        text: authController.user.value.user.city
     );
   }
 
@@ -55,7 +53,7 @@ class UpdateProfile extends StatelessWidget {
         title: const Text('Update Profile', style: TextStyle(color: Colors.white),),
       ),
       body: Obx(
-        () => Padding(
+        () => authController.progressing.value ? Center(child: CircularProgressIndicator(),) : Padding(
           padding: const EdgeInsets.all(10),
           child: SingleChildScrollView(
             child: Column(
@@ -102,37 +100,32 @@ class UpdateProfile extends StatelessWidget {
                   SizedBox(height: 12.h,),
                   MyFilledButton(
                     ontap: () async {
-                      // if(updateProfileValidation()){
-                      //         authController.progressing.value = true;
-                      //   var response = await HttpService.updateProfile(
-                      //       customerId: authController.user.value.id,
-                      //             name: name.text,
-                      //             email: email.text,
-                      //             phone: phone.text,
-                      //             address: address.text,
-                      //             shopName: shopNameCtr.text,
-                      //             shopPhoto: StaticVariable.baseString,
-                      //             city: city.text,
-                      //             updatePassword:
-                      //                 authController.checkBoxValue.value,
-                      //             oldPassword: oldPassword.text,
-                      //             newPassword: newPassword.text);
-                      //   authController.progressing.value = false;
-                      //   if(response['status']=='success'){
-                      //     authController.user.value.name = name.text;
-                      //     authController.user.value.email = email.text;
-                      //     authController.user.value.phone = phone.text;
-                      //     authController.user.value.city = city.text;
-                      //     authController.user.value.address = address.text;
-                      //     authController.updateUser(authController.user.value);
-                      //   }
-                      //   if(response['password_status']=='success'){
-                      //     authController.user.value.password = newPassword.text;
-                      //     authController.updateUser(authController.user.value);
-                      //   }
-                      //   Fluttertoast.showToast(msg: response['msg']);
-                      //   Get.back();
+                    if(updateProfileValidation()){
+                      authController.progressing.value = true;
+                      var response = await HttpService.updateProfile(
+                          // customerId: authController.user.value.user.id,
+                          name: name.text,
+                          email: email.text,
+                          phone: phone.text,
+                          address: address.text,
+                          city: city.text,
+                          oldPassword: oldPassword.text,
+                          newPassword: newPassword.text
+                        );
+                        authController.progressing.value = false;
+                        authController.user.value.user.name = name.text;
+                        authController.user.value.user.email = email.text;
+                        authController.user.value.user.phoneNo = phone.text;
+                        authController.user.value.user.city = city.text;
+                        authController.user.value.user.address = address.text;
+                        authController.updateUser(authController.user.value);
+                      }
+                      // if(response['password_status']=='success'){
+                      //   authController.user.value.password = newPassword.text;
+                      //   authController.updateUser(authController.user.value);
                       // }
+                      // Fluttertoast.showToast(msg: response['msg']);
+                      Get.back();
                     },
                     txt: 'Save Details',
                     borderRadius: 10.r,

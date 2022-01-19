@@ -75,7 +75,7 @@ class FavoriteScreenTab extends StatelessWidget {
                   Container(
                       height: 75.h,
                       width: 75.w,
-                      child: Image.network(product.productDetails.picture)
+                      child: Image.network("https://spinningsoft.co/projects/eStoreSpace/admin/images/product/${product.productDetails.picture}")
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,

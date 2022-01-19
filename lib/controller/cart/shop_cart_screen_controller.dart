@@ -8,7 +8,7 @@ import 'package:e_store_space/models/product_model.dart';
 
 class CartControllerNew extends GetxController {
   Cart cart = Cart(items:  <Item>[].obs,);
-  RxString colorCodeid = ''.obs;
+  RxInt colorCodeid = 0.obs;
 
   RxList<ProductDetailsModel> productDetailModel = <ProductDetailsModel>[].obs;
 
@@ -19,9 +19,6 @@ class CartControllerNew extends GetxController {
   var response;
   RxString isSelected = ''.obs;
   RxInt totalItems=0.obs;
-
-
-
   RxString currentChoiceID=''.obs;
   RxString currentChoiceColorName=''.obs;
 
@@ -48,26 +45,26 @@ class CartControllerNew extends GetxController {
 
 
 
-  addItem(ProductDetailsModel item) {
-    if(productDetailModel == null){
-      print('items are null $cart.items');
-      productDetailModel.add(item);
-    }
-    if (productDetailModel.any((element) => element.productDetails.id==item.productDetails.id)) {
-      int index = productDetailModel.indexWhere((element) =>
-      element.productDetails.id == item.productDetails.id && element.productDetails.productColors.first.id == item.productDetails.productColors.first.id);
-      if (index != null) {
-        productDetailModel.add(item);
-      }
-    } else {
-      productDetailModel.add(item);
-      Fluttertoast.showToast(msg: "Added to bag successfully");
-    }
-    Mapped.saveFileDirectly(file: Cart(items: cart.items).toJson(), cachedFileName: 'Cart');
-    // calculateTotalItems();
-    print(cart.items);
-
-  }
+  // addItem(Item item) {
+  //   if(productDetailModel == null){
+  //     print('items are null $cart.items');
+  //     productDetailModel.add(item);
+  //   }
+  //   if (productDetailModel.any((element) => element.productDetails.id==item.productDetails.id)) {
+  //     int index = productDetailModel.indexWhere((element) =>
+  //     element.productDetails.id == item.productDetails.id && element.productDetails.productColors.first.id == item.productDetails.productColors.first.id);
+  //     if (index != null) {
+  //       productDetailModel[index].productDetails.quantity++;
+  //     }
+  //   } else {
+  //     productDetailModel.add(item);
+  //     Fluttertoast.showToast(msg: "Added to bag successfully");
+  //   }
+  //   Mapped.saveFileDirectly(file: Cart(items: cart.items).toJson(), cachedFileName: 'Cart');
+  //   // calculateTotalItems();
+  //   print(cart.items);
+  //
+  // }
 
   removeItem(Item item) {
     int cartIndex = cart.items.indexWhere((element) => element.id == item.id);

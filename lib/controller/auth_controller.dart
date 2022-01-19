@@ -99,34 +99,9 @@ class AuthController extends GetxController{
   //     }
   // }
 
-  // updateUser(User updatedUSer){
-  //   this.user.value = updatedUSer;
-  //   User.saveUserToCache(updatedUSer);
-  // }
-
-  static Future<String> getDeviceId() async {
-    var deviceInfo = DeviceInfoPlugin();
-    if (Platform.isIOS) {
-      var iosDeviceInfo = await deviceInfo.iosInfo;
-      return iosDeviceInfo.identifierForVendor; // unique ID on iOS
-    } else {
-      var androidDeviceInfo = await deviceInfo.androidInfo;
-      return androidDeviceInfo.androidId; // unique ID on Android
-    }
-  }
-
-
-  Future<void> loadCurrentLocation() async {
-    Location location = Location();
-    PermissionStatus permissionStatus = await location.hasPermission();
-    if (permissionStatus == PermissionStatus.denied) {
-      permissionStatus = await location.requestPermission();
-      if (permissionStatus == PermissionStatus.denied) {
-        return;
-      }
-    }
-    LocationData locationData = await location.getLocation();
-    latlng.value= LatLng(locationData.latitude, locationData.longitude);
+  updateUser(AuthResponse updatedUSer){
+    this.user.value = updatedUSer;
+    User.saveUserToCache(updatedUSer);
   }
 
 

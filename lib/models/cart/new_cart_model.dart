@@ -28,18 +28,18 @@ class Cart {
 
 class Item {
   int id;
-  RxInt quantity = 0.obs;
   String userId;
+  RxInt quantity=0.obs;
   String categoryId;
   String name;
   String description;
   String price;
   String picture;
-  String choiceID;
   String createdAt="";
   String updatedAt="";
   String deletedAt='';
   List<ProductColorsCart> productColors;
+  List<RatingsCart> ratings;
 
   Item(
       {this.id,
@@ -53,8 +53,8 @@ class Item {
         this.updatedAt,
         this.deletedAt,
         this.productColors,
+        this.ratings,
         this.quantity,
-        this.choiceID
       });
 
   Item.fromJson(Map<String, dynamic> json) {
@@ -68,11 +68,16 @@ class Item {
     createdAt = json['created_at']??"";
     updatedAt = json['updated_at']??"";
     deletedAt = json['deleted_at']??"";
-    quantity.value = json['quantity']??0;
     if (json['product_colors'] != null) {
       productColors = <ProductColorsCart>[];
       json['product_colors'].forEach((v) {
         productColors.add(new ProductColorsCart.fromJson(v));
+      });
+    }
+    if (json['ratings'] != null) {
+      ratings = <RatingsCart>[];
+      json['ratings'].forEach((v) {
+        ratings.add(new RatingsCart.fromJson(v));
       });
     }
   }
@@ -89,15 +94,16 @@ class Item {
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     data['deleted_at'] = this.deletedAt;
-    data['quantity'] = this.quantity.value;
     if (this.productColors != null) {
       data['product_colors'] =
           this.productColors.map((v) => v.toJson()).toList();
     }
+    if (this.ratings != null) {
+      data['ratings'] = this.ratings.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }
-
 
 class ProductColorsCart {
   int id;
@@ -108,6 +114,7 @@ class ProductColorsCart {
   String createdAt="";
   String updatedAt="";
   String deletedAt='';
+  ColorIDCart color;
 
   ProductColorsCart(
       {this.id,
@@ -118,7 +125,7 @@ class ProductColorsCart {
         this.createdAt,
         this.updatedAt,
         this.deletedAt,
-      });
+        this.color});
 
   ProductColorsCart.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -129,6 +136,7 @@ class ProductColorsCart {
     createdAt = json['created_at']??"";
     updatedAt = json['updated_at']??"";
     deletedAt = json['deleted_at']??"";
+    color = json['color'] != null ? new ColorIDCart.fromJson(json['color']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -141,6 +149,91 @@ class ProductColorsCart {
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     data['deleted_at'] = this.deletedAt;
+    if (this.color != null) {
+      data['color'] = this.color.toJson();
+    }
+    return data;
+  }
+}
+
+class ColorIDCart {
+  int id;
+  String userId;
+  String name;
+  String colorCode;
+  String createdAt="";
+  String updatedAt="";
+  String deletedAt='';
+
+  ColorIDCart(
+      {this.id,
+        this.userId,
+        this.name,
+        this.colorCode,
+        this.createdAt,
+        this.updatedAt,
+        this.deletedAt});
+
+  ColorIDCart.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    userId = json['user_id'];
+    name = json['name'];
+    colorCode = json['color_code'];
+    createdAt = json['created_at']??"";
+    updatedAt = json['updated_at']??"";
+    deletedAt = json['deleted_at']??"";
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['user_id'] = this.userId;
+    data['name'] = this.name;
+    data['color_code'] = this.colorCode;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    data['deleted_at'] = this.deletedAt;
+    return data;
+  }
+}
+
+class RatingsCart {
+  int id=0;
+  String userId='';
+  String productId='';
+  String rate='';
+  String message='';
+  String createdAt='';
+  String updatedAt='';
+
+  RatingsCart(
+      {this.id,
+        this.userId,
+        this.productId,
+        this.rate,
+        this.message,
+        this.createdAt,
+        this.updatedAt});
+
+  RatingsCart.fromJson(Map<String, dynamic> json) {
+    id = json['id']??0;
+    userId = json['user_id']??"";
+    productId = json['product_id']??"";
+    rate = json['rate']??"";
+    message = json['message']??'';
+    createdAt = json['created_at']??"";
+    updatedAt = json['updated_at']??"";
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['user_id'] = this.userId;
+    data['product_id'] = this.productId;
+    data['rate'] = this.rate;
+    data['message'] = this.message;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
     return data;
   }
 }
