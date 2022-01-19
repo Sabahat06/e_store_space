@@ -10,7 +10,7 @@ class CartControllerNew extends GetxController {
   Cart cart = Cart(items:  <Item>[].obs,);
   RxInt colorCodeid = 0.obs;
 
-  RxList<ProductDetailsModel> productDetailModel = <ProductDetailsModel>[].obs;
+  RxList<Item> items = <Item>[].obs;
 
   RxDouble totalAmount = 0.0.obs;
   RxInt totalPrice = 0.obs;
@@ -45,26 +45,23 @@ class CartControllerNew extends GetxController {
 
 
 
-  // addItem(Item item) {
-  //   if(productDetailModel == null){
-  //     print('items are null $cart.items');
-  //     productDetailModel.add(item);
-  //   }
-  //   if (productDetailModel.any((element) => element.productDetails.id==item.productDetails.id)) {
-  //     int index = productDetailModel.indexWhere((element) =>
-  //     element.productDetails.id == item.productDetails.id && element.productDetails.productColors.first.id == item.productDetails.productColors.first.id);
-  //     if (index != null) {
-  //       productDetailModel[index].productDetails.quantity++;
-  //     }
-  //   } else {
-  //     productDetailModel.add(item);
-  //     Fluttertoast.showToast(msg: "Added to bag successfully");
-  //   }
-  //   Mapped.saveFileDirectly(file: Cart(items: cart.items).toJson(), cachedFileName: 'Cart');
-  //   // calculateTotalItems();
-  //   print(cart.items);
-  //
-  // }
+  addItem(Item item) {
+    if (items.any((element) =>
+    element.choiceID == item.choiceID)) {
+      int index = items.indexWhere((element) =>
+      element.id == item.id &&
+          element.choiceID == item.choiceID
+      );
+      if (index != null) {
+        items[index].quantity++;
+      }
+    } else {
+      items.add(item);
+    }
+    Mapped.saveFileDirectly(file: Cart(items: items).toJson(), cachedFileName: 'Cart');
+    Fluttertoast.showToast(msg: "Added to bag successfully");
+    // calculateTotalItems();
+  }
 
   removeItem(Item item) {
     int cartIndex = cart.items.indexWhere((element) => element.id == item.id);

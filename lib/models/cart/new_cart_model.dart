@@ -40,6 +40,7 @@ class Item {
   String deletedAt='';
   List<ProductColorsCart> productColors;
   List<RatingsCart> ratings;
+  String choiceID;
 
   Item(
       {this.id,
@@ -55,6 +56,7 @@ class Item {
         this.productColors,
         this.ratings,
         this.quantity,
+        this.choiceID,
       });
 
   Item.fromJson(Map<String, dynamic> json) {
@@ -80,6 +82,7 @@ class Item {
         ratings.add(new RatingsCart.fromJson(v));
       });
     }
+    choiceID = json['choice_id']??"";
   }
 
   Map<String, dynamic> toJson() {
@@ -101,6 +104,7 @@ class Item {
     if (this.ratings != null) {
       data['ratings'] = this.ratings.map((v) => v.toJson()).toList();
     }
+    data['choice_id'] = this.choiceID;
     return data;
   }
 }

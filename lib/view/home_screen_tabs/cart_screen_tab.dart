@@ -30,17 +30,17 @@ class CartScreenTab extends StatelessWidget {
           ),
         ),
       body: Obx(
-        () => controller.productDetailModel.length ==0
+        () => controller.cart.items.length ==0
             ? const Center(child: Text("There is No item in the cart", style: TextStyle(fontSize: 18),))
             : Column(
           children: [
             Expanded(
               child: ListView.builder(
-                itemCount: controller.productDetailModel.length,
+                itemCount: controller.cart.items.length,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
-                    child: MyProduct(controller.productDetailModel[index]),
+                    child: MyProduct(controller.cart.items[index]),
                   );
                 }
               ),
@@ -89,7 +89,7 @@ class CartScreenTab extends StatelessWidget {
     );
   }
 
-  MyProduct(ProductDetailsModel item){
+  MyProduct(Item item){
     return Padding(
       padding: EdgeInsets.only(left: 8.0.w, right: 8.0.w, top: 8.0.w, bottom: 8.0.w),
       child: Container(
@@ -118,7 +118,7 @@ class CartScreenTab extends StatelessWidget {
                   width: 75.w,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage(item.productDetails.picture)
+                      image: NetworkImage("https://spinningsoft.co/projects/eStoreSpace/admin/images/product/${item.picture}")
                     )
                   ),
                 ),
@@ -126,9 +126,9 @@ class CartScreenTab extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(item.productDetails.name, style: TextStyle(color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.bold),),
+                    Text(item.name, style: TextStyle(color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.bold),),
                     SizedBox(height: 5.h,),
-                    Text(item.productDetails.price, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, color: Colors.blue),),
+                    Text(item.price, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, color: Colors.blue),),
                   ],
                 ),
                 Obx(
