@@ -9,8 +9,6 @@ class WishListController extends GetxController {
 
   RxList<ProductDetailsModel> items = <ProductDetailsModel>[].obs;
 
-
-
   @override
   onInit()  {
     loadList();

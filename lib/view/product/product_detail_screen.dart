@@ -5,6 +5,7 @@ import 'package:e_store_space/models/cart/new_cart_model.dart';
 import 'package:e_store_space/models/product_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
@@ -16,12 +17,14 @@ class ProductDetailsScreen extends StatelessWidget {
   List<String> productImages = ['assets/image/image6.jpg', 'assets/image/appbar.jpg', 'assets/image/appimage.jpeg', 'assets/image/image6.jpg'];
   List<int> colorCode = [0xff039e2c, 0xffDEDEDE, 0xffffb852, 0xffe95a5c];
   RxInt choiceid = 0.obs;
-  RxInt colorCodeid = 0.obs;
   RxInt quantity = 0.obs;
   RxBool isExpanded = false.obs;
+  RxString subCategoryImages=''.obs;
 
   @override
   Widget build(BuildContext context) {
+    cartControllerNew.colorCodeid.value = productDetailsModel.productDetails.productColors.first.colorId;
+    subCategoryImages.value = "https://spinningsoft.co/projects/eStoreSpace/admin/images/product_images/${productDetailsModel.productDetails.productColors.first.image}";
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -38,7 +41,7 @@ class ProductDetailsScreen extends StatelessWidget {
                           height: 240.h,
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: NetworkImage(productDetailsModel.productDetails.picture[choiceid.value]),
+                              image: NetworkImage(subCategoryImages.value),
                               fit: BoxFit.contain,
                             )
                           ),
@@ -259,9 +262,9 @@ class ProductDetailsScreen extends StatelessWidget {
                                             children: [
                                               GestureDetector(
                                                 onTap: (){
-                                                  quantity.value--;
-                                                  if(quantity.value<=0){
-                                                    quantity.value=0;
+                                                  productDetailsModel.productDetails.quantity.value--;
+                                                  if(productDetailsModel.productDetails.quantity.value<=0){
+                                                    productDetailsModel.productDetails.quantity.value=0;
                                                   }
                                                 },
                                                 child: Container(
@@ -275,11 +278,11 @@ class ProductDetailsScreen extends StatelessWidget {
                                                 ),
                                               ),
                                               SizedBox(width: 10.w,),
-                                              quantity.value <=0 ? Text('') : Text(quantity.value.toString(), style: TextStyle(fontSize: 14.sp, color: Colors.black), ),
+                                              productDetailsModel.productDetails.quantity.value <=0 ? Text('0', style: TextStyle(fontSize: 14.sp, color: Colors.black),) : Text(productDetailsModel.productDetails.quantity.value.toString(), style: TextStyle(fontSize: 14.sp, color: Colors.black), ),
                                               SizedBox(width: 10.w,),
                                               GestureDetector(
                                                 onTap: () {
-                                                  quantity.value++;
+                                                  productDetailsModel.productDetails.quantity.value++;
                                                 },
                                                 child: Container(
                                                   width: 25.w,
@@ -318,13 +321,11 @@ class ProductDetailsScreen extends StatelessWidget {
                                 padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 25.w),
                                 child: GestureDetector(
                                   onTap: (){
-                                    // Map json = productDetailsModel.toJson();
-                                    // /// adding quantity, size and choiceID to this raw json which isnt available in product's json and not Bag's json
-                                    // json['quantity'] = 1;
-                                    // json['choiceID'] = cartControllerNew.currentChoiceID.value;
-                                    // json['color_name'] = cartControllerNew.currentChoiceColorName.value;
-                                    // Item item = Item.fromJson(json);
-                                    cartControllerNew.addItem(productDetailsModel);
+                                    if(productDetailsModel.productDetails.quantity.value==0){
+                                      Fluttertoast.showToast(msg: "Please Select Quantity");
+                                    }else{
+                                      cartControllerNew.addItem(productDetailsModel);
+                                    }
                                   },
                                   child: Container(
                                       height: 35.h,
@@ -361,9 +362,10 @@ class ProductDetailsScreen extends StatelessWidget {
           child: GestureDetector(
             onTap: (){
               choiceid.value = index;
+              subCategoryImages.value = "https://spinningsoft.co/projects/eStoreSpace/admin/images/product_images/${productColors.image}";
             },
             child: CircleAvatar(
-              backgroundImage: NetworkImage(productColors.image),
+              backgroundImage: NetworkImage("https://spinningsoft.co/projects/eStoreSpace/admin/images/product_images/${productColors.image}"),
               radius: 23,
             ),
           ),
@@ -373,19 +375,23 @@ class ProductDetailsScreen extends StatelessWidget {
   }
 
   renderingColors(ProductColors productColors,int index){
-    String colorsCode = productColors.color.name;
+    String valueString = productColors.color.colorCode.replaceAll('#', "0xff");
+    String valueString1 = valueString.replaceAll('\r', "");
+    String valueString2 = valueString1.replaceAll('\n', "");
+    int colorCodesss = int.parse(valueString2.toString());
+    print(colorCodesss);
     return Obx(
       () => Padding(
         padding: const EdgeInsets.only(left: 10.0),
         child: CircleAvatar(
           radius: 20,
-          backgroundColor: colorCodeid.value == index ? Colors.blue : Colors.transparent,
+          backgroundColor: cartControllerNew.colorCodeid.value == index ? Colors.blue : Colors.transparent,
           child: GestureDetector(
             onTap: (){
-              colorCodeid.value = index;
+              cartControllerNew.colorCodeid.value = index.toString();
             },
             child: CircleAvatar(
-              backgroundColor: Color(0xFF42A5F5),
+              backgroundColor: Color(colorCodesss),
               radius: 18,
             ),
           ),

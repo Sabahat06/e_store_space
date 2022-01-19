@@ -60,7 +60,7 @@ class ProductScreen extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: NetworkImage(products.picture),
+                      image: NetworkImage("https://spinningsoft.co/projects/eStoreSpace/admin/images/product/${products.picture}"),
                       fit: BoxFit.cover
                   ),
                   borderRadius: BorderRadius.circular(15.r),
@@ -93,7 +93,7 @@ class ProductScreen extends StatelessWidget {
                         Text(products.price, style: const TextStyle(color: Colors.white),),
                       ],
                     ),
-                    const Text('3.5', style: TextStyle(color: Colors.white),),
+                    Text(double.parse(products.rating).toStringAsFixed(1), style: TextStyle(color: Colors.white),),
                   ],
                 ),
               ),

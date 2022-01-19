@@ -155,7 +155,7 @@ class HomeScreenTab extends StatelessWidget {
                     ),
                     color: Colors.white,
                   ),
-                  child: Image.network(productCategoryModel.picture, fit: BoxFit.cover,),
+                  child: Image.network("https://spinningsoft.co/projects/eStoreSpace/admin/images/product_category/${productCategoryModel.picture}", fit: BoxFit.cover,),
                 ),
                 Center(
                   child: Padding(

@@ -36,7 +36,7 @@ class CartScreenTab extends StatelessWidget {
           children: [
             Expanded(
               child: ListView.builder(
-                itemCount: controller.cart.items.length,
+                itemCount: controller.productDetailModel.length,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(

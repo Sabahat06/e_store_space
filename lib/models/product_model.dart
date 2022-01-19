@@ -32,6 +32,7 @@ class Products {
   String createdAt;
   String updatedAt;
   String deletedAt='';
+  String rating;
 
   Products(
       {this.id,
@@ -43,7 +44,9 @@ class Products {
         this.picture,
         this.createdAt,
         this.updatedAt,
-        this.deletedAt});
+        this.deletedAt,
+        this.rating,
+      });
 
   Products.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -56,6 +59,7 @@ class Products {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     deletedAt = json['deleted_at']??"";
+    rating = json['ratings_average']??"";
   }
 
   Map<String, dynamic> toJson() {
@@ -70,6 +74,7 @@ class Products {
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     data['deleted_at'] = this.deletedAt;
+    data['ratings_average'] = this.rating;
     return data;
   }
 }

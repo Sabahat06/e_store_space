@@ -8,6 +8,7 @@ import 'package:e_store_space/models/product_model.dart';
 
 class CartControllerNew extends GetxController {
   Cart cart = Cart(items:  <Item>[].obs,);
+  RxString colorCodeid = ''.obs;
 
   RxList<ProductDetailsModel> productDetailModel = <ProductDetailsModel>[].obs;
 
@@ -48,13 +49,13 @@ class CartControllerNew extends GetxController {
 
 
   addItem(ProductDetailsModel item) {
-    if(cart.items == null){
+    if(productDetailModel == null){
       print('items are null $cart.items');
       productDetailModel.add(item);
     }
-    if (cart.items.any((element) => element.choiceID == item.productDetails.productColors.first.id)) {
-      int index = cart.items.indexWhere((element) =>
-      element.id == item.productDetails.id && element.choiceID == item.productDetails.productColors.first.id);
+    if (productDetailModel.any((element) => element.productDetails.id==item.productDetails.id)) {
+      int index = productDetailModel.indexWhere((element) =>
+      element.productDetails.id == item.productDetails.id && element.productDetails.productColors.first.id == item.productDetails.productColors.first.id);
       if (index != null) {
         productDetailModel.add(item);
       }
