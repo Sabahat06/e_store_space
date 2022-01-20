@@ -124,7 +124,7 @@ class HomeScreenTab extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(8),
         child: Card(
-          elevation: 3,
+          elevation: 2,
           child: Container(
             height: width*0.5,
             // width: width*0.45,

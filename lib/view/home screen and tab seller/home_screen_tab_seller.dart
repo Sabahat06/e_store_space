@@ -101,7 +101,7 @@ class HomeScreenTabSeller extends StatelessWidget {
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: userStoreController.userStore.store.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return renderingStore(index, userStoreController.userStore.store[index]);
+                        return renderingStore(index, userStoreController.userStore.store[index], context);
                       }
                     )
                   ),
@@ -134,124 +134,59 @@ class HomeScreenTabSeller extends StatelessWidget {
     );
   }
 
-  renderingStore(int index, Store store){
+  renderingStore(int index, Store store, BuildContext context){
+    double width = MediaQuery.of(context).size.width;
     return Padding(
       padding: EdgeInsets.all(10.0.w),
       child: GestureDetector(
         onTap: (){Get.to(() => StoreProductsSeller());},
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: index%2==0 ? AssetImage( "assets/image/apple.jpg",) :  AssetImage( "assets/image/shoes.jpg",),
-                      fit: BoxFit.cover
+        child: Card(
+          elevation: 2,
+          child: Container(
+            height: width*0.5,
+            // width: width*0.45,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.grey[100],
+              // border: Border.all(color: Colors.grey),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.2),
+                  spreadRadius: 3,
+                  blurRadius: 3,
+                  offset: const Offset(1, 1), // changes position of shadow
+                ),
+              ],
+            ),
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: width*0.35,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(10.0),
+                      topLeft: Radius.circular(10.0),
+                    ),
+                    color: Colors.white,
                   ),
-                  borderRadius: BorderRadius.circular(15.r),
-                  border: Border.all(color: Colors.blue,width: 2),
-                  color: Colors.lightGreen
-              ),
-              height: 230.h,
-              width: 190.w,
-            ),
-            Container(
-              height: 45.h,
-              width: 190.w,
-              decoration: BoxDecoration(
-                color: Colors.black54,
-                borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(15.r),
-                    bottomLeft: Radius.circular(15.r)
+                  child: Image.asset("assets/image/apple.jpg", fit: BoxFit.cover,),
                 ),
-              ),
-              child: Padding(
-                padding: EdgeInsets.only(left:15.0.w, right: 10.0.w),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(store.name, style: const TextStyle(color: Colors.white),),
-                    Text(store.description, style: const TextStyle(color: Colors.blue),),
-                  ],
-                ),
-              ),
+                Center(
+                  child: Padding(
+                      padding: const EdgeInsets.only(left: 10,top: 5),
+                      child:  Text(store.name,style: TextStyle(fontWeight: FontWeight.bold),)
+                  ),
+                )
+
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
   }
-
-  // renderingStore(int index, BuildContext context) {
-  //   return GestureDetector(
-  //     onTap: (){Get.to(() => StoreProductsSeller());},
-  //     child: Padding(
-  //       padding: const EdgeInsets.only(left: 12.0, right: 12, top: 12),
-  //       child: Card(
-  //         color: Colors.green,
-  //         elevation: 16,
-  //         shape: RoundedRectangleBorder(
-  //           borderRadius: BorderRadius.circular(10),
-  //         ),
-  //         child: Container(
-  //           height: 85.h,
-  //           width: double.infinity,
-  //           decoration: BoxDecoration(
-  //             borderRadius: BorderRadius.circular(5),
-  //             color: Colors.white,
-  //           ),
-  //           child: Padding(
-  //             padding: const EdgeInsets.all(8.0),
-  //             child: Column(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 Container(
-  //                     child: Text("Store Name", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold), textAlign: TextAlign.left,)
-  //                 ),
-  //                 SizedBox(height: 5.h,),
-  //                 Row(
-  //                   mainAxisAlignment: MainAxisAlignment.start,
-  //                   children: [
-  //                     Container(
-  //                       width: 300.w,
-  //                       padding: const EdgeInsets.only(bottom: 4.0),
-  //                       child: Column(
-  //                           crossAxisAlignment: CrossAxisAlignment.start,
-  //                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                           children: [
-  //                             Container(child: Text("Store Product Short Details", style: TextStyle(fontSize: 14.sp, color: Colors.black54), maxLines: 3,)),
-  //                             SizedBox(height: 5.h,),
-  //                             Row(
-  //                               children: [
-  //                                 Padding(
-  //                                   padding: EdgeInsets.only(right: 12.0.w),
-  //                                   child: Container(
-  //                                       color: Colors.blue,
-  //                                       child: Padding(
-  //                                         padding: const EdgeInsets.all(5.0),
-  //                                         child: Text("Store Status",
-  //                                           style: TextStyle(
-  //                                             fontSize: 14.sp,
-  //                                             fontWeight: FontWeight.bold
-  //                                           ),
-  //                                         ),
-  //                                       )
-  //                                   )
-  //                                 ),
-  //                               ],
-  //                             ),
-  //                           ],
-  //                         )
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
 
 }
