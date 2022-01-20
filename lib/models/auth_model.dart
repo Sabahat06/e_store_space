@@ -29,8 +29,8 @@ class User {
   String phoneNo;
   String address;
   String city;
-  String area='';
-  String country='';
+  // String area='';
+  // String country='';
   String picture='';
   String createdAt;
   String updatedAt;
@@ -48,8 +48,8 @@ class User {
         this.createdAt,
         this.updatedAt,
         this.deletedAt,
-        this.area,
-        this.country
+        // this.area,
+        // this.country
       });
 
   User.fromJson(Map<String, dynamic> json) {
@@ -60,8 +60,8 @@ class User {
     phoneNo = json['phone_no'];
     address = json['address'];
     city = json['city'];
-    area = json['area']??"";
-    country = json['country']??"";
+    // area = json['area']??"";
+    // country = json['country']??"";
     picture = json['picture']??"";
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
@@ -81,8 +81,8 @@ class User {
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     data['deleted_at'] = this.deletedAt;
-    data['area'] = this.area;
-    data['country'] = this.country;
+    // data['area'] = this.area;
+    // data['country'] = this.country;
     return data;
   }
 

@@ -18,11 +18,11 @@ class PlaceOrderLoginScreen extends StatelessWidget {
 
   TextEditingController addressController;
   TextEditingController messageController = TextEditingController();
-  TextEditingController name = TextEditingController();
-  TextEditingController email = TextEditingController();
-  TextEditingController address = TextEditingController();
-  TextEditingController area = TextEditingController();
-  TextEditingController phone = TextEditingController();
+  TextEditingController name;
+  TextEditingController email;
+  TextEditingController address;
+  TextEditingController area;
+  TextEditingController phone;
   TextEditingController city = TextEditingController();
   TextEditingController country = TextEditingController();
   PlaceOrderLoginScreen({this.totalAmount}){
@@ -31,6 +31,8 @@ class PlaceOrderLoginScreen extends StatelessWidget {
     address = TextEditingController(text: authController.user.value.user.address);
     phone = TextEditingController(text: authController.user.value.user.phoneNo);
     city = TextEditingController(text: authController.user.value.user.city);
+    // area = TextEditingController(text: authController.user.value.user.area);
+    // country = TextEditingController(text: authController.user.value.user.country);
   }
   @override
   Widget build(BuildContext context) {
@@ -48,6 +50,7 @@ class PlaceOrderLoginScreen extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
+                      const SizedBox(height: 7),
                       MyTextField(
                         prefixIcon: IconButton(icon: Icon(Icons.person_outlined, color: Colors.blue,)),
                         controller: name,

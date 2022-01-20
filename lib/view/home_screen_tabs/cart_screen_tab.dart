@@ -1,7 +1,9 @@
+import 'package:e_store_space/controller/auth_controller.dart';
 import 'package:e_store_space/controller/bottom_bar_controller.dart';
 import 'package:e_store_space/controller/cart/shop_cart_screen_controller.dart';
 import 'package:e_store_space/models/cart/new_cart_model.dart';
 import 'package:e_store_space/models/product_detail.dart';
+import 'package:e_store_space/view/auth%20screen/create_account.dart';
 import 'package:e_store_space/view/order%20screen/place_order_login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +12,7 @@ import 'package:get/get.dart';
 
 class CartScreenTab extends StatelessWidget {
   BottomBarController bottomBarController = Get.find();
+  AuthController authController = Get.find();
   CartControllerNew controller = Get.find();
   RxInt quantity = 0.obs;
   @override
@@ -49,7 +52,7 @@ class CartScreenTab extends StatelessWidget {
               padding: EdgeInsets.only(bottom: 7.0.w, left: 3.w, right: 3.w, top: 3.w),
               child: GestureDetector(
                 onTap: (){
-                  Get.to(PlaceOrderLoginScreen());
+                  authController.isLogedIn.value ? Get.to(PlaceOrderLoginScreen()) : Get.to(() => CreateAccount(true));
                 },
                 child: Container(
                   height: 40.h,
