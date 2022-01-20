@@ -129,7 +129,7 @@ class HomeScreenTab extends StatelessWidget {
                           ),
                           itemBuilder: (BuildContext context, int index) {
                             return GestureDetector(
-                              child: MyProduct(context, index, controller.productCategory.value.productCategoryModel[index]),
+                              child: MyCategory(context, index, controller.productCategory.value.productCategoryModel[index]),
                             );
                           }
                         ),
@@ -144,7 +144,7 @@ class HomeScreenTab extends StatelessWidget {
     );
   }
 
-  MyProduct(BuildContext context, int index, ProductCategoryModel productCategoryModel){
+  MyCategory(BuildContext context, int index, ProductCategoryModel productCategoryModel){
     double width = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: (){
@@ -200,52 +200,5 @@ class HomeScreenTab extends StatelessWidget {
       ),
     );
   }
-
-  splashContent(String image,int index){
-    return Stack(
-      alignment: Alignment.bottomCenter,
-      children: [
-        Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              image:
-              DecorationImage(image: AssetImage(image), fit: BoxFit.contain)),
-          width: Get.width * 0.9,
-          height: 150,
-        ),
-        Container(
-          height: 8,
-          child: ListView.builder(
-            itemCount: splashData.value.length,
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              return splashDot(index);
-            },
-          ),
-        ),
-      ],
-    );
-  }
-
-  splashDot(int index){
-    return Obx(
-          () => Row(
-        children: [
-          Container(
-            width: 5,
-            height: 5,
-            decoration: BoxDecoration(
-                color: currentIndex.value == index ? Colors.orange :Colors.grey,
-                borderRadius: BorderRadius.circular(20)
-            ),
-            child: const SizedBox(width: 5,),
-          ),
-          const SizedBox(width: 5,),
-        ],
-      ),
-    );
-  }
-
 
 }

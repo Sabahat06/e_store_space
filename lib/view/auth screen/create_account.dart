@@ -25,6 +25,8 @@ class CreateAccount extends StatelessWidget {
   TextEditingController address = TextEditingController();
   TextEditingController city = TextEditingController();
   TextEditingController shopName = TextEditingController();
+  TextEditingController shippingAddress = TextEditingController();
+  TextEditingController country = TextEditingController();
 
   File file;
   @override
@@ -44,9 +46,9 @@ class CreateAccount extends StatelessWidget {
             children: [
               Center(
                 child: Container(
-                    width: 150,
-                    height: 150,
-                    child: Image.asset("assets/image/appimage.jpeg",)
+                  width: 150,
+                  height: 150,
+                  child: Image.asset("assets/image/appimage.jpeg",)
                 ),
               ),
               // MyImagePicker(file: file, centerText: "Add Photo/ Business Card",),
@@ -111,9 +113,21 @@ class CreateAccount extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               MyTextField(
+                prefixIcon: IconButton(icon: Icon(Icons.home_outlined, color: Colors.blue,)),
+                controller: shippingAddress,
+                label: 'Shipping Address',
+              ),
+              const SizedBox(height: 10),
+              MyTextField(
                 prefixIcon: IconButton(icon: Icon(Icons.location_city_outlined, color: Colors.blue,)),
                 controller: city,
                 label: 'City',
+              ),
+              const SizedBox(height: 10),
+              MyTextField(
+                prefixIcon: IconButton(icon: Icon(Icons.location_city_outlined, color: Colors.blue,)),
+                controller: country,
+                label: 'Country',
               ),
               const SizedBox(height: 20),
               MyFilledButton(

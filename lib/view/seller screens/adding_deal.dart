@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:e_store_space/controller/add_store_controller.dart';
 import 'package:e_store_space/services/http_services.dart';
+import 'package:e_store_space/view/seller%20screens/product_category_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -16,7 +18,8 @@ import 'package:e_store_space/widgets/my_text_field.dart';
 // import 'package:geolocator/geolocator.dart';
 
 
-class AddingDealScreen extends StatelessWidget {
+class AddingStoreScreen extends StatelessWidget {
+  AddStoreController controller = Get.put(AddStoreController());
   AuthController authController = Get.find();
   TextEditingController dealName = TextEditingController();
   TextEditingController description = TextEditingController();
@@ -35,78 +38,85 @@ class AddingDealScreen extends StatelessWidget {
         leadingWidth: 30,
         title: const Text('Add Deal', style: TextStyle(color: Colors.white),),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(10.0.w),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(height: 10),
-              MyImagePicker(file: file, centerText: "Pick Image",),
-              const SizedBox(height: 10),
-              MyTextField(
-                // prefixIcon: IconButton(icon: Icon(Icons.person_outlined, color: Colors.blue,)),
-                controller: dealName,
-                label: 'Deal Name',
-              ),
-              const SizedBox(height: 10),
-              MyTextField(
-                // prefixIcon: IconButton(icon: Icon(Icons.lock_outlined, color: Colors.blue,)),
-                controller: dealType,
-                label: 'Deal Type',
-              ),
-              const SizedBox(height: 10),
-              TextFormField(
-                minLines: 2,
-                // any number you need (It works as the rows for the textarea)
-                keyboardType: TextInputType.multiline,
-                maxLines: null,
-                controller: description,
-                decoration: const InputDecoration(
-                  // prefixIcon: IconButton(icon: Icon(Icons.home_outlined, color: Colors.blue,)),
-                  fillColor: Colors.blue,
-                  focusColor: Colors.blue,
-                  hoverColor: Colors.blue,
-                  labelText: 'Description',
-                  hintStyle:
-                  TextStyle(color: Colors.black54, fontSize: 12),
-                  labelStyle:
-                  TextStyle(color: Colors.blue, fontSize: 16),
-                  disabledBorder: OutlineInputBorder(
-                      borderSide:
-                      BorderSide(color: Colors.blue)),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide:
-                      BorderSide(color: Colors.blue)),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide:
-                      BorderSide(color: Colors.blue)),
-                  border: OutlineInputBorder(
-                      borderSide:
-                      BorderSide(color: Colors.blue)),
-                  // hintText: label,
+      body: Obx(
+        () => controller.progressing.value
+        ? Center(child: CircularProgressIndicator(),)
+        : Padding(
+          padding: EdgeInsets.all(10.0.w),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(height: 10),
+                MyImagePicker(file: file, centerText: "Pick Image",),
+                const SizedBox(height: 10),
+                MyTextField(
+                  // prefixIcon: IconButton(icon: Icon(Icons.person_outlined, color: Colors.blue,)),
+                  controller: dealName,
+                  label: 'Deal Name',
                 ),
-              ),
-              const SizedBox(height: 20),
-              MyFilledButton(
-                txt: 'Adding Deal',
-                fontSize: 20,
-                width: double.infinity,
-                color: Colors.blue,
-                borderRadius: 10,
-                ontap: () async {
-                  Get.back();
-                  if(addingDealValidation()) {
-                    var dealResponse = await HttpService.addUserStore(
-                      token: authController.user.value.token,
-                      dealType: dealType.text,
-                      description: description.text,
-                      name: dealName.text
-                    );
-                    Get.back();
-                  }
-                },
-              ),
-            ],
+                const SizedBox(height: 10),
+                MyTextField(
+                  // prefixIcon: IconButton(icon: Icon(Icons.lock_outlined, color: Colors.blue,)),
+                  controller: dealType,
+                  label: 'Deal Type',
+                ),
+                const SizedBox(height: 10),
+                TextFormField(
+                  minLines: 2,
+                  // any number you need (It works as the rows for the textarea)
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                  controller: description,
+                  decoration: const InputDecoration(
+                    // prefixIcon: IconButton(icon: Icon(Icons.home_outlined, color: Colors.blue,)),
+                    fillColor: Colors.blue,
+                    focusColor: Colors.blue,
+                    hoverColor: Colors.blue,
+                    labelText: 'Description',
+                    hintStyle:
+                    TextStyle(color: Colors.black54, fontSize: 12),
+                    labelStyle:
+                    TextStyle(color: Colors.blue, fontSize: 16),
+                    disabledBorder: OutlineInputBorder(
+                        borderSide:
+                        BorderSide(color: Colors.blue)),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide:
+                        BorderSide(color: Colors.blue)),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide:
+                        BorderSide(color: Colors.blue)),
+                    border: OutlineInputBorder(
+                        borderSide:
+                        BorderSide(color: Colors.blue)),
+                    // hintText: label,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                MyFilledButton(
+                  txt: 'Adding Deal',
+                  fontSize: 20,
+                  width: double.infinity,
+                  color: Colors.blue,
+                  borderRadius: 10,
+                  ontap: () async {
+                    if(addingDealValidation()) {
+                      controller.progressing.value = true;
+                      controller.store = await HttpService.addUserStore(
+                        token: authController.user.value.token,
+                        dealType: dealType.text,
+                        description: description.text,
+                        name: dealName.text
+                      );
+                      controller.progressing.value = false;
+                      if(StaticVariable.addUserDealResponseCode == 201){
+                        Get.off(() => ProductCategoryScreen());
+                      }
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

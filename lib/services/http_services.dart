@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:e_store_space/models/add_store_model.dart';
 import 'package:e_store_space/models/auth_model.dart';
 import 'package:e_store_space/models/page.dart';
 import 'package:e_store_space/models/product_category_model.dart';
@@ -230,7 +231,7 @@ class HttpService {
   }
 
 
-  static Future<String> addUserStore
+  static Future<AddStoreModel> addUserStore
       ({String token, String name, String dealType, String description}) async {
     Uri _addUserStore = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/addStore');
     try {
@@ -244,7 +245,8 @@ class HttpService {
         }
       );
       if (response.statusCode == 201) {
-        return jsonDecode(response.body);
+        StaticVariable.addUserDealResponseCode= response.statusCode;
+        return AddStoreModel.fromJson(jsonDecode(response.body));
       }
     }
     catch (e) {

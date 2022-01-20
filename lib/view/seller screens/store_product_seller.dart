@@ -1,5 +1,6 @@
 import 'package:e_store_space/view/product/product_detail_screen.dart';
 import 'package:e_store_space/view/seller%20screens/adding_product.dart';
+import 'package:e_store_space/view/seller%20screens/product_category_screen.dart';
 import 'package:e_store_space/view/seller%20screens/product_detail_seller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -39,7 +40,7 @@ class StoreProductsSeller extends StatelessWidget {
       ),
       floatingActionButton: GestureDetector(
         onTap: (){
-          Get.to(() => AddingProductScreen());
+          Get.to(() => ProductCategoryScreen());
         },
         child: Container(
           height: 40.h,

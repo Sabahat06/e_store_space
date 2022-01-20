@@ -5,19 +5,17 @@ import 'package:get/get.dart';
 
 class UserStoreController extends GetxController{
   AuthController authController = Get.find();
-  UserStore userStore = UserStore();
+  Rx<UserStore> userStore = UserStore().obs;
+  RxBool progressing = false.obs;
 
-  // Future<void> onInit() async {
-  //   loadUserStore();
-  //   // TODO: implement onInit
-  //   super.onInit();
-  // }
   UserStoreController(){
     loadUserStore();
   }
 
 
   loadUserStore() async {
-    userStore = await HttpService.getUserStore(token: authController.user.value.token);
+    progressing.value = true;
+    userStore.value = await HttpService.getUserStore(token: authController.user.value.token);
+    progressing.value = false;
   }
 }

@@ -11,4 +11,5 @@ class StaticVariable{
   static RxString account_status = ''.obs;
   static RxString user_status = ''.obs;
   static RxBool appSettings= false.obs;
+  static int addUserDealResponseCode = 0;
 }

@@ -177,7 +177,8 @@ class AccountScreenTabSeller extends StatelessWidget {
                             onPositiveClick: () {
                               isLogedIn.value = false;
                               authController.logOut();
-                              // Get.back();
+                              bottomBarController.isSeller.value =!bottomBarController.isSeller.value;
+                              Get.back();
                             },
                           );
                         }

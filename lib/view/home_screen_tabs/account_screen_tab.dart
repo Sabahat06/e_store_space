@@ -22,7 +22,6 @@ import 'cart_screen_tab.dart';
 
 class AccountScreenTab extends StatelessWidget {
   BottomBarController bottomBarController = Get.find();
-  UserStoreController userStoreController = UserStoreController();
   AuthController authController = Get.find();
 
   @override

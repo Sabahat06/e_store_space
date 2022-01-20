@@ -1,3 +1,4 @@
+import 'package:e_store_space/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -8,12 +9,22 @@ import 'package:e_store_space/widgets/my_filled_button.dart';
 import 'package:e_store_space/widgets/my_text_field.dart';
 
 class BecomeASeller extends StatelessWidget {
+  AuthController authController = Get.find();
 
-  TextEditingController name = TextEditingController();
-  TextEditingController email = TextEditingController();
-  TextEditingController phone = TextEditingController();
+  TextEditingController name ;
+  TextEditingController email;
+  TextEditingController phone;
   TextEditingController promoCode = TextEditingController();
   TextEditingController message = TextEditingController();
+  TextEditingController type = TextEditingController();
+
+  BecomeASeller(){
+    name = TextEditingController(text: authController.user.value.user.name);
+    email = TextEditingController(text: authController.user.value.user.email);
+    phone = TextEditingController(text: authController.user.value.user.phoneNo);
+  }
+
+  List<String> userTypeValue = ['Seller', "Affiliate"];
 
   RxBool progressing = false.obs;
   @override
@@ -32,6 +43,44 @@ class BecomeASeller extends StatelessWidget {
             child: Column(
               children: [
                 Image.asset('assets/image/appimage.jpeg',width: 150,height: 150,),
+                SizedBox(height: 10.h,),
+                Stack(
+                  alignment: Alignment.centerRight,
+                  children: [
+                    MyTextField(
+                      controller: type,
+                      label: "User Type",
+                      enabled: false,
+                    ),
+                    DropdownButton<String>(
+                      isExpanded: true,
+                      icon: const Padding(
+                        padding: EdgeInsets.only(right: 3.0),
+                        child: Icon(
+                          Icons.arrow_drop_down,
+                          color: Colors.blue,
+                        ),
+                      ),
+                      iconSize: 24,
+                      elevation: 16,
+                      style: TextStyle(color: Colors.blue),
+                      underline: Container(
+                        color: Colors.transparent,
+                      ),
+                      onChanged: (newValue) {
+                        type.text = newValue;
+                        // controller.selectedColony= controller.colonies.firstWhere((element) => element.name == colony.text);
+                      },
+                      items: <String>['Seller', 'Affiliate']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    )
+                  ]
+                ),
                 SizedBox(height: 10.h,),
                 MyTextField(controller: promoCode, label: 'Enter Promo Code', prefixIcon: const IconButton(icon: Icon(Icons.code_outlined, color: Colors.blue,),),),
                 SizedBox(height: 10.h,),
