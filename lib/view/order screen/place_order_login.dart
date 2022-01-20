@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:e_store_space/controller/auth_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,24 +12,28 @@ import 'dart:io' show Platform;
 
 
 class PlaceOrderLoginScreen extends StatelessWidget {
-  // Icon disabledIcon = Icon(Icons.circle,color:Colors.grey);
-  // Icon selectedIcon = Icon(Icons.circle,color:Colors.orange);
-  // Icon enableIcon = Icon(Icons.circle_outlined,color:Colors.orange);
-  //
+  AuthController authController = Get.find();
   PlaceOrderLoginController controller = Get.put(PlaceOrderLoginController());
-  // CartControllerNew cartController = Get.find();
-  // TimeSlotsController slotsController = TimeSlotsController();
-  // AuthController authController = Get.find();
   String totalAmount;
 
   TextEditingController addressController;
   TextEditingController messageController = TextEditingController();
+  TextEditingController name = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController address = TextEditingController();
+  TextEditingController area = TextEditingController();
+  TextEditingController phone = TextEditingController();
+  TextEditingController city = TextEditingController();
+  TextEditingController country = TextEditingController();
   PlaceOrderLoginScreen({this.totalAmount}){
-    // addressController = TextEditingController(text: authController.user.value.address);
+    name = TextEditingController(text: authController.user.value.user.name);
+    email = TextEditingController(text: authController.user.value.user.email);
+    address = TextEditingController(text: authController.user.value.user.address);
+    phone = TextEditingController(text: authController.user.value.user.phoneNo);
+    city = TextEditingController(text: authController.user.value.user.city);
   }
   @override
   Widget build(BuildContext context) {
-    DummyOrderController dummyOrderController = DummyOrderController(context);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () {Get.back();}, color: Colors.white,),
@@ -43,84 +48,73 @@ class PlaceOrderLoginScreen extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      Row(
-                        children: [
-                          Row(
-                            children: const [
-                              Icon(Icons.calendar_today_outlined, size: 20,),
-                              SizedBox(width: 7),
-                              Text('Delivery Day', style: TextStyle(color: Colors.black, fontSize: 16)),
-                            ],
-                          ),
-                          const SizedBox(width: 14,),
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.blue,),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 10),
-                                child: GestureDetector(
-                                  onTap: (){
-                                    controller.selectDate(context);
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Obx(() => Text(controller.deliveryDate.value, style: const TextStyle(fontSize: 16),)),
-                                      const IconButton(
-                                        icon: Icon(
-                                          Icons.reorder_outlined,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-
-                          ),
-                        ],
+                      MyTextField(
+                        prefixIcon: IconButton(icon: Icon(Icons.person_outlined, color: Colors.blue,)),
+                        controller: name,
+                        label: 'Name',
                       ),
-                      const SizedBox(height: 10,),
-                      Row(
-                        children: [
-                          Row(
-                            children: const [
-                              Icon(Icons.watch_later_outlined, size: 20,),
-                              SizedBox(width: 7),
-                              Text('Delivery Time', style: TextStyle(color: Colors.black, fontSize: 16)),
-                            ],
-                          ),
-                          const SizedBox(width: 7,),
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.blue,),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 7),
-                                child: GestureDetector(
-                                  onTap: (){
-                                    // renderDialogBox();
-                                    },
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text("sabahat", style: TextStyle(fontSize: 14.sp),),
-                                      const IconButton(
-                                        icon: Icon(
-                                        Icons.reorder_outlined,
-                                        color: Colors.black,),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                      const SizedBox(height: 10),
+                      MyTextField(
+                        prefixIcon: IconButton(icon: Icon(Icons.email_outlined, color: Colors.blue,)),
+                        controller: email,
+                        label: 'Email',
+                        keyboardType: TextInputType.emailAddress,
+                      ),
+                      const SizedBox(height: 10),
+                      MyTextField(
+                        prefixIcon: IconButton(icon: Icon(Icons.phone_outlined, color: Colors.blue,)),
+                        controller: phone,
+                        label: 'Phone Number',
+                      ),
+                      const SizedBox(height: 10),
+                      TextFormField(
+                        minLines: 2,
+                        // any number you need (It works as the rows for the textarea)
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
+                        controller: address,
+                        decoration: const InputDecoration(
+                          prefixIcon: IconButton(icon: Icon(Icons.home_outlined, color: Colors.blue,)),
+                          fillColor: Colors.blue,
+                          focusColor: Colors.blue,
+                          hoverColor: Colors.blue,
+                          labelText: 'Address',
+                          hintStyle:
+                          TextStyle(color: Colors.black54, fontSize: 12),
+                          labelStyle:
+                          TextStyle(color: Colors.blue, fontSize: 16),
+                          disabledBorder: OutlineInputBorder(
+                              borderSide:
+                              BorderSide(color: Colors.blue)),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide:
+                              BorderSide(color: Colors.blue)),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide:
+                              BorderSide(color: Colors.blue)),
+                          border: OutlineInputBorder(
+                              borderSide:
+                              BorderSide(color: Colors.blue)),
+                          // hintText: label,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      MyTextField(
+                        prefixIcon: IconButton(icon: Icon(Icons.home_outlined, color: Colors.blue,)),
+                        controller: area,
+                        label: 'Area',
+                      ),
+                      const SizedBox(height: 10),
+                      MyTextField(
+                        prefixIcon: IconButton(icon: Icon(Icons.location_city_outlined, color: Colors.blue,)),
+                        controller: city,
+                        label: 'City',
+                      ),
+                      const SizedBox(height: 10),
+                      MyTextField(
+                        prefixIcon: IconButton(icon: Icon(Icons.location_city_outlined, color: Colors.blue,)),
+                        controller: country,
+                        label: 'Country',
                       ),
                       const SizedBox(height: 10,),
                       Container(
@@ -133,7 +127,7 @@ class PlaceOrderLoginScreen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Center(child: Text('Billing Address', style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),),),
+                              const Center(child: Text('Shipping Address', style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),),),
                               const SizedBox(height: 5,),
                               const Divider(color: Colors.grey,),
                               const SizedBox(height: 5,),
@@ -184,7 +178,6 @@ class PlaceOrderLoginScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-
                       const SizedBox(height: 10,),
                       Container(
                         decoration: BoxDecoration(
@@ -199,12 +192,10 @@ class PlaceOrderLoginScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-
                     ],
                   ),
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsets.all(3.0),
                 child: GestureDetector(
