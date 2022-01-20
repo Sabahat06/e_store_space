@@ -1,3 +1,4 @@
+import 'package:carousel_pro/carousel_pro.dart';
 import 'package:e_store_space/controller/product_category_controller.dart';
 import 'package:e_store_space/models/product_category_model.dart';
 import 'package:e_store_space/view/product/product_detail_screen.dart';
@@ -19,7 +20,12 @@ import 'package:e_store_space/widgets/my_category_box.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreenTab extends StatelessWidget {
-
+  RxInt currentIndex = 0.obs;
+  RxList<String> splashData = [
+    "assets/image/shirt.jpg",
+    "assets/image/logo.png",
+    "assets/image/shoes.jpg"
+  ].obs;
   TextEditingController searchController = TextEditingController();
   BottomBarController bottomBarController = Get.find();
   ProductCategoryController controller = Get.find();
@@ -33,7 +39,30 @@ class HomeScreenTab extends StatelessWidget {
               SliverAppBar(
                 expandedHeight: 210.0.h,
                 flexibleSpace: FlexibleSpaceBar(
-                  background: Image.asset("assets/image/shirt.jpg", fit: BoxFit.cover,),
+                  background: Carousel(
+                    dotSize: 5,
+                    autoplayDuration: Duration(seconds: 3),
+                    dotSpacing: 10,
+                    autoplay: true,
+                    dotColor: Colors.white,
+                    dotIncreasedColor: Colors.blue,
+                    indicatorBgPadding: 5,
+                    dotBgColor: Colors.transparent,
+                    dotVerticalPadding: 5,
+                    images: <Widget>[
+                      for(var i=0; i<splashData.length; i++)
+                        Container(
+                          margin:
+                          const EdgeInsets.only(top: 0.0, left: 0.0),
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(splashData[i],),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                    ]
+                  ),
                 ),
               ),
               SliverAppBar(
@@ -171,5 +200,52 @@ class HomeScreenTab extends StatelessWidget {
       ),
     );
   }
+
+  splashContent(String image,int index){
+    return Stack(
+      alignment: Alignment.bottomCenter,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              image:
+              DecorationImage(image: AssetImage(image), fit: BoxFit.contain)),
+          width: Get.width * 0.9,
+          height: 150,
+        ),
+        Container(
+          height: 8,
+          child: ListView.builder(
+            itemCount: splashData.value.length,
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              return splashDot(index);
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  splashDot(int index){
+    return Obx(
+          () => Row(
+        children: [
+          Container(
+            width: 5,
+            height: 5,
+            decoration: BoxDecoration(
+                color: currentIndex.value == index ? Colors.orange :Colors.grey,
+                borderRadius: BorderRadius.circular(20)
+            ),
+            child: const SizedBox(width: 5,),
+          ),
+          const SizedBox(width: 5,),
+        ],
+      ),
+    );
+  }
+
 
 }

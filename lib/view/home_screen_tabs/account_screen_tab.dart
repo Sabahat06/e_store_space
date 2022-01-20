@@ -54,9 +54,10 @@ class AccountScreenTab extends StatelessWidget {
                         ),
                         Obx(
                           () => IconButton(
-                            onPressed: () {
-                              if(!bottomBarController.isSeller.value){
-                                UserStoreController userStoreController = UserStoreController();
+                            onPressed: () async {
+                              if(bottomBarController.isSeller.value){
+                                // UserStoreController userStoreController = UserStoreController();
+                                // userStoreController.userStore = await HttpService.getUserStore(token: authController.user.value.token);
                                 bottomBarController.isSeller.value =!bottomBarController.isSeller.value;
                               }
                               else{

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   WishListController wishListController = Get.find();
@@ -128,10 +129,29 @@ class ProductDetailsScreen extends StatelessWidget {
                                     ],
                                   ),
                                   isExpanded.value
-                                    ? Container(
-                                        width: 250.w,
-                                        child: Text(productDetailsModel.productDetails.description),
-                                      )
+                                    ? Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          width: 220.w,
+                                          child: Text(productDetailsModel.productDetails.description),
+                                        ),
+                                        const SizedBox(height: 7,),
+                                        Row(
+                                          children: [
+                                            SmoothStarRating(
+                                              color: Colors.purpleAccent,
+                                              rating: double.parse(productDetailsModel.rating),
+                                              size: 15,
+                                              isReadOnly: true,
+                                              borderColor: Colors.purpleAccent,
+                                            ),
+                                            const SizedBox(width: 7,),
+                                            Text(double.parse(productDetailsModel.rating).toStringAsFixed(1), style: TextStyle(fontSize: 15, color: Colors.black54),),
+                                          ],
+                                        ),
+                                      ],
+                                    )
                                     : Container()
                                 ],
                               ),
@@ -143,20 +163,31 @@ class ProductDetailsScreen extends StatelessWidget {
                                   ),
                                   color: Colors.transparent
                                 ),
-                                width: 60.w,
+                                width: 85.w,
                                 height: 60.h,
                                 child: Center(
-                                  child: IconButton(
-                                    icon: Icon(
-                                      wishListController.items.any((element) => element.productDetails.id==productDetailsModel.productDetails.id)
-                                          ? Icons.favorite
-                                          : Icons.favorite_border,
-                                      color: Colors.red,
-                                      size: 30,
-                                    ),
-                                    onPressed: (){
-                                      wishListController.addOrRemoveItem(productDetailsModel);
-                                    },
+                                  child: Row(
+                                    children: [
+                                      IconButton(
+                                        icon: Icon(
+                                          wishListController.items.any((element) => element.productDetails.id==productDetailsModel.productDetails.id)
+                                              ? Icons.favorite
+                                              : Icons.favorite_border,
+                                          color: Colors.red,
+                                          size: 30,
+                                        ),
+                                        onPressed: (){
+                                          wishListController.addOrRemoveItem(productDetailsModel);
+                                        },
+                                      ),
+                                      IconButton(
+                                        icon: Icon(
+                                          Icons.share_outlined,
+                                          color: Colors.red,
+                                          size: 30,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                   // Icon(
                                   //   Icons.favorite, size: 30, color: Colors.red,
@@ -272,7 +303,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                                   height: 25.h,
                                                   decoration: BoxDecoration(
                                                       borderRadius: BorderRadius.circular(20.r),
-                                                      color: Colors.transparent
+                                                      color: Colors.white
                                                   ),
                                                   child: Icon(Icons.remove, size: 20.w, color: Colors.blue,),
                                                 ),
@@ -289,7 +320,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                                   height: 25.h,
                                                   decoration: BoxDecoration(
                                                     borderRadius: BorderRadius.circular(20.r),
-                                                    color: Colors.transparent
+                                                    color: Colors.white
                                                   ),
                                                   child: Icon(Icons.add, size: 25.w, color: Colors.blue,),
                                                 ),

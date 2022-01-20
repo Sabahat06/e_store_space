@@ -4,6 +4,7 @@ import 'package:e_store_space/view/product/product_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:e_store_space/controller/product_controller.dart';
 
 
@@ -63,7 +64,7 @@ class ProductScreen extends StatelessWidget {
                       image: NetworkImage("https://spinningsoft.co/projects/eStoreSpace/admin/images/product/${products.picture}"),
                       fit: BoxFit.cover
                   ),
-                  borderRadius: BorderRadius.circular(15.r),
+                  borderRadius: BorderRadius.circular(10.r),
                   border: Border.all(color: Colors.blue,width: 2),
                   color: Colors.lightGreen
               ),
@@ -76,24 +77,43 @@ class ProductScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.black54,
                 borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(15.r),
-                    bottomLeft: Radius.circular(15.r)
+                    bottomRight: Radius.circular(10.r),
+                    bottomLeft: Radius.circular(10.r)
                 ),
               ),
               child: Padding(
                 padding: EdgeInsets.only(left:15.0.w, right: 10.0.w),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 10.h,),
-                        Text(products.name, style: const TextStyle(color: Colors.white),),
-                        Text(products.price, style: const TextStyle(color: Colors.white),),
+                        const SizedBox(height: 5,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            SmoothStarRating(
+                              color: Colors.yellow,
+                              rating: double.parse(products.rating),
+                              size: 15,
+                              isReadOnly: true,
+                              borderColor: Colors.yellow,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 5,),
+                        Row(
+
+                          children: [
+                            Text(products.name, style: const TextStyle(color: Colors.white, fontSize: 15),),
+                            const SizedBox(width: 50,),
+                            Text(products.price, style: const TextStyle(color: Colors.white, fontSize: 15),),
+                          ],
+                        ),
                       ],
                     ),
-                    Text(double.parse(products.rating).toStringAsFixed(1), style: TextStyle(color: Colors.white),),
+                    // Text(double.parse(products.rating).toStringAsFixed(1), style: TextStyle(color: Colors.white),),
                   ],
                 ),
               ),
