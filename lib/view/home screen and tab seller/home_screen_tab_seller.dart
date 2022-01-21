@@ -122,7 +122,12 @@ class HomeScreenTabSeller extends StatelessWidget {
               Obx(
                 () => userStoreController.userStore.value.store == null || userStoreController.userStore.value.store.length == 0
                       ? SliverList(delegate: SliverChildListDelegate([
-                          Center(child: Text('No Deal Added Yet Add Some', style: TextStyle(fontSize: 16.sp,),),)
+                          Center(child: Column(
+                            children: [
+                              SizedBox(height: 200,),
+                              Text('No Deal Added Yet Add Some', style: TextStyle(fontSize: 16.sp,),),
+                            ],
+                          ),)
                        ]))
                       : SliverList(
                   delegate: SliverChildListDelegate([

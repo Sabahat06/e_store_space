@@ -3,6 +3,7 @@ import 'package:e_store_space/controller/product_detials_controller.dart';
 import 'package:e_store_space/controller/wish_list_controller.dart';
 import 'package:e_store_space/models/cart/new_cart_model.dart';
 import 'package:e_store_space/models/product_detail.dart';
+import 'package:e_store_space/view/product/review_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -139,12 +140,15 @@ class ProductDetailsScreen extends StatelessWidget {
                                         const SizedBox(height: 7,),
                                         Row(
                                           children: [
-                                            SmoothStarRating(
-                                              color: Colors.purpleAccent,
-                                              rating: double.parse(productDetailsModel.rating),
-                                              size: 15,
-                                              isReadOnly: true,
-                                              borderColor: Colors.purpleAccent,
+                                            GestureDetector(
+                                              onTap: () {Get.to(() => ReviewsScreen(ratings: productDetailsModel.productDetails.ratings, productName: productDetailsModel.productDetails.name,));},
+                                              child: SmoothStarRating(
+                                                color: Colors.purpleAccent,
+                                                rating: double.parse(productDetailsModel.rating),
+                                                size: 15,
+                                                isReadOnly: true,
+                                                borderColor: Colors.purpleAccent,
+                                              ),
                                             ),
                                             const SizedBox(width: 7,),
                                             Text(double.parse(productDetailsModel.rating).toStringAsFixed(1), style: TextStyle(fontSize: 15, color: Colors.black54),),

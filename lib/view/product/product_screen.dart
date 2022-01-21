@@ -30,13 +30,15 @@ class ProductScreen extends StatelessWidget {
       body: Obx(
         () => productController.progressing.value
             ? const Center(child: CircularProgressIndicator())
-            : GridView.builder(
+            : productController.productsModal.value.products.length == 0 || productController.productsModal.value.products==null
+            ? const Center(child: Text('There is No Product in this Category', style: TextStyle(fontSize: 18, color: Colors.black),),)
+            : ListView.builder(
             itemCount: productController.productsModal.value.products.length,
             shrinkWrap: true,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 1.1
-            ),
+            // gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            //     crossAxisCount: 2,
+            //     mainAxisSpacing: 1.1
+            // ),
             itemBuilder: (BuildContext context, int index) {
               return renderingProduct(index, productController.productsModal.value.products[index]);
             }
@@ -47,7 +49,7 @@ class ProductScreen extends StatelessWidget {
 
   renderingProduct(int index, Products products) {
     return Padding(
-      padding: EdgeInsets.all(10.0.w),
+      padding: EdgeInsets.all(10),
       child: GestureDetector(
         onTap: () async {
           productController.progressing.value = true;
@@ -55,73 +57,130 @@ class ProductScreen extends StatelessWidget {
           productController.progressing.value = false;
           Get.to(() => ProductDetailsScreen(productDetailsModel: productController.productDetailsModel.value,));
         },
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
+        child: Card(
+          elevation: 1,
+          child: Container(
+            width: double.infinity,
+            height: 90,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.white
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: 90,
+                  height: 90,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                    image: DecorationImage(
                       image: NetworkImage("https://spinningsoft.co/projects/eStoreSpace/admin/images/product/${products.picture}"),
                       fit: BoxFit.cover
+                    )
                   ),
-                  borderRadius: BorderRadius.circular(10.r),
-                  border: Border.all(color: Colors.blue,width: 2),
-                  color: Colors.lightGreen
-              ),
-              height: 230.h,
-              width: 190.w,
-            ),
-            Container(
-              height: 45.h,
-              width: 190.w,
-              decoration: BoxDecoration(
-                color: Colors.black54,
-                borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(10.r),
-                    bottomLeft: Radius.circular(10.r)
                 ),
-              ),
-              child: Padding(
-                padding: EdgeInsets.only(left:15.0.w, right: 10.0.w),
-                child: Row(
-                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                const SizedBox(width: 20,),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 5,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            SmoothStarRating(
-                              color: Colors.yellow,
-                              rating: double.parse(products.rating),
-                              size: 15,
-                              isReadOnly: true,
-                              borderColor: Colors.yellow,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 5,),
-                        Row(
-
-                          children: [
-                            Text(products.name, style: const TextStyle(color: Colors.white, fontSize: 15),),
-                            const SizedBox(width: 50,),
-                            Text(products.price, style: const TextStyle(color: Colors.white, fontSize: 15),),
-                          ],
-                        ),
-                      ],
-                    ),
-                    // Text(double.parse(products.rating).toStringAsFixed(1), style: TextStyle(color: Colors.white),),
+                    Text(products.name, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),),
+                    const SizedBox(height: 3,),
+                    Text(products.price, style: const TextStyle(fontSize: 14, color: Colors.black45),),
+                    const SizedBox(height: 3,),
+                    SmoothStarRating(
+                      color: Colors.purpleAccent,
+                      rating: double.parse(products.rating),
+                      size: 15,
+                      isReadOnly: true,
+                      borderColor: Colors.purpleAccent,
+                    )
                   ],
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
+
+    // return Padding(
+    //   padding: EdgeInsets.all(10.0.w),
+    //   child: GestureDetector(
+    //     onTap: () async {
+    //       productController.progressing.value = true;
+    //       productController.productDetailsModel.value = await HttpService.getProductDetails(products.id.toString());
+    //       productController.progressing.value = false;
+    //       Get.to(() => ProductDetailsScreen(productDetailsModel: productController.productDetailsModel.value,));
+    //     },
+    //     child: Stack(
+    //       alignment: Alignment.bottomCenter,
+    //       children: [
+    //         Container(
+    //           decoration: BoxDecoration(
+    //               image: DecorationImage(
+    //                   image: NetworkImage("https://spinningsoft.co/projects/eStoreSpace/admin/images/product/${products.picture}"),
+    //                   fit: BoxFit.cover
+    //               ),
+    //               borderRadius: BorderRadius.circular(10.r),
+    //               border: Border.all(color: Colors.blue,width: 2),
+    //               color: Colors.lightGreen
+    //           ),
+    //           height: 230.h,
+    //           width: 190.w,
+    //         ),
+    //         Container(
+    //           height: 45.h,
+    //           width: 190.w,
+    //           decoration: BoxDecoration(
+    //             color: Colors.black54,
+    //             borderRadius: BorderRadius.only(
+    //                 bottomRight: Radius.circular(10.r),
+    //                 bottomLeft: Radius.circular(10.r)
+    //             ),
+    //           ),
+    //           child: Padding(
+    //             padding: EdgeInsets.only(left:15.0.w, right: 10.0.w),
+    //             child: Row(
+    //               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //               children: [
+    //                 Column(
+    //                   crossAxisAlignment: CrossAxisAlignment.start,
+    //                   children: [
+    //                     const SizedBox(height: 5,),
+    //                     Row(
+    //                       mainAxisAlignment: MainAxisAlignment.end,
+    //                       children: [
+    //                         SmoothStarRating(
+    //                           color: Colors.yellow,
+    //                           rating: double.parse(products.rating),
+    //                           size: 15,
+    //                           isReadOnly: true,
+    //                           borderColor: Colors.yellow,
+    //                         ),
+    //                       ],
+    //                     ),
+    //                     const SizedBox(height: 5,),
+    //                     Row(
+    //
+    //                       children: [
+    //                         Text(products.name, style: const TextStyle(color: Colors.white, fontSize: 15),),
+    //                         const SizedBox(width: 50,),
+    //                         Text(products.price, style: const TextStyle(color: Colors.white, fontSize: 15),),
+    //                       ],
+    //                     ),
+    //                   ],
+    //                 ),
+    //                 // Text(double.parse(products.rating).toStringAsFixed(1), style: TextStyle(color: Colors.white),),
+    //               ],
+    //             ),
+    //           ),
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // );
   }
 
 }
