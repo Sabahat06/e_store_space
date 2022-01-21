@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:device_info/device_info.dart';
+import 'package:e_store_space/statics/static_var.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -46,11 +47,16 @@ class AuthController extends GetxController{
           password,
       );
       progressing.value = false;
-      User.saveUserToCache(response);
-      user.value = response;
-      // pref.setString('userId',response.user.id.toString());
-      isLogedIn.value = true;
-      Get.off(HomePage());
+      if(StaticVariable.loginResponseCode == 200){
+        User.saveUserToCache(response);
+        user.value = response;
+        Fluttertoast.showToast(msg: 'You have successfully logged in to app');
+        isLogedIn.value = true;
+        Get.off(HomePage());
+      }
+      else{
+        Fluttertoast.showToast(msg: 'Invalid Credential');
+      }
   }
 
   logOut(){

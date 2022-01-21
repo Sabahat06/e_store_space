@@ -118,6 +118,7 @@ class HttpService {
         },
       );
       if (response.statusCode == 200) {
+        StaticVariable.loginResponseCode= response.statusCode;
         return AuthResponse.fromJson(jsonDecode(response.body)) ;
 
       } else {

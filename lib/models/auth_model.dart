@@ -32,6 +32,12 @@ class User {
   // String area='';
   // String country='';
   String picture='';
+  String refrancePromoCode='';
+  String promoCode;
+  String affiliate;
+  String seller;
+  String message='';
+  String status;
   String createdAt;
   String updatedAt;
   String deletedAt='';
@@ -45,6 +51,12 @@ class User {
         this.address,
         this.city,
         this.picture,
+        this.refrancePromoCode,
+        this.promoCode,
+        this.affiliate,
+        this.seller,
+        this.message,
+        this.status,
         this.createdAt,
         this.updatedAt,
         this.deletedAt,
@@ -56,13 +68,19 @@ class User {
     id = json['id'];
     name = json['name'];
     email = json['email'];
-    emailVerifiedAt = json['email_verified_at']??'';
+    emailVerifiedAt = json['email_verified_at']??"";
     phoneNo = json['phone_no'];
     address = json['address'];
     city = json['city'];
     // area = json['area']??"";
     // country = json['country']??"";
     picture = json['picture']??"";
+    refrancePromoCode = json['refrance_promo_code']??"";
+    promoCode = json['promo_code'];
+    affiliate = json['affiliate'];
+    seller = json['seller'];
+    message = json['message']??"";
+    status = json['status'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     deletedAt = json['deleted_at']??"";
@@ -78,6 +96,12 @@ class User {
     data['address'] = this.address;
     data['city'] = this.city;
     data['picture'] = this.picture;
+    data['refrance_promo_code'] = this.refrancePromoCode;
+    data['promo_code'] = this.promoCode;
+    data['affiliate'] = this.affiliate;
+    data['seller'] = this.seller;
+    data['message'] = this.message;
+    data['status'] = this.status;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     data['deleted_at'] = this.deletedAt;

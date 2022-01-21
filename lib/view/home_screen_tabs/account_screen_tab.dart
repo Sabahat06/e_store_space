@@ -152,7 +152,7 @@ class AccountScreenTab extends StatelessWidget {
                             Container(
                               width: Get.width-65,
                               child: const Text(
-                                'Account Details',
+                                'Profile',
                                 style: TextStyle(
                                     fontSize: 20,
                                     color: Colors.black
