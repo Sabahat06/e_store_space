@@ -7,11 +7,9 @@ import 'package:e_store_space/models/product_model.dart';
 
 
 class CartControllerNew extends GetxController {
-  Cart cart = Cart(items:  <Item>[].obs,);
-  RxInt colorCodeid = 0.obs;
 
   RxList<Item> items = <Item>[].obs;
-
+  RxInt colorCodeid = 0.obs;
   RxDouble totalAmount = 0.0.obs;
   RxInt totalPrice = 0.obs;
   RxInt amount = 1.obs;
@@ -23,19 +21,18 @@ class CartControllerNew extends GetxController {
   RxString currentChoiceColorName=''.obs;
 
 
-  // clearCart(){
-  //   Mapped.deleteFileDirectly(cachedFileName: "Cart");
-  //   for (int i = 0; i < cart.items.length; i++) {
-  //     cart.items[i].quantity.value = 0;
-  //   }
-  //   cart.items.clear();
-  //   cart.items.value = [];
-  // }
+  clearCart(){
+    for (int i = 0; i < items.length; i++) {
+      items[i].quantity.value = 0;
+    }
+    items.clear();
+    items.value = [];
+  }
 
 
  int  calculateTotalItems(){
     int total=0;
-    cart.items.forEach((item) {
+    items.forEach((item) {
       total=total+item.quantity.value;
     });
     totalItems.value = total;

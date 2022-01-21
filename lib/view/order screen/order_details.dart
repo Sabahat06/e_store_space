@@ -13,24 +13,11 @@ import 'package:url_launcher/url_launcher.dart';
 
 
 class OrderDetailScreen extends StatelessWidget {
-  Orders order;
-  OrderDetailScreen({this.order});
+  // OrderDetailScreen({this.order});
 
   @override
   Widget build(BuildContext context) {
-    // Color labelColor = Colors.black54;
-    // if(order.status== "Completed")
-    // {
-    //   labelColor = ColorPalette.green;
-    // }
-    // if(order.status== "Pending")
-    // {
-    //   labelColor = ColorPalette.orange;
-    // }
-    // if(order.status== "Cancelled")
-    // {
-    //   labelColor = Colors.red;
-    // }
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

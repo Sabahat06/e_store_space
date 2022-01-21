@@ -1,3 +1,6 @@
+import 'package:e_store_space/models/order_history_model.dart';
+import 'package:e_store_space/services/http_services.dart';
+import 'package:e_store_space/view/account_screens/order_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -9,6 +12,7 @@ import 'package:e_store_space/widgets/my_label.dart';
 
 
 class OrderHistoryScreen extends StatelessWidget {
+  AuthController authController = Get.find();
   OrderHistoryController controller = OrderHistoryController();
 
   @override
@@ -25,102 +29,84 @@ class OrderHistoryScreen extends StatelessWidget {
         leadingWidth: 30,
         title: const Text('Orders History', style: TextStyle(color: Colors.white),),
       ),
-      body:
-      // authController.user.value.id == null?const Center(child:  Text('Please login to see you history'),):
-
-      Container(
-        child: Padding(
+      body: Obx(
+        () => controller.progressing.value
+            ? Center(child: CircularProgressIndicator(),)
+            : controller.orderHistoryModal.orderHistory == null || controller.orderHistoryModal.orderHistory.length == 0
+            ? Center(child: Text('You Have No Order Yet', style: TextStyle(fontSize: 18, color: Colors.black),),)
+            : Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              SizedBox(height: 10.h,),
-              Container(
-                height: Get.height-190.h,
-                child: ListView.builder(
-                  itemCount: 10,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 10.h,),
+                ListView.builder(
+                  itemCount: controller.orderHistoryModal.orderHistory.length,
                   shrinkWrap: true,
-                  itemBuilder: (context, index)=> renderListItem(),
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index,)=> renderListItem(controller.orderHistoryModal.orderHistory[index]),
                 ),
-              ),
-//                ...controller.orderHistoryList.map((order) => renderListItem(order)).toList(),
-            ],
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  renderListItem(
-      // Orders order
-      ){
-    // Color labelColor = Colors.black54;
-    // if(order.status== "Completed")
-    // {
-    //   labelColor = ColorPalette.green;
-    // }
-    // if(order.status== "Pending")
-    // {
-    //   labelColor = ColorPalette.orange;
-    // }
-    // if(order.status== "Cancelled")
-    // {
-    //   labelColor = Colors.red;
-    // }
+  renderListItem(OrderHistory order){
     return GestureDetector(
-      onTap: (){
-        // Get.to(OrderStatusScreen());
+      onTap: () async {
+        controller.progressing.value = true;
+        controller.orderDetailModel = await HttpService.getOrderDetails(order.id.toString(), authController.user.value.token);
+        controller.progressing.value = false;
+        Get.to(OrderDetailScreen(controller.orderDetailModel));
       },
-      child: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            height: 110.h,
-            decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
-                    spreadRadius: 2,
-                    blurRadius: 3,
-                    offset: Offset(0, 3), // changes position of shadow
-                  ),
-                ],
-                border: Border.all(color: Colors.grey[800]),
-                borderRadius: BorderRadius.circular(10)
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Order ID # 01', style: TextStyle(fontSize: 18.sp, color: Colors.black),),
-                  SizedBox(height: 12.h,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Created On:', style: TextStyle(fontSize: 18.sp, color: Colors.black),),
-                      Text("01-01-2022", style: TextStyle(fontSize: 18.sp, color: Colors.black),),
-                    ],
-                  ),
-                  SizedBox(height: 12.h,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("label", style: TextStyle(fontSize: 18.sp, color: Colors.black),),
-                      MyLabel(
-                        label: "Order Status",
-                        backGroundColor: Colors.blue,
-                        // height: 35,
-                        // width: 100,
-                        borderRadius: 5,
-                      )
-                    ],
-                  ),
-                ],
+      child: Card(
+        elevation: 2,
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              height: 110.h,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(0),
+                color: Colors.white
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Order ID # ${order.id}', style: TextStyle(fontSize: 18.sp, color: Colors.black),),
+                    SizedBox(height: 12.h,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Created On:', style: TextStyle(fontSize: 18.sp, color: Colors.black),),
+                        Text(order.deliveryDate, style: TextStyle(fontSize: 18.sp, color: Colors.black),),
+                      ],
+                    ),
+                    SizedBox(height: 12.h,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Price: ${order.price}", style: TextStyle(fontSize: 18.sp, color: Colors.black),),
+                        MyLabel(
+                          label: order.status,
+                          backGroundColor: Colors.blue,
+                          // height: 35,
+                          // width: 100,
+                          borderRadius: 5,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          SizedBox(height: 10.h,),
-        ],
+          ],
+        ),
       ),
     );
   }

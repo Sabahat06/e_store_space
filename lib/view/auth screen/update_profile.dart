@@ -112,23 +112,23 @@ class UpdateProfile extends StatelessWidget {
                           oldPassword: oldPassword.text,
                           newPassword: newPassword.text
                         );
-                        authController.progressing.value = false;
+                      authController.progressing.value = false;
+                      if(StaticVariable.placeOrderResponseCode == 201){
                         authController.user.value.user.name = name.text;
                         authController.user.value.user.email = email.text;
                         authController.user.value.user.phoneNo = phone.text;
                         authController.user.value.user.city = city.text;
                         authController.user.value.user.address = address.text;
                         authController.updateUser(authController.user.value);
+                        Fluttertoast.showToast(msg: 'Your Profile has been Updated');
+                        Get.back();
                       }
-                      // if(response['password_status']=='success'){
-                      //   authController.user.value.password = newPassword.text;
-                      //   authController.updateUser(authController.user.value);
-                      // }
-                      Fluttertoast.showToast(msg: 'Your Profile has been Updated');
-                      Get.back();
+                       else{
+                        Fluttertoast.showToast(msg: 'Your Profile has not been Updated');
+                      }
+                      }
                     },
                     txt: 'Save Details',
-                    borderRadius: 10.r,
                     color: Colors.blue,
                   ),
                 ],

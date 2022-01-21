@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:e_store_space/models/add_store_model.dart';
 import 'package:e_store_space/models/auth_model.dart';
+import 'package:e_store_space/models/order_detail_model.dart';
 import 'package:e_store_space/models/page.dart';
 import 'package:e_store_space/models/product_category_model.dart';
 import 'package:e_store_space/models/product_detail.dart';
@@ -120,7 +121,6 @@ class HttpService {
       if (response.statusCode == 200) {
         StaticVariable.loginResponseCode= response.statusCode;
         return AuthResponse.fromJson(jsonDecode(response.body)) ;
-
       } else {
         return null;
       }
@@ -147,6 +147,7 @@ class HttpService {
         },
       );
       if (response.statusCode == 201) {
+        StaticVariable.registerResponseCode = response.statusCode;
         return AuthResponse.fromJson(jsonDecode(response.body)) ;
 
       } else {
@@ -203,6 +204,7 @@ class HttpService {
         },
       );
       if (response.statusCode == 201) {
+        StaticVariable.updateProfileResponseCode = response.statusCode;
         return jsonDecode(response.body)['message'];
 
       } else
@@ -210,6 +212,35 @@ class HttpService {
     }
     catch (e) {
       return "Some error accoured";
+    }
+  }
+
+
+  static Future<String> placeOrderForLoginCustomer({String token, String customerID,String country, String phone, String area, String city ,String name,String email,String orderNotes,String address, String amount, List<PlaceOrderDetailModal> orderDetails}) async {
+    try {
+      Uri _placeOrder = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/addOrder');
+      var response = await http.post(
+        _placeOrder,
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: {
+          'user_id': customerID,
+          'price' : amount,
+          'shaping_address' : address,
+          'product' : jsonEncode(orderDetails),
+        },
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        StaticVariable.placeOrderResponseCode = response.statusCode;
+        return jsonDecode(response.body);
+      } else
+        Fluttertoast.showToast(msg: "Your Order is not placed");
+    }
+    catch (e) {
+      print(e);
+      return null;
     }
   }
 
@@ -283,6 +314,42 @@ class HttpService {
     }
   }
 
+  static Future<OrderHistoryModel> getOrderHistory
+      ({String token}) async {
+    Uri _getOrderHistory = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/getOrderHistory');
+    try {
+      var response = await http.get(
+        _getOrderHistory,
+        headers: {'Authorization': 'Bearer $token'},
+      );
+      if (response.statusCode == 200) {
+        return OrderHistoryModel.fromJson(jsonDecode(response.body));
+      }
+    }
+    catch (e) {
+      return null;
+    }
+  }
+
+  static Future<OrderDetailModel> getOrderDetails(
+      String orderId, String token) async {
+    Uri _uriGetOrderDetails = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/getOrderDetails/${orderId}');
+    try {
+      var response = await http.get(
+        _uriGetOrderDetails,
+        headers: {'Authorization': 'Bearer $token'},
+      );
+      if (response.statusCode == 200) {
+        return OrderDetailModel.fromJson(jsonDecode(response.body));
+
+      } else {
+        return null;
+      }
+    }
+    catch (e) {
+      return null;
+    }
+  }
 
   static Future<List<SearchProduct>> searchProduct
       (String searchString) async {

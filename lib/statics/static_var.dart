@@ -13,4 +13,7 @@ class StaticVariable{
   static RxBool appSettings= false.obs;
   static int loginResponseCode = 0;
   static int addUserDealResponseCode = 0;
+  static int registerResponseCode = 0;
+  static int placeOrderResponseCode = 0;
+  static int updateProfileResponseCode = 0;
 }

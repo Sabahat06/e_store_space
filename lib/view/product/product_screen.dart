@@ -86,13 +86,13 @@ class ProductScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(products.name, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),),
-                    const SizedBox(height: 3,),
+                    const SizedBox(height: 5,),
                     Text(products.price, style: const TextStyle(fontSize: 14, color: Colors.black45),),
-                    const SizedBox(height: 3,),
+                    const SizedBox(height: 5,),
                     SmoothStarRating(
                       color: Colors.purpleAccent,
                       rating: double.parse(products.rating),
-                      size: 15,
+                      size: 18,
                       isReadOnly: true,
                       borderColor: Colors.purpleAccent,
                     )
@@ -104,83 +104,6 @@ class ProductScreen extends StatelessWidget {
         ),
       ),
     );
-
-    // return Padding(
-    //   padding: EdgeInsets.all(10.0.w),
-    //   child: GestureDetector(
-    //     onTap: () async {
-    //       productController.progressing.value = true;
-    //       productController.productDetailsModel.value = await HttpService.getProductDetails(products.id.toString());
-    //       productController.progressing.value = false;
-    //       Get.to(() => ProductDetailsScreen(productDetailsModel: productController.productDetailsModel.value,));
-    //     },
-    //     child: Stack(
-    //       alignment: Alignment.bottomCenter,
-    //       children: [
-    //         Container(
-    //           decoration: BoxDecoration(
-    //               image: DecorationImage(
-    //                   image: NetworkImage("https://spinningsoft.co/projects/eStoreSpace/admin/images/product/${products.picture}"),
-    //                   fit: BoxFit.cover
-    //               ),
-    //               borderRadius: BorderRadius.circular(10.r),
-    //               border: Border.all(color: Colors.blue,width: 2),
-    //               color: Colors.lightGreen
-    //           ),
-    //           height: 230.h,
-    //           width: 190.w,
-    //         ),
-    //         Container(
-    //           height: 45.h,
-    //           width: 190.w,
-    //           decoration: BoxDecoration(
-    //             color: Colors.black54,
-    //             borderRadius: BorderRadius.only(
-    //                 bottomRight: Radius.circular(10.r),
-    //                 bottomLeft: Radius.circular(10.r)
-    //             ),
-    //           ),
-    //           child: Padding(
-    //             padding: EdgeInsets.only(left:15.0.w, right: 10.0.w),
-    //             child: Row(
-    //               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //               children: [
-    //                 Column(
-    //                   crossAxisAlignment: CrossAxisAlignment.start,
-    //                   children: [
-    //                     const SizedBox(height: 5,),
-    //                     Row(
-    //                       mainAxisAlignment: MainAxisAlignment.end,
-    //                       children: [
-    //                         SmoothStarRating(
-    //                           color: Colors.yellow,
-    //                           rating: double.parse(products.rating),
-    //                           size: 15,
-    //                           isReadOnly: true,
-    //                           borderColor: Colors.yellow,
-    //                         ),
-    //                       ],
-    //                     ),
-    //                     const SizedBox(height: 5,),
-    //                     Row(
-    //
-    //                       children: [
-    //                         Text(products.name, style: const TextStyle(color: Colors.white, fontSize: 15),),
-    //                         const SizedBox(width: 50,),
-    //                         Text(products.price, style: const TextStyle(color: Colors.white, fontSize: 15),),
-    //                       ],
-    //                     ),
-    //                   ],
-    //                 ),
-    //                 // Text(double.parse(products.rating).toStringAsFixed(1), style: TextStyle(color: Colors.white),),
-    //               ],
-    //             ),
-    //           ),
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    // );
   }
 
 }

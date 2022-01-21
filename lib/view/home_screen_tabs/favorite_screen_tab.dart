@@ -5,13 +5,6 @@ import 'package:e_store_space/widgets/AlertDialogeWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:e_store_space/controller/cart/shop_cart_screen_controller.dart';
-import 'package:e_store_space/controller/cart_controller.dart';
-import 'package:e_store_space/controller/page_controller.dart';
-import 'package:e_store_space/models/sub_category_model.dart';
-import 'package:e_store_space/settings/color_palates.dart';
-import 'package:e_store_space/view/product/product_screen.dart';
-import 'package:e_store_space/widgets/my_appbar.dart';
 
 class FavoriteScreenTab extends StatelessWidget {
   BottomBarController bottomBarController = Get.find();
@@ -51,84 +44,79 @@ class FavoriteScreenTab extends StatelessWidget {
   MyProduct(ProductDetailsModel product, BuildContext context){
     return Padding(
       padding: EdgeInsets.only(left: 8.0.w, right: 8.0.w, top: 8.0.w, bottom: 8.0.w),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(7.0.r),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.red.shade200,
-              blurRadius: 4.0,
-              spreadRadius: 1.0,
-              offset: Offset(2.0, 2.0),
-            )
-          ],
-        ),
+      child: Card(
+        elevation: 2,
         child: Container(
-            height: 90.h,
-            child: Padding(
-              padding: EdgeInsets.only(left: 8.0.w, right: 8.0.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                      height: 75.h,
-                      width: 75.w,
-                      child: Image.network("https://spinningsoft.co/projects/eStoreSpace/admin/images/product/${product.productDetails.picture}")
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(product.productDetails.name, style: TextStyle(color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.bold),),
-                      SizedBox(height: 5.h,),
-                      Text(product.productDetails.price, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, color: Colors.blue),),
-                    ],
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      controller.items.any((element) => element.productDetails.id==product.productDetails.id)
-                          ? Icons.favorite
-                          : Icons.favorite_border,
-                      color: Colors.red,
-                      size: 30,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(7.0.r),
+            color: Colors.white,
+          ),
+          child: Container(
+              height: 90.h,
+              child: Padding(
+                padding: EdgeInsets.only(left: 8.0.w, right: 8.0.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                        height: 75.h,
+                        width: 75.w,
+                        child: Image.network("https://spinningsoft.co/projects/eStoreSpace/admin/images/product/${product.productDetails.picture}")
                     ),
-                    onPressed: (){
-                      // controller.addOrRemoveItem(product);
-                    },
-                  ),
-                  IconButton(
-                    onPressed: (){
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialogWidget(
-                              title: 'Remove Alert',
-                              subTitle: "Are you sure to Remove from WishList?",
-                              onPositiveClick: () {
-                                controller.addOrRemoveItem(product);
-                                Get.back();
-                              },
-                            );
-                          }
-                      );
-                    },
-                    icon: Icon(Icons.delete_outlined, color: Colors.red,) ,
-                    iconSize: 30,
-                  ),
-                  // Column(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   crossAxisAlignment: CrossAxisAlignment.center,
-                  //   children: [
-                  //     IconButton(onPressed: (){}, icon: Icon(Icons.favorite_outlined, color: Colors.red,) , iconSize: 30,),
-                  //     SizedBox(height: 5.h,),
-                  //     IconButton(onPressed: (){}, icon: Icon(Icons.favorite_outlined, color: Colors.red,) , iconSize: 30,),
-                  //   ],
-                  // ),
-                ],
-              ),
-            )
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(product.productDetails.name, style: TextStyle(color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.bold),),
+                        SizedBox(height: 5.h,),
+                        Text(product.productDetails.price, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, color: Colors.blue),),
+                      ],
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        controller.items.any((element) => element.productDetails.id==product.productDetails.id)
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        color: Colors.red,
+                        size: 30,
+                      ),
+                      onPressed: (){
+                        // controller.addOrRemoveItem(product);
+                      },
+                    ),
+                    IconButton(
+                      onPressed: (){
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialogWidget(
+                                title: 'Remove Alert',
+                                subTitle: "Are you sure to Remove from WishList?",
+                                onPositiveClick: () {
+                                  controller.addOrRemoveItem(product);
+                                  Get.back();
+                                },
+                              );
+                            }
+                        );
+                      },
+                      icon: Icon(Icons.delete_outlined, color: Colors.red,) ,
+                      iconSize: 30,
+                    ),
+                    // Column(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   crossAxisAlignment: CrossAxisAlignment.center,
+                    //   children: [
+                    //     IconButton(onPressed: (){}, icon: Icon(Icons.favorite_outlined, color: Colors.red,) , iconSize: 30,),
+                    //     SizedBox(height: 5.h,),
+                    //     IconButton(onPressed: (){}, icon: Icon(Icons.favorite_outlined, color: Colors.red,) , iconSize: 30,),
+                    //   ],
+                    // ),
+                  ],
+                ),
+              )
+          ),
         ),
       ),
     );

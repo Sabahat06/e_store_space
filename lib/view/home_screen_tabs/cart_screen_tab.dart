@@ -52,7 +52,8 @@ class CartScreenTab extends StatelessWidget {
               padding: EdgeInsets.only(bottom: 7.0.w, left: 3.w, right: 3.w, top: 3.w),
               child: GestureDetector(
                 onTap: (){
-                  authController.isLogedIn.value ? Get.to(PlaceOrderLoginScreen()) : Get.to(() => CreateAccount(true));
+
+                  authController.isLogedIn.value ? Get.to(AddOrderLoginScreen(totalAmount: controller.calculateBillingAmount().toStringAsFixed(2),)) : Get.to(() => CreateAccount(true));
                 },
                 child: Container(
                   height: 40.h,
@@ -99,89 +100,84 @@ class CartScreenTab extends StatelessWidget {
     int colorCodesss = int.parse(valueString2.toString());
     return Padding(
       padding: EdgeInsets.only(left: 8.0.w, right: 8.0.w, top: 8.0.w, bottom: 8.0.w),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(7.0.r),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.red.shade200,
-              blurRadius: 4.0,
-              spreadRadius: 1.0,
-              offset: Offset(2.0, 2.0),
-            )
-          ],
-        ),
+      child: Card(
+        elevation: 2,
         child: Container(
-          height: 90.h,
-          child: Padding(
-            padding: EdgeInsets.only(left: 8.0.w, right: 8.0.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  height: 75.h,
-                  width: 75.w,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage("https://spinningsoft.co/projects/eStoreSpace/admin/images/product/${item.picture}")
-                    )
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(7.0.r),
+            color: Colors.white,
+          ),
+          child: Container(
+            height: 90.h,
+            child: Padding(
+              padding: EdgeInsets.only(left: 8.0.w, right: 8.0.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 75.h,
+                    width: 75.w,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage("https://spinningsoft.co/projects/eStoreSpace/admin/images/product/${item.picture}")
+                      )
+                    ),
                   ),
-                ),
-                Center(
-                  child: CircleAvatar(
-                    radius: 20,
-                    backgroundColor: Color(colorCodesss),
+                  Center(
+                    child: CircleAvatar(
+                      radius: 20,
+                      backgroundColor: Color(colorCodesss),
+                    ),
                   ),
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(item.name, style: TextStyle(color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.bold),),
-                    SizedBox(height: 5.h,),
-                    Text(item.price, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, color: Colors.blue),),
-                  ],
-                ),
-                Obx(
-                  () => Column(
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      GestureDetector(
-                        onTap: (){
-                          controller.addItem(item);
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.r),
-                              color: Colors.blue
-                          ),
-                          child: Icon(Icons.add, size: 25.w, color: Colors.white,),
-                        ),
-                      ),
-                      SizedBox(height: 4.h,),
-                      Text(item.quantity.value.toString(), style: TextStyle(fontSize: 14.sp, color: Colors.black), ),
-                      SizedBox(height: 4.h,),
-                      GestureDetector(
-                        onTap: () {
-                          controller.removeItem(item);
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.r),
-                              color: Colors.blue
-                          ),
-                          child: Icon(Icons.remove, size: 25.w, color: Colors.white,),
-                        ),
-                      ),
+                      Text(item.name, style: TextStyle(color: Colors.black, fontSize: 16.sp, fontWeight: FontWeight.bold),),
+                      SizedBox(height: 5.h,),
+                      Text(item.price, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, color: Colors.blue),),
                     ],
                   ),
-                )
-              ],
-            ),
-          )
+                  Obx(
+                    () => Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: (){
+                            controller.addItem(item);
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20.r),
+                                color: Colors.blue
+                            ),
+                            child: Icon(Icons.add, size: 25.w, color: Colors.white,),
+                          ),
+                        ),
+                        SizedBox(height: 4.h,),
+                        Text(item.quantity.value.toString(), style: TextStyle(fontSize: 14.sp, color: Colors.black), ),
+                        SizedBox(height: 4.h,),
+                        GestureDetector(
+                          onTap: () {
+                            controller.removeItem(item);
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20.r),
+                                color: Colors.blue
+                            ),
+                            child: Icon(Icons.remove, size: 25.w, color: Colors.white,),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            )
+          ),
         ),
       ),
     );

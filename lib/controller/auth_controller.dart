@@ -79,14 +79,18 @@ class AuthController extends GetxController{
         phoneNumber: phone,
       );
       progressing.value = false;
-      // Fluttertoast.showToast(msg: response.msg);
-      User.saveUserToCache(response);
-      this.user.value = response;
-      pref.setString('userId', user.value.user.id.toString());
-      this.isLogedIn.value = true;
-      // sendToken(user.value.id);
-      Get.off(HomePage());
-
+      //
+      if(StaticVariable.registerResponseCode == 201){
+        User.saveUserToCache(response);
+        this.user.value = response;
+        pref.setString('userId', user.value.user.id.toString());
+        this.isLogedIn.value = true;
+        Fluttertoast.showToast(msg: 'You are registered in E Store Space');
+        Get.off(HomePage());
+      }
+      else{
+        Fluttertoast.showToast(msg: 'Invalid Data');
+      }
   }
 
   // void forgotPassword(String email) async {

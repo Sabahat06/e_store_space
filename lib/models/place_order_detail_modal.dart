@@ -1,21 +1,27 @@
 class PlaceOrderDetailModal {
-  String productId;
+  String product_id;
+  String color_id;
+  String price;
+  String discount;
   String quantity;
-  String choiceId;
 
-  PlaceOrderDetailModal({this.productId, this.quantity,this.choiceId});
+  PlaceOrderDetailModal({this.product_id, this.quantity,this.price, this.discount, this.color_id});
 
   PlaceOrderDetailModal.fromJson(Map<String, dynamic> json) {
-    productId = json['product_id'];
+    product_id = json['product_id'];
+    color_id = json['color_id'];
+    price = json['price'];
+    discount = json['discount'];
     quantity = json['quantity'];
-    choiceId = json['choice_id'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['product_id'] = this.productId;
+    data['product_id'] = this.product_id;
+    data['color_id'] = this.color_id;
+    data['price'] = this.price;
+    data['discount'] = this.discount;
     data['quantity'] = this.quantity;
-    data['choice_id'] = this.choiceId;
     return data;
   }
 }
