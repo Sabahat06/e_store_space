@@ -29,6 +29,7 @@ class Store {
   String description;
   String createdAt;
   String updatedAt;
+  String picture='';
   String deletedAt='';
 
   Store(
@@ -39,7 +40,9 @@ class Store {
         this.description,
         this.createdAt,
         this.updatedAt,
-        this.deletedAt});
+        this.deletedAt,
+        this.picture
+      });
 
   Store.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -50,6 +53,7 @@ class Store {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     deletedAt = json['deleted_at']??"";
+    picture = json['picture']??"";
   }
 
   Map<String, dynamic> toJson() {
@@ -62,6 +66,7 @@ class Store {
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     data['deleted_at'] = this.deletedAt;
+    data['picture'] = this.picture;
     return data;
   }
 }
