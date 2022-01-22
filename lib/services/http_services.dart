@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:e_store_space/models/add_store_model.dart';
 import 'package:e_store_space/models/auth_model.dart';
+import 'package:e_store_space/models/get_store_product.dart';
 import 'package:e_store_space/models/order_detail_model.dart';
 import 'package:e_store_space/models/page.dart';
 import 'package:e_store_space/models/product_category_model.dart';
@@ -276,7 +277,7 @@ class HttpService {
           'description': description
         }
       );
-      if (response.statusCode == 201) {
+      if (response.statusCode == 201 || response.statusCode == 201) {
         StaticVariable.addUserDealResponseCode= response.statusCode;
         return AddStoreModel.fromJson(jsonDecode(response.body));
       }
@@ -331,6 +332,23 @@ class HttpService {
     }
   }
 
+  static Future<StoreProductModel> getStoreProducts
+      ({String token, String id}) async {
+    Uri _storeProduct = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/getStoreProducts/${id}');
+    try {
+      var response = await http.get(
+        _storeProduct,
+        headers: {'Authorization': 'Bearer $token'},
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return StoreProductModel.fromJson(jsonDecode(response.body));
+      }
+    }
+    catch (e) {
+      return null;
+    }
+  }
+
   static Future<OrderDetailModel> getOrderDetails(
       String orderId, String token) async {
     Uri _uriGetOrderDetails = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/getOrderDetails/${orderId}');
@@ -339,7 +357,7 @@ class HttpService {
         _uriGetOrderDetails,
         headers: {'Authorization': 'Bearer $token'},
       );
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         return OrderDetailModel.fromJson(jsonDecode(response.body));
 
       } else {
@@ -348,6 +366,33 @@ class HttpService {
     }
     catch (e) {
       return null;
+    }
+  }
+
+  static Future<String> becameASeller
+      ({String token, String name, String email, String phone, String message, String refrence_promo_code,}) async {
+    Uri _updateProfile = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/becomeASeller');
+    try {
+      var response = await http.post(
+        _updateProfile,
+        headers: {'Authorization': 'Bearer $token'},
+        body: {
+          'name': name,
+          'email': email,
+          'phone_no': phone,
+          'message': message,
+          'refrance_promo_code': refrence_promo_code,
+        },
+      );
+      if (response.statusCode == 201 || response.statusCode == 201) {
+        StaticVariable.becameASellerResponseCode = response.statusCode;
+        return jsonDecode(response.body)['message'];
+
+      } else
+        return "Some error accoured";
+    }
+    catch (e) {
+      return "Some error accoured";
     }
   }
 

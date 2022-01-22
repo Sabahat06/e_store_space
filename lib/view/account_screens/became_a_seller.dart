@@ -1,4 +1,6 @@
 import 'package:e_store_space/controller/auth_controller.dart';
+import 'package:e_store_space/models/auth_model.dart';
+import 'package:e_store_space/statics/static_var.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -131,19 +133,31 @@ class BecomeASeller extends StatelessWidget {
                 SizedBox(height: 15.h,),
                 MyFilledButton(
                   ontap: () async {
-                    // if(contactUsValidation()){
-                    //   progressing.value = true;
-                    //   String response = await HttpService.contactUs(
-                    //       phone: phone.text,
-                    //       email: email.text,
-                    //       name: name.text,
-                    //       message: message.text,
-                    //       subject: subject.text
-                    //   );
-                    //   progressing.value = false;
-                    //   Fluttertoast.showToast(msg: response);
-                    //   Get.back();
-                    // }
+                    if(becameASellerValidation()){
+                      progressing.value = true;
+                      String response = await HttpService.becameASeller(
+                          phone: phone.text,
+                          email: email.text,
+                          name: name.text,
+                          message: message.text,
+                          refrence_promo_code: promoCode.text
+                      );
+                      progressing.value = false;
+                      if(StaticVariable.becameASellerResponseCode == 200 || StaticVariable.becameASellerResponseCode == 201){
+                        if(type.text == "Affiliate"){
+                          authController.user.value.user.affiliate == "1";
+                          User.saveUserToCache(authController.user.value);
+                          Fluttertoast.showToast(msg: "Now you are a Affiliate");
+                          Get.back();
+                        }
+                        else{
+                          authController.user.value.user.seller == "1";
+                          User.saveUserToCache(authController.user.value);
+                          Fluttertoast.showToast(msg: "Now you are a Affiliate");
+                          Get.back();
+                        }
+                      }
+                    }
                   },
                   color: Colors.blue,
                   width: double.infinity,
@@ -159,21 +173,21 @@ class BecomeASeller extends StatelessWidget {
     );
   }
 
-  bool contactUsValidation(){
+  bool becameASellerValidation(){
     if(name.text.trim().length==0){
       Fluttertoast.showToast(msg: 'Name is Required');
       return false;
     }
-    // else if
-    // (!GetUtils.isEmail(email.text)){
-    //   Fluttertoast.showToast(msg: 'Email format is not correct');
-    //   return false;
-    // }
-    // else if
-    // (email.text.trim().length==0){
-    //   Utils.showToast('Email is Required');
-    //   return false;
-    // }
+    else if
+    (!GetUtils.isEmail(email.text)){
+      Fluttertoast.showToast(msg: 'Email format is not correct');
+      return false;
+    }
+    else if
+    (email.text.trim().length==0){
+      Fluttertoast.showToast(msg: 'Email is Required');
+      return false;
+    }
     else if (phone.text.trim().length == 0){
       Fluttertoast.showToast(msg: 'Phone Number is required');
       return false;

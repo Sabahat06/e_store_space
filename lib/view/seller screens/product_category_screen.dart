@@ -2,7 +2,7 @@ import 'package:e_store_space/controller/auth_controller.dart';
 import 'package:e_store_space/controller/product_category_controller.dart';
 import 'package:e_store_space/models/product_category_model.dart';
 import 'package:e_store_space/view/product/product_screen.dart';
-import 'package:e_store_space/view/seller%20screens/product_screen-seller.dart';
+import 'package:e_store_space/view/seller%20screens/product_screen_seller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';

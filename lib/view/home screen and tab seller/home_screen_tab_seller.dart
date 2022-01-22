@@ -1,5 +1,6 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:e_store_space/controller/user_store_controller.dart';
+import 'package:e_store_space/models/get_store_product.dart';
 import 'package:e_store_space/models/user_store.dart';
 import 'package:e_store_space/view/product/product_detail_screen.dart';
 import 'package:e_store_space/view/seller%20screens/store_product_seller.dart';
@@ -22,6 +23,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreenTabSeller extends StatelessWidget {
 
+  AuthController authController = Get.find();
   TextEditingController searchController = TextEditingController();
   BottomBarController bottomBarController = Get.find();
 
@@ -31,6 +33,7 @@ class HomeScreenTabSeller extends StatelessWidget {
     "assets/image/logo.png",
     "assets/image/shoes.jpg"
   ].obs;
+  RxBool isLoading = false.obs;
 
   @override
   Widget build(BuildContext context){
@@ -38,7 +41,7 @@ class HomeScreenTabSeller extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: Obx(
-          () => userStoreController.progressing.value
+          () => isLoading.value || userStoreController.progressing.value
               ? Center(child: CircularProgressIndicator(),)
               : CustomScrollView(
             slivers: [
@@ -121,23 +124,23 @@ class HomeScreenTabSeller extends StatelessWidget {
               ),
               Obx(
                 () => userStoreController.userStore.value.store == null || userStoreController.userStore.value.store.length == 0
-                      ? SliverList(delegate: SliverChildListDelegate([
-                          Center(child: Column(
-                            children: [
-                              SizedBox(height: 200,),
-                              Text('No Deal Added Yet Add Some', style: TextStyle(fontSize: 16.sp,),),
-                            ],
-                          ),)
-                       ]))
-                      : SliverList(
+                  ? SliverList(delegate: SliverChildListDelegate([
+                      Center(child: Column(
+                        children: [
+                          SizedBox(height: 200,),
+                          Text('No Deal Added Yet Add Some', style: TextStyle(fontSize: 16.sp,),),
+                        ],
+                      ),)
+                   ]))
+                  : SliverList(
                   delegate: SliverChildListDelegate([
                     SingleChildScrollView(
                       child: Container(
                         width: double.infinity,
                         child: GridView.builder(
                           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              mainAxisSpacing: 1.1
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 1.1
                           ),
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
@@ -183,7 +186,12 @@ class HomeScreenTabSeller extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(10.0.w),
       child: GestureDetector(
-        onTap: (){Get.to(() => StoreProductsSeller());},
+        onTap: () async {
+          isLoading.value = true;
+          StoreProductModel storeProductModel = await HttpService.getStoreProducts(token: authController.user.value.token, id: store.id.toString());
+          isLoading.value=false;
+          Get.to(() => StoreProductsSeller(storeProductModel, store.name));
+          },
         child: Card(
           elevation: 2,
           child: Container(
