@@ -39,7 +39,7 @@ class OrderDetailScreen extends StatelessWidget {
                     child: Row(
                       children: [
                         const Text("ID: ", style: TextStyle(color: Colors.blue, fontSize: 18),),
-                        Text(order.orderDetails.first.id.toString(), style: const TextStyle(fontSize: 18),),
+                        Text(order.orderDetails.first.id.toString(), style: const TextStyle(fontSize: 18, color: Colors.blue,),),
                       ],
                     ),
                   ),
@@ -86,15 +86,17 @@ class OrderDetailScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 10,),
-              Container(
-                color: Colors.green,
-                height: order.orderDetails.first.orderProducts.length <= 1 ? Get.height*0.2 :  Get.height*0.4,
-                width: double.infinity,
-                child: ListView.builder(
-                  itemCount: order.orderDetails.first.orderProducts.length,
-                  itemBuilder: (context, index) => renderingOrderProduct(order.orderDetails.first.orderProducts[index])
-                ),
-              ),
+              order.orderDetails.first.orderProducts.length == 0
+                ? Container()
+                : Container(
+                    color: Colors.green,
+                    height: order.orderDetails.first.orderProducts.length <= 1 ? Get.height*0.2 :  Get.height*0.4,
+                    width: double.infinity,
+                    child: ListView.builder(
+                      itemCount: order.orderDetails.first.orderProducts.length,
+                      itemBuilder: (context, index) => renderingOrderProduct(order.orderDetails.first.orderProducts[index])
+                    ),
+                  ),
               const SizedBox(height: 10,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -44,11 +44,11 @@ class AccountScreenTab extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Is Seller',
+                        Text('Switch to Selling',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18.sp,
-                              color: Colors.blue
+                              color: Colors.black
                           ),
                         ),
                         Obx(
@@ -74,6 +74,35 @@ class AccountScreenTab extends StatelessWidget {
                       ]
                     ),
                     SizedBox(height: 10.h,),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Switch to Affiliate',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18.sp,
+                                color: Colors.black
+                            ),
+                          ),
+                          Obx(
+                            () => IconButton(
+                              onPressed: () {
+                                if(bottomBarController.isAffiliate.value){
+                                  bottomBarController.isAffiliate.value =!bottomBarController.isAffiliate.value;
+                                }
+                                else{
+                                  bottomBarController.isAffiliate.value =!bottomBarController.isAffiliate.value;
+                                }
+                              },
+                              icon: bottomBarController.isAffiliate.value
+                                  ? const Icon(Icons.toggle_on_outlined, size: 35, color: Colors.blue,)
+                                  : const Icon(Icons.toggle_off_outlined, size: 35, color: Colors.blue,),
+                            ),
+                          ),
+
+                        ]
+                    ),
+                    SizedBox(height: 10.h,),
                     GestureDetector(
                         onTap: () {
                           Get.to(() => BecomeASeller());
@@ -95,29 +124,29 @@ class AccountScreenTab extends StatelessWidget {
                           ],
                         )
                     ),
-                    SizedBox(height: 15.h,),
-                    const Divider(),
-                    GestureDetector(
-                      onTap: () {
-                        Get.to(() => DashboardScreen());
-                      },
-                      child: Row(
-                        children: [
-                          const Icon(Icons.dashboard_outlined,),
-                          const SizedBox(width: 10,),
-                          Container(
-                            width: Get.width-65,
-                            child: const Text(
-                              'My Dashboard',
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.black
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
-                    ),
+                    // SizedBox(height: 15.h,),
+                    // const Divider(),
+                    // GestureDetector(
+                    //   onTap: () {
+                    //     Get.to(() => DashboardScreen());
+                    //   },
+                    //   child: Row(
+                    //     children: [
+                    //       const Icon(Icons.dashboard_outlined,),
+                    //       const SizedBox(width: 10,),
+                    //       Container(
+                    //         width: Get.width-65,
+                    //         child: const Text(
+                    //           'My Dashboard',
+                    //           style: TextStyle(
+                    //             fontSize: 20,
+                    //             color: Colors.black
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   )
+                    // ),
                     SizedBox(height: 15.h,),
                     const Divider(),
                     GestureDetector(

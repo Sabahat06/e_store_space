@@ -415,7 +415,7 @@ class HttpService {
       );
       if (response.statusCode == 201 || response.statusCode == 201) {
         StaticVariable.becameASellerResponseCode = response.statusCode;
-        return jsonDecode(response.body)['message'];
+        return jsonDecode(response.body);
 
       } else
         return "Some error accoured";

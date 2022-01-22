@@ -12,7 +12,7 @@ class BottomNavigateBar extends StatelessWidget {
     return GetX<BottomBarController>(
         builder: (controller) {
           return bottomController.isSeller.value
-              ? BottomNavigationBar(
+              ?  BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             showUnselectedLabels: true,
             selectedFontSize: 12.sp,
@@ -40,7 +40,36 @@ class BottomNavigateBar extends StatelessWidget {
               ),
             ],
           )
-              : BottomNavigationBar(
+              : bottomController.isAffiliate.value
+                ? BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            showUnselectedLabels: true,
+            selectedFontSize: 12.sp,
+            unselectedFontSize: 12.sp,
+            currentIndex: controller.currentBNBIndex.value,
+            onTap: controller.indexChanged,
+            selectedItemColor: Colors.blue,
+            unselectedItemColor: Colors.black54,
+            items: const <BottomNavigationBarItem> [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home_outlined),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.notification_add_outlined),
+                label: 'Notifications',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.calendar_view_day_outlined),
+                label: 'Buyer Request',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.perm_identity),
+                label: 'Account',
+              ),
+            ],
+          )
+                : BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             showUnselectedLabels: true,
             currentIndex: controller.currentBNBIndex.value,

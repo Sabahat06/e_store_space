@@ -50,7 +50,9 @@ class _HomePageState extends State<HomePage> {
       body:Obx(
         ()=>bottomBarController.isSeller.value
             ?  _tabs_seller[bottomBarController.currentBNBIndex.value]
-            : _tabs[bottomBarController.currentBNBIndex.value]
+            : bottomBarController.isAffiliate.value
+              ? _tabs_seller[bottomBarController.currentBNBIndex.value]
+              : _tabs[bottomBarController.currentBNBIndex.value]
       ),
       bottomNavigationBar: BottomNavigateBar(),
     );

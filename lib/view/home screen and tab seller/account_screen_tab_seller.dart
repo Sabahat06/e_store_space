@@ -35,50 +35,35 @@ class AccountScreenTabSeller extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Is Seller',
+                      Text( 'Switch to Buying',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18.sp,
-                            color: Colors.blue
+                            color: Colors.black
                         ),
                       ),
                       Obx(
-                            () => IconButton(
-                          onPressed: (){
-                            bottomBarController.isSeller.value =!bottomBarController.isSeller.value;
-                          },
-                          icon: bottomBarController.isSeller.value
-                              ? const Icon(Icons.toggle_on_outlined, size: 35, color: Colors.blue,)
-                              : const Icon(Icons.toggle_off_outlined, size: 35, color: Colors.blue,),
-                        ),
+                            () => bottomBarController.isAffiliate.value
+                                ? IconButton(
+                              onPressed: (){
+                                bottomBarController.isAffiliate.value =!bottomBarController.isAffiliate.value;
+                              },
+                              icon: bottomBarController.isAffiliate.value
+                                  ? const Icon(Icons.toggle_on_outlined, size: 35, color: Colors.blue,)
+                                  : const Icon(Icons.toggle_off_outlined, size: 35, color: Colors.blue,),
+                            )
+                                : IconButton(
+                                      onPressed: (){
+                                        bottomBarController.isSeller.value =!bottomBarController.isSeller.value;
+                                      },
+                                      icon: bottomBarController.isSeller.value
+                                          ? const Icon(Icons.toggle_on_outlined, size: 35, color: Colors.blue,)
+                                          : const Icon(Icons.toggle_off_outlined, size: 35, color: Colors.blue,),
+                                    ),
                       ),
-
                     ]
                   ),
-                  const Divider(),
-                  SizedBox(height: 12.h,),
-                  GestureDetector(
-                      onTap: () {
-                        Get.to(() => DashboardScreen());
-                      },
-                      child: Row(
-                        children: [
-                          const Icon(Icons.dashboard_outlined,),
-                          const SizedBox(width: 10,),
-                          Container(
-                            width: Get.width-65,
-                            child: const Text(
-                              'My Dashboard',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.black
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
-                  ),
-                  const Divider(),
+                  SizedBox(height: 10.h,),
                   SizedBox(height: 12.h,),
                   GestureDetector(
                       onTap: () {
