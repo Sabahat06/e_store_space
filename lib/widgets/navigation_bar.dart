@@ -32,7 +32,7 @@ class BottomNavigateBar extends StatelessWidget {
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.calendar_view_day_outlined),
-                label: 'Buyer Request',
+                label: 'Sold Products',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.perm_identity),
@@ -61,7 +61,7 @@ class BottomNavigateBar extends StatelessWidget {
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.calendar_view_day_outlined),
-                label: 'Buyer Request',
+                label: 'Sold Products',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.perm_identity),

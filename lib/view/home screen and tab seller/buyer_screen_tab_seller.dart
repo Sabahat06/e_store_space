@@ -14,7 +14,7 @@ class BuyerScreenTabSeller extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () {Get.back();}, color: Colors.white, iconSize: 0,),
         leadingWidth: 5,
-        title: const Text('Buyer Request', style: TextStyle(color: Colors.white),),
+        title: const Text('Sold Products', style: TextStyle(color: Colors.white),),
       ),
       body: SingleChildScrollView(
         child: Container(

@@ -39,7 +39,7 @@ class NotificationScreenTabSeller extends StatelessWidget {
       padding: const EdgeInsets.only(left: 12.0, right: 12, top: 10),
       child: Card(
         color: Colors.green,
-        elevation: 10,
+        elevation: 2,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
