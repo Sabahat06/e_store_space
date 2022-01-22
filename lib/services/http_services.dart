@@ -220,22 +220,24 @@ class HttpService {
   static Future<String> placeOrderForLoginCustomer({String token, String customerID,String country, String phone, String area, String city ,String name,String email,String orderNotes,String address, String amount, List<PlaceOrderDetailModal> orderDetails}) async {
     try {
       Uri _placeOrder = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/addOrder');
-      var response = await http.post(
+      var response1 = await http.post(
         _placeOrder,
         headers: {
-          'Accept': 'application/json',
+          // 'Content-Type': 'application/json',
+          // 'Accept': 'application/json',
           'Authorization': 'Bearer $token',
         },
         body: {
           'user_id': customerID,
           'price' : amount,
+          'order_notes': orderNotes,
           'shaping_address' : address,
           'product' : jsonEncode(orderDetails),
         },
       );
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        StaticVariable.placeOrderResponseCode = response.statusCode;
-        return jsonDecode(response.body);
+      if (response1.statusCode == 200 || response1.statusCode == 201) {
+        StaticVariable.placeOrderResponseCode = response1.statusCode;
+        return jsonDecode(response1.body)['message'];
       } else
         Fluttertoast.showToast(msg: "Your Order is not placed");
     }
@@ -349,6 +351,7 @@ class HttpService {
     }
   }
 
+
   static Future<OrderDetailModel> getOrderDetails(
       String orderId, String token) async {
     Uri _uriGetOrderDetails = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/getOrderDetails/${orderId}');
@@ -358,6 +361,32 @@ class HttpService {
         headers: {'Authorization': 'Bearer $token'},
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
+        return OrderDetailModel.fromJson(jsonDecode(response.body));
+
+      } else {
+        return null;
+      }
+    }
+    catch (e) {
+      return null;
+    }
+  }
+
+
+  static Future<OrderDetailModel> addStoreProduct({
+      List<SelectedProductSeller> selectedProductSeler, String token, String store_id, String user_id}) async {
+    Uri _addStoreProduct = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/addStoreProduct');
+    try {
+      var response = await http.post(
+        _addStoreProduct,
+        headers: {'Authorization': 'Bearer $token'},
+        body: {
+          'store_id' : store_id,
+          'product' : jsonEncode(selectedProductSeler)
+        }
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        StaticVariable.addStoreResponseCode = response.statusCode;
         return OrderDetailModel.fromJson(jsonDecode(response.body));
 
       } else {

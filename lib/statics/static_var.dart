@@ -17,4 +17,5 @@ class StaticVariable{
   static int placeOrderResponseCode = 0;
   static int updateProfileResponseCode = 0;
   static int becameASellerResponseCode = 0;
+  static int addStoreResponseCode = 0;
 }

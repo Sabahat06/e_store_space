@@ -128,7 +128,7 @@ class HomeScreenTabSeller extends StatelessWidget {
                       Center(child: Column(
                         children: [
                           SizedBox(height: 200,),
-                          Text('No Deal Added Yet Add Some', style: TextStyle(fontSize: 16.sp,),),
+                          Text('No Store Added Yet Add Some', style: TextStyle(fontSize: 16.sp,),),
                         ],
                       ),)
                    ]))
@@ -168,7 +168,7 @@ class HomeScreenTabSeller extends StatelessWidget {
             ),
             child: Center(
               child: Text(
-                'Add Deal',
+                'Add Store',
                 style: TextStyle(
                     fontSize: 16.sp,
                     color: Colors.white
@@ -190,7 +190,7 @@ class HomeScreenTabSeller extends StatelessWidget {
           isLoading.value = true;
           StoreProductModel storeProductModel = await HttpService.getStoreProducts(token: authController.user.value.token, id: store.id.toString());
           isLoading.value=false;
-          Get.to(() => StoreProductsSeller(storeProductModel, store.name));
+          Get.to(() => StoreProductsSeller(storeProductModel, store.name, store.id.toString()));
           },
         child: Card(
           elevation: 2,

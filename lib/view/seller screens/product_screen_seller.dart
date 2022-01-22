@@ -1,23 +1,34 @@
+import 'package:e_store_space/controller/auth_controller.dart';
+import 'package:e_store_space/models/place_order_detail_modal.dart';
+import 'package:e_store_space/models/product_detail.dart';
 import 'package:e_store_space/models/product_model.dart';
 import 'package:e_store_space/services/http_services.dart';
+import 'package:e_store_space/statics/static_var.dart';
+import 'package:e_store_space/view/home%20screen%20and%20tab%20seller/home_screen_tab_seller.dart';
 import 'package:e_store_space/view/product/product_detail_screen.dart';
+import 'package:e_store_space/view/product/review_screen.dart';
+import 'package:e_store_space/widgets/my_filled_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:e_store_space/controller/product_controller.dart';
 
 
 class ProductScreenSeller extends StatelessWidget {
+  AuthController authController = Get.find();
   RxString id = '0'.obs;
   String title;
+  String storeId;
   String categoryId;
-  ProductController productController;
-  RxList selectedProduct = [].obs;
+  ProductController productController = Get.put(ProductController());
+  List selectedProduct = [];
 
-  ProductScreenSeller({this.categoryId, this.title}){
-    productController =Get.put(ProductController(categoryId: categoryId));
+  ProductScreenSeller({this.categoryId, this.title, this.storeId}){
+    ProductController(categoryId: categoryId);
   }
+
 
 
   @override
@@ -31,86 +42,145 @@ class ProductScreenSeller extends StatelessWidget {
       body: Obx(
         () => productController.progressing.value
             ? const Center(child: CircularProgressIndicator())
-            : ListView.builder(
-            itemCount: productController.productsModal.value.products.length,
-            shrinkWrap: true,
-            itemBuilder: (BuildContext context, int index) {
-              return renderingProduct(index, productController.productsModal.value.products[index]);
-            }
+            : Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                  itemCount: productController.productsModal.value.products.length,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return renderingProduct(index, productController.productsModal.value.products[index]);
+                  }
         ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: MyFilledButton(
+                    color: Colors.blue,
+                    height: 45,
+                    txt: 'Add to Store',
+                    width: double.infinity,
+                    borderRadius: 0,
+                    ontap: () async {
+                      List<SelectedProductSeller> selectedProductSeller = [];
+                      if(selectedProduct.length==0){
+                        Fluttertoast.showToast(msg: "Select Some Products");
+                      }else {
+                        selectedProduct.forEach((product) {
+                          selectedProductSeller.add(SelectedProductSeller(product_id: product.toString(),));
+                        });
+                        productController.progressing.value = true;
+                        var response = await HttpService.addStoreProduct(
+                          token: authController.user.value.token,
+                          selectedProductSeler: selectedProduct,
+                          store_id: storeId,
+                          user_id:  authController.user.value.user.id.toString()
+                        );
+                        productController.progressing.value = false;
+                        if(StaticVariable.addStoreResponseCode == 200 || StaticVariable.addStoreResponseCode == 201){
+                          Fluttertoast.showToast(msg: "Your Products Added Successfully");
+                          Get.off(() => HomeScreenTabSeller());
+                        }
+                      }
+
+                    },
+                  ),
+                )
+              ],
+            ),
       ),
     );
   }
 
   renderingProduct(int index, Products products) {
-    RxInt selectedproductIndex =  productController.productsModal.value.products.indexWhere((element) => element.id==products.id).obs;
-    return Padding(
-      padding: EdgeInsets.all(10),
-      child: GestureDetector(
-        onTap: () async {
-          selectedProduct.value.add(products.id);
-        },
+    // String rating = double.parse(products.rating).toStringAsFixed(1)??"0";
+    return GestureDetector(
+      onTap: () async {
+        productController.progressing.value = true;
+        ProductDetailsModel productDetailsModel = await HttpService.getProductDetails(products.id.toString());
+        productController.progressing.value = false;
+        Get.to(() => ReviewsScreen(ratings: productDetailsModel.productDetails.ratings,));
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(10),
         child: Stack(
           children: [
-            Card(
-              color: selectedproductIndex.value == index ? Colors.black12 : Colors.transparent,
-              elevation: 1,
-              child: Container(
-                width: double.infinity,
-                height: 90,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 90,
-                      height: 90,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                          image: DecorationImage(
-                              image: NetworkImage("https://spinningsoft.co/projects/eStoreSpace/admin/images/product/${products.picture}"),
-                              fit: BoxFit.cover
-                          )
+            Obx(
+              () => Card(
+                color: products.isSelected.value? Colors.blue : Colors.white,
+                elevation: 1,
+                child: Container(
+                  width: double.infinity,
+                  height: 90,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 90,
+                        height: 90,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                            image: DecorationImage(
+                                image: NetworkImage("https://spinningsoft.co/projects/eStoreSpace/admin/images/product/${products.picture}"),
+                                fit: BoxFit.cover
+                            )
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 20,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(products.name, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),),
-                        const SizedBox(height: 5,),
-                        Text(products.price, style: const TextStyle(fontSize: 14, color: Colors.black45),),
-                        const SizedBox(height: 5,),
-                        SmoothStarRating(
-                          color: Colors.purpleAccent,
-                          rating: double.parse(products.rating),
-                          size: 18,
-                          isReadOnly: true,
-                          borderColor: Colors.purpleAccent,
-                        )
-                      ],
-                    ),
-                  ],
+                      const SizedBox(width: 20,),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 5,),
+                          Text(products.name, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),),
+                          const SizedBox(height: 5,),
+                          Text(products.price, style: const TextStyle(fontSize: 14, color: Colors.black45),),
+                          const SizedBox(height: 5,),
+                          SmoothStarRating(
+                            color: Colors.purpleAccent,
+                            rating: double.parse(products.rating=="" || products.rating == null ? "0" : products.rating),
+                            size: 18,
+                            isReadOnly: true,
+                            borderColor: Colors.purpleAccent,
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
             Positioned(
-              top: 7,
-              right: 7,
-              child: GestureDetector(
+              top: 2,
+              right: 2,
+              child: InkWell(
                 onTap: (){
-                  selectedProduct.value.add(products.id);
+                  if(products.isSelected.value == false){
+                    selectedProduct.add(products.id);
+                    products.isSelected.value = true;
+                  }
+                  else{
+                    selectedProduct.remove(products.id);
+                    products.isSelected.value = false;
+                  }
                 },
                 child: Container(
-                  height: 25,
-                  width: 25,
-                  color: Colors.blue,
-                  child: Center(
-                    child: selectedproductIndex.value == index ? Icon(Icons.done_outlined) : Icon(Icons.add),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10)),
+                    color: Colors.blue,
+                  ),
+                  height: 30,
+                  width: 30,
+                  child: Obx(
+                    () => Center(
+                      child: products.isSelected.value
+                          ? Icon(Icons.done_outlined, color: Colors.white,)
+                          : Icon(Icons.add, color: Colors.white,),
+                    ),
                   ),
                 ),
               ),

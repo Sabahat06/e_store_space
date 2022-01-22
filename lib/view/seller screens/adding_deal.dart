@@ -110,7 +110,7 @@ class AddingStoreScreen extends StatelessWidget {
                       );
                       controller.progressing.value = false;
                       if(StaticVariable.addUserDealResponseCode == 201){
-                        Get.off(() => ProductCategoryScreen());
+                        Get.off(() => ProductCategoryScreen(controller.store.addStore.id.toString()));
                       }
                     }
                   },

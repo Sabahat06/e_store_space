@@ -25,3 +25,19 @@ class PlaceOrderDetailModal {
     return data;
   }
 }
+
+class SelectedProductSeller {
+  String product_id;
+
+  SelectedProductSeller({this.product_id,});
+
+  SelectedProductSeller.fromJson(Map<String, dynamic> json) {
+    product_id = json['product_id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['product_id'] = this.product_id;
+    return data;
+  }
+}

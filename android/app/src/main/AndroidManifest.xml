@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sabahat.e_store_space">
    <application
-        android:label="e_store_space"
+        android:label="E Store Space"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

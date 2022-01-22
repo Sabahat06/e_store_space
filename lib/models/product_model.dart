@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 class ProductModel {
   List<Products> products;
 
@@ -33,6 +35,7 @@ class Products {
   String updatedAt;
   String deletedAt='';
   String rating;
+  RxBool isSelected=false.obs;
 
   Products(
       {this.id,
@@ -46,6 +49,7 @@ class Products {
         this.updatedAt,
         this.deletedAt,
         this.rating,
+        this.isSelected,
       });
 
   Products.fromJson(Map<String, dynamic> json) {
@@ -60,6 +64,7 @@ class Products {
     updatedAt = json['updated_at'];
     deletedAt = json['deleted_at']??"";
     rating = json['ratings_average']??"";
+    isSelected.value = json['isSelected']??false;
   }
 
   Map<String, dynamic> toJson() {
@@ -75,6 +80,7 @@ class Products {
     data['updated_at'] = this.updatedAt;
     data['deleted_at'] = this.deletedAt;
     data['ratings_average'] = this.rating;
+    data['isSelected'] = this.isSelected.value;
     return data;
   }
 }

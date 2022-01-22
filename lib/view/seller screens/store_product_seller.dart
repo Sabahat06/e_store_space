@@ -11,11 +11,12 @@ import 'package:get/get.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class StoreProductsSeller extends StatelessWidget {
-  ProductController productController = Get.find();
+  // ProductController productController = Get.find();
   StoreProductModel storeProductModel;
   String title;
+  String storeId;
 
-  StoreProductsSeller(this.storeProductModel, this.title);
+  StoreProductsSeller(this.storeProductModel, this.title, this.storeId);
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +49,7 @@ class StoreProductsSeller extends StatelessWidget {
       ),
       floatingActionButton: GestureDetector(
         onTap: (){
-          Get.to(() => ProductCategoryScreen());
+          Get.to(() => ProductCategoryScreen(storeId));
         },
         child: Container(
           height: 40.h,
@@ -76,10 +77,10 @@ class StoreProductsSeller extends StatelessWidget {
       padding: EdgeInsets.all(10),
       child: GestureDetector(
         onTap: () async {
-          productController.progressing.value = true;
-          productController.productDetailsModel.value = await HttpService.getProductDetails("1");
-          productController.progressing.value = false;
-          Get.to(() => ProductDetailsScreen(productDetailsModel: productController.productDetailsModel.value,));
+          // productController.progressing.value = true;
+          // productController.productDetailsModel.value = await HttpService.getProductDetails("1");
+          // productController.progressing.value = false;
+          // Get.to(() => ProductDetailsScreen(productDetailsModel: productController.productDetailsModel.value,));
         },
         child: Card(
           elevation: 1,
