@@ -34,6 +34,7 @@ class NotificationScreenTabSeller extends StatelessWidget {
     );
   }
 
+
   renderingNotification(int index, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 12.0, right: 12, top: 10),
