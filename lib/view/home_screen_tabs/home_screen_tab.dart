@@ -152,7 +152,7 @@ class HomeScreenTab extends StatelessWidget {
                 width: double.infinity,
                 child: Carousel(
                   dotSize: 5,
-                  autoplayDuration: Duration(seconds: 5),
+                  autoplayDuration: Duration(seconds: 3),
                   dotSpacing: 10,
                   autoplay: true,
                   dotColor: Colors.white,

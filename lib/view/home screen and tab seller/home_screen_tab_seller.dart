@@ -33,6 +33,12 @@ class HomeScreenTabSeller extends StatelessWidget {
     "assets/image/logo.png",
     "assets/image/shoes.jpg"
   ].obs;
+
+  RxList<String> banner = [
+    "assets/image/banner1.jpg",
+    "assets/image/banner2.png",
+  ].obs;
+
   RxBool isLoading = false.obs;
 
   @override
@@ -44,103 +50,131 @@ class HomeScreenTabSeller extends StatelessWidget {
           () => isLoading.value || userStoreController.progressing.value
               ? Center(child: CircularProgressIndicator(),)
               : Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                height: 300,
-                width: double.infinity,
-                child: Carousel(
-                    dotSize: 5,
-                    autoplayDuration: Duration(seconds: 3),
-                    dotSpacing: 10,
-                    autoplay: true,
-                    dotColor: Colors.white,
-                    dotIncreasedColor: Colors.blue,
-                    indicatorBgPadding: 5,
-                    dotBgColor: Colors.transparent,
-                    dotVerticalPadding: 5,
-                    images: <Widget>[
-                      for(var i=0; i<splashData.length; i++)
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 300,
+                    width: double.infinity,
+                    child: Carousel(
+                        dotSize: 5,
+                        autoplayDuration: Duration(seconds: 3),
+                        dotSpacing: 10,
+                        autoplay: true,
+                        dotColor: Colors.white,
+                        dotIncreasedColor: Colors.blue,
+                        indicatorBgPadding: 5,
+                        dotBgColor: Colors.transparent,
+                        dotVerticalPadding: 5,
+                        images: <Widget>[
+                          for(var i=0; i<splashData.length; i++)
+                            Container(
+                              margin:
+                              const EdgeInsets.only(top: 0.0, left: 0.0),
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(splashData[i],),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                        ]
+                    ),
+                  ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
                         Container(
-                          margin:
-                          const EdgeInsets.only(top: 0.0, left: 0.0),
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(splashData[i],),
-                              fit: BoxFit.cover,
-                            ),
+                          height: 45.h,
+                          width: 70.w,
+                          decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage("assets/image/appbar.jpg"),
+                                  fit: BoxFit.cover
+                              )
                           ),
                         ),
-                    ]
-                ),
-              ),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      height: 45.h,
-                      width: 70.w,
-                      decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage("assets/image/appbar.jpg"),
-                              fit: BoxFit.cover
-                          )
+                        Container(
+                            width: 290.w,
+                            height: 45.h,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(0),
+                              color: Colors.white,
+                            ),
+                            child: Center(
+                              child: TextFormField(
+                                controller: searchController,
+                                decoration: const InputDecoration(
+                                  hintText: "Search",
+                                  prefixIcon: Icon(Icons.search),
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            )
+                        ),
+                      ]
+                  ),
+                  const SizedBox(height: 5,),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: Container(child: Text('All Stores:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),),),
+                  ),
+                  Obx(
+                    () => userStoreController.userStore.value.store == null || userStoreController.userStore.value.store.length == 0
+                    ? Center(child: Column(
+                        children: [
+                          SizedBox(height: 200,),
+                          Text('No Store Added Yet Add Some', style: TextStyle(fontSize: 16.sp,),),
+                        ],
                       ),
-                    ),
-                    Container(
-                        width: 290.w,
-                        height: 45.h,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(0),
-                          color: Colors.white,
-                        ),
-                        child: Center(
-                          child: TextFormField(
-                            controller: searchController,
-                            decoration: const InputDecoration(
-                              hintText: "Search",
-                              prefixIcon: Icon(Icons.search),
-                              border: InputBorder.none,
+                    )
+                    : SingleChildScrollView(
+                        child: Container(
+                          width: double.infinity,
+                          child: GridView.builder(
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 1.1
                             ),
-                          ),
-                        )
-                    ),
-                  ]
-              ),
-              const SizedBox(height: 5,),
-              Padding(
-                padding: const EdgeInsets.only(left: 10.0),
-                child: Container(child: Text('All Stores:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),),),
-              ),
-              Obx(
-                () => userStoreController.userStore.value.store == null || userStoreController.userStore.value.store.length == 0
-                ? Center(child: Column(
-                    children: [
-                      SizedBox(height: 200,),
-                      Text('No Store Added Yet Add Some', style: TextStyle(fontSize: 16.sp,),),
-                    ],
-                  ),
-                )
-                : SingleChildScrollView(
-                    child: Container(
-                      width: double.infinity,
-                      child: GridView.builder(
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 1.1
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: userStoreController.userStore.value.store.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return renderingStore(index, userStoreController.userStore.value.store[index], context);
+                            }
+                          )
                         ),
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: userStoreController.userStore.value.store.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return renderingStore(index, userStoreController.userStore.value.store[index], context);
-                        }
-                      )
+                      ),
+                  ),
+                  Container(
+                    height: 150,
+                    width: double.infinity,
+                    child: Carousel(
+                        dotSize: 5,
+                        autoplayDuration: Duration(seconds: 3),
+                        dotSpacing: 10,
+                        autoplay: true,
+                        dotColor: Colors.white,
+                        dotIncreasedColor: Colors.blue,
+                        indicatorBgPadding: 5,
+                        dotBgColor: Colors.transparent,
+                        dotVerticalPadding: 5,
+                        images: <Widget>[
+                          for(var i=0; i<banner.length; i++)
+                            Container(
+                              margin:
+                              const EdgeInsets.only(top: 0.0, left: 0.0),
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(banner[i],),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                        ]
                     ),
                   ),
-              )
-            ],
+                ],
           )
         ),
         floatingActionButton: GestureDetector(
