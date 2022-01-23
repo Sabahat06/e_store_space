@@ -41,7 +41,8 @@ class AccountScreenTab extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
+                    authController.user.value.user.seller == "1"
+                         ? Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text('Switch to Selling',
@@ -55,15 +56,13 @@ class AccountScreenTab extends StatelessWidget {
                           () => IconButton(
                             onPressed: () async {
                               if(bottomBarController.isSeller.value){
-                                // UserStoreController userStoreController = UserStoreController();
-                                // userStoreController.userStore = await HttpService.getUserStore(token: authController.user.value.token);
+                                // bottomBarController.currentBNBIndex.value = 2;
                                 bottomBarController.isSeller.value =!bottomBarController.isSeller.value;
                               }
                               else{
                                 bottomBarController.isSeller.value =!bottomBarController.isSeller.value;
+                                // bottomBarController.currentBNBIndex.value = 3;
                               }
-                              // userStoreController.userStore = await HttpService.getUserStore(token: authController.user.value.token);
-                              // bottomBarController.isSeller.value =!bottomBarController.isSeller.value;
                             },
                             icon: bottomBarController.isSeller.value
                                 ? const Icon(Icons.toggle_on_outlined, size: 35, color: Colors.blue,)
@@ -72,9 +71,14 @@ class AccountScreenTab extends StatelessWidget {
                         ),
 
                       ]
-                    ),
-                    SizedBox(height: 10.h,),
-                    Row(
+                    )
+                         : Container(),
+                    authController.user.value.user.seller == "1"
+                        ? SizedBox(height: 10.h,)
+                        : SizedBox(height: 0),
+
+                    authController.user.value.user.affiliate == "1"
+                        ? Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text('Switch to Affiliate',
@@ -88,10 +92,12 @@ class AccountScreenTab extends StatelessWidget {
                             () => IconButton(
                               onPressed: () {
                                 if(bottomBarController.isAffiliate.value){
+                                  // bottomBarController.currentBNBIndex.value = 2;
                                   bottomBarController.isAffiliate.value =!bottomBarController.isAffiliate.value;
                                 }
                                 else{
                                   bottomBarController.isAffiliate.value =!bottomBarController.isAffiliate.value;
+                                  // bottomBarController.currentBNBIndex.value = 3;
                                 }
                               },
                               icon: bottomBarController.isAffiliate.value
@@ -101,8 +107,12 @@ class AccountScreenTab extends StatelessWidget {
                           ),
 
                         ]
-                    ),
-                    SizedBox(height: 10.h,),
+                    )
+                        : Container(),
+                    authController.user.value.user.affiliate == "1"
+                        ? SizedBox(height: 10.h,)
+                        : SizedBox(height: 0),
+
                     GestureDetector(
                         onTap: () {
                           Get.to(() => BecomeASeller());

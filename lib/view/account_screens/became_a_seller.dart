@@ -136,11 +136,13 @@ class BecomeASeller extends StatelessWidget {
                     if(becameASellerValidation()){
                       progressing.value = true;
                       String response = await HttpService.becameASeller(
+                          token: authController.user.value.token,
                           phone: phone.text,
                           email: email.text,
                           name: name.text,
                           message: message.text,
-                          refrence_promo_code: promoCode.text
+                          refrence_promo_code: promoCode.text,
+                          role: type.text
                       );
                       progressing.value = false;
                       if(StaticVariable.becameASellerResponseCode == 200 || StaticVariable.becameASellerResponseCode == 201){
@@ -150,12 +152,15 @@ class BecomeASeller extends StatelessWidget {
                           Fluttertoast.showToast(msg: "Now you are a Affiliate");
                           Get.back();
                         }
-                        else{
+                        else if (type.text == "Seller"){
                           authController.user.value.user.seller == "1";
                           User.saveUserToCache(authController.user.value);
                           Fluttertoast.showToast(msg: "Now you are a Affiliate");
                           Get.back();
                         }
+                      }
+                      else{
+                        Fluttertoast.showToast(msg: "Invalid Credentials");
                       }
                     }
                   },

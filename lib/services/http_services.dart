@@ -399,7 +399,7 @@ class HttpService {
   }
 
   static Future<String> becameASeller
-      ({String token, String name, String email, String phone, String message, String refrence_promo_code,}) async {
+      ({String token, String name, String email, String phone, String message, String refrence_promo_code, String role}) async {
     Uri _updateProfile = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/becomeASeller');
     try {
       var response = await http.post(
@@ -411,9 +411,10 @@ class HttpService {
           'phone_no': phone,
           'message': message,
           'refrance_promo_code': refrence_promo_code,
+          'role' : role
         },
       );
-      if (response.statusCode == 201 || response.statusCode == 201) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         StaticVariable.becameASellerResponseCode = response.statusCode;
         return jsonDecode(response.body);
 
