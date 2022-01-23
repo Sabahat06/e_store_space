@@ -2,10 +2,12 @@ import 'dart:convert';
 import 'package:e_store_space/models/add_store_model.dart';
 import 'package:e_store_space/models/auth_model.dart';
 import 'package:e_store_space/models/get_store_product.dart';
+import 'package:e_store_space/models/latest_store_model.dart';
 import 'package:e_store_space/models/order_detail_model.dart';
 import 'package:e_store_space/models/page.dart';
 import 'package:e_store_space/models/product_category_model.dart';
 import 'package:e_store_space/models/product_detail.dart';
+import 'package:e_store_space/models/sold_product_model.dart';
 import 'package:e_store_space/models/user_store.dart';
 import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
@@ -59,6 +61,24 @@ class HttpService {
       if (response.statusCode == 200) {
         // List rawList = jsonDecode(response.body);
         return ProductCategory.fromJson(jsonDecode(response.body));
+      } else
+        return null;
+    }
+    catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+
+  static Future<LatestAndStoreModel> getAllStore() async {
+    Uri _getStore = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/getAllStore');
+    try {
+      var response = await http.get(
+        _getStore,
+      );
+      if (response.statusCode == 200) {
+        return LatestAndStoreModel.fromJson(jsonDecode(response.body));
       } else
         return null;
     }
@@ -391,6 +411,23 @@ class HttpService {
 
       } else {
         return null;
+      }
+    }
+    catch (e) {
+      return null;
+    }
+  }
+
+  static Future<SoldProductModel> getSoldProduct
+      ({String token}) async {
+    Uri _getSoldProduct = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/getSellerSoldProduct');
+    try {
+      var response = await http.get(
+        _getSoldProduct,
+        headers: {'Authorization': 'Bearer $token'},
+      );
+      if (response.statusCode == 200) {
+        return SoldProductModel.fromJson(jsonDecode(response.body));
       }
     }
     catch (e) {

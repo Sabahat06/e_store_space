@@ -49,7 +49,7 @@ class StoreProductsSeller extends StatelessWidget {
       ),
       floatingActionButton: GestureDetector(
         onTap: (){
-          Get.to(() => ProductCategoryScreen(storeId));
+          Get.to(() => ProductCategoryScreen(storeId: storeId, goToSellerScreen: true,));
         },
         child: Container(
           height: 40.h,

@@ -14,10 +14,11 @@ import 'package:e_store_space/widgets/my_text_field.dart';
 
 class ProductCategoryScreen extends StatelessWidget {
   String storeId;
+  bool goToSellerScreen;
   AuthController authController = Get.find();
   ProductCategoryController controller = Get.find();
   List<String> userTypeValue = ['Seller', "Affiliate"];
-  ProductCategoryScreen(this.storeId);
+  ProductCategoryScreen({this.storeId, this.goToSellerScreen});
 
   RxBool progressing = false.obs;
   @override
@@ -50,7 +51,9 @@ class ProductCategoryScreen extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: (){
-        Get.to(() => ProductScreenSeller(categoryId: productCategoryModel.id.toString(), title: productCategoryModel.name,storeId: storeId));
+        goToSellerScreen
+            ? Get.to(() => ProductScreenSeller(categoryId: productCategoryModel.id.toString(), title: productCategoryModel.name,storeId: storeId))
+            : Get.to(() => ProductScreen(categoryId: productCategoryModel.id.toString(), title: productCategoryModel.name,));
       },
       child: Padding(
         padding: EdgeInsets.all(8),

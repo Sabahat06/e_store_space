@@ -21,19 +21,19 @@ class AlertDialogWidget extends StatelessWidget {
     ),
       content: Text(subTitle,),
       actions: [
-        TextButton(
-          child: Text(
-              'No',
-              style: TextStyle(
-                  fontSize: 16.sp,
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold)
-          ),
-          onPressed: (){Get.back();},
-        ),
+        // TextButton(
+        //   child: Text(
+        //       'No',
+        //       style: TextStyle(
+        //           fontSize: 16.sp,
+        //           color: Colors.blue,
+        //           fontWeight: FontWeight.bold)
+        //   ),
+        //   onPressed: (){Get.back();},
+        // ),
         TextButton(
             child: Text(
-              'Yes',
+              'OK',
               style: TextStyle(
                   fontSize: 16.sp,
                   color: Colors.blue,

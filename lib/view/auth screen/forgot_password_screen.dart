@@ -1,3 +1,4 @@
+import 'package:e_store_space/services/http_services.dart';
 import 'package:e_store_space/widgets/my_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -31,8 +32,11 @@ class ForgotPasswordScreen extends StatelessWidget {
               ),
               const SizedBox(height: 15,),
               GestureDetector(
-                onTap: () {
+                onTap: () async {
                   if(forgotPasswordValidation()){
+                    controller.progressing.value = true;
+                    var response = HttpService.getAllPages();
+                    controller.progressing.value = false;
                     // controller.forgotPassword(email.text);
                   }
                 },

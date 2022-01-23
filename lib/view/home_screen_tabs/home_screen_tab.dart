@@ -1,11 +1,14 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:e_store_space/controller/product_category_controller.dart';
+import 'package:e_store_space/models/latest_store_model.dart';
 import 'package:e_store_space/models/product_category_model.dart';
 import 'package:e_store_space/view/product/product_detail_screen.dart';
 import 'package:e_store_space/view/product/product_screen.dart';
+import 'package:e_store_space/view/seller%20screens/product_category_screen.dart';
 import 'package:e_store_space/view/seller%20screens/store_product_seller.dart';
 import 'package:e_store_space/widgets/my_appbar.dart';
 import 'package:e_store_space/widgets/my_text_field.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -22,10 +25,16 @@ import 'package:url_launcher/url_launcher.dart';
 class HomeScreenTab extends StatelessWidget {
   RxInt currentIndex = 0.obs;
   RxList<String> splashData = [
-    "assets/image/shirt.jpg",
-    "assets/image/logo.png",
-    "assets/image/shoes.jpg"
+    "assets/image/slider1.jpg",
+    "assets/image/slider2.png",
+    "assets/image/slider3.jpg"
   ].obs;
+
+  RxList<String> banner = [
+    "assets/image/banner1.jpg",
+    "assets/image/banner2.png",
+  ].obs;
+
   TextEditingController searchController = TextEditingController();
   BottomBarController bottomBarController = Get.find();
   ProductCategoryController controller = Get.find();
@@ -34,12 +43,15 @@ class HomeScreenTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                expandedHeight: 210.0.h,
-                flexibleSpace: FlexibleSpaceBar(
-                  background: Carousel(
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 300,
+                width: double.infinity,
+                child: Carousel(
                     dotSize: 5,
                     autoplayDuration: Duration(seconds: 3),
                     dotSpacing: 10,
@@ -62,84 +74,133 @@ class HomeScreenTab extends StatelessWidget {
                           ),
                         ),
                     ]
-                  ),
                 ),
               ),
-              SliverAppBar(
-                backgroundColor: Colors.blue,
-                pinned: true,
-                flexibleSpace: FlexibleSpaceBar(
-                  titlePadding: const EdgeInsetsDirectional.only(
-                    start: 5.0,
-                    bottom: 5.0,
-                    top: 5,
-                    end: 5
-                  ),
-                  centerTitle: true,
-                  title: Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          height: 70.h,
-                          width: 50.w,
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/image/appbar.jpg"),
-                              fit: BoxFit.cover
-                            )
-                          ),
-                        ),
-                        Container(
-                          width: 290.w,
-                          height: 70.h,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15.r),
-                            color: Colors.white,
-                          ),
-                          child: TextFormField(
-                            controller: searchController,
-                            decoration: const InputDecoration(
-                              hintText: "Search",
-                              prefixIcon: Icon(Icons.search),
-                              border: InputBorder.none,
-                            ),
-                          )
-                        ),
-                        // const Icon(Icons.sort_outlined, color: Colors.white,),
-                        // const Icon(Icons.sort_outlined, color: Colors.white,),
-                      ]
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    height: 45.h,
+                    width: 70.w,
+                    decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage("assets/image/appbar.jpg"),
+                            fit: BoxFit.cover
+                        )
                     ),
                   ),
+                  Container(
+                      width: 290.w,
+                      height: 45.h,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(0),
+                        color: Colors.white,
+                      ),
+                      child: Center(
+                        child: TextFormField(
+                          controller: searchController,
+                          decoration: const InputDecoration(
+                            hintText: "Search",
+                            prefixIcon: Icon(Icons.search),
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      )
+                  ),
+                ]
+              ),
+              const SizedBox(height: 5,),
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0),
+                child: Container(child: Text('All Stores:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),),),
+              ),
+              Container(
+                height: 150,
+                width: double.infinity,
+                child: Obx(
+                  () => ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: controller.latestAndStoreModel.value.homeScreenStore.length,
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, int index){
+                      return storeLatestProducts(index, controller.latestAndStoreModel.value.homeScreenStore[index]);
+                    },
+                  ),
                 ),
               ),
-              SliverList(
-                delegate: SliverChildListDelegate([
-                  SingleChildScrollView(
-                    child: Container(
-                      width: double.infinity,
-                      child: Obx(
-                        () => GridView.builder(
-                          itemCount: controller.productCategory.value.productCategoryModel.length,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              mainAxisSpacing: 1.1
+              const SizedBox(height: 5,),
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0),
+                child: Container(child: Text('Latest Stores:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),),),
+              ),
+              Container(
+                height: 150,
+                width: double.infinity,
+                child: Obx(
+                      () => ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: controller.latestAndStoreModel.value.homeScreenStore.length,
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, int index){
+                      return renderingstoreProduct(index, controller.latestAndStoreModel.value.latestStore[index]);
+                    },
+                  ),
+                ),
+              ),
+              Container(
+                height: 150,
+                width: double.infinity,
+                child: Carousel(
+                  dotSize: 5,
+                  autoplayDuration: Duration(seconds: 5),
+                  dotSpacing: 10,
+                  autoplay: true,
+                  dotColor: Colors.white,
+                  dotIncreasedColor: Colors.blue,
+                  indicatorBgPadding: 5,
+                  dotBgColor: Colors.transparent,
+                  dotVerticalPadding: 5,
+                  images: <Widget>[
+                    for(var i=0; i<banner.length; i++)
+                      Container(
+                        margin:
+                        const EdgeInsets.only(top: 0.0, left: 0.0),
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(banner[i],),
+                            fit: BoxFit.cover,
                           ),
-                          itemBuilder: (BuildContext context, int index) {
-                            return GestureDetector(
-                              child: MyCategory(context, index, controller.productCategory.value.productCategoryModel[index]),
-                            );
-                          }
                         ),
                       ),
+                  ]
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0),
+                child: Container(child: Text('Categories: ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),),),
+              ),
+              Container(
+                width: double.infinity,
+                child: Obx(
+                  () => GridView.builder(
+                    itemCount: controller.productCategory.value.productCategoryModel.length,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 1.1
                     ),
+                    itemBuilder: (BuildContext context, int index) {
+                      return GestureDetector(
+                        child: MyCategory(context, index, controller.productCategory.value.productCategoryModel[index]),
+                      );
+                    }
                   ),
-                ]),
-              )
+                ),
+              ),
             ],
           ),
+        ),
       ),
     );
   }
@@ -201,4 +262,56 @@ class HomeScreenTab extends StatelessWidget {
     );
   }
 
+  renderingstoreProduct(int index, LatestStore store){
+    return GestureDetector(
+      onTap: (){
+        Get.to(() => ProductCategoryScreen(storeId: store.id.toString(), goToSellerScreen: false,));
+      },
+      child: Padding(
+        padding: EdgeInsets.only(left: 5, right: 5, bottom: 5),
+        child: Container(
+          height: 70,
+          width: 100,
+          color: Colors.white,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius: 40,
+                backgroundImage: NetworkImage('https://spinningsoft.co/projects/eStoreSpace/admin/images/store/${store.picture}'),
+                backgroundColor: store.picture == '' ? index%2!=0 ? Colors.green : Colors.redAccent : Colors.transparent,
+              ),
+              SizedBox(height: 5,),
+              Text('${store.dealType}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  storeLatestProducts(int index, HomeScreenStore store){
+    return Padding(
+      padding: EdgeInsets.only(left: 5, right: 5, bottom: 5),
+      child: Container(
+        height: 70,
+        width: 100,
+        color: Colors.white,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              radius: 40,
+              backgroundImage: NetworkImage('https://spinningsoft.co/projects/eStoreSpace/admin/images/store/${store.picture}'),
+              backgroundColor: store.picture == '' ? index%2==0 ? Colors.green : Colors.redAccent : Colors.transparent,
+            ),
+            SizedBox(height: 5,),
+            Text('${store.dealType}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+          ],
+        ),
+      ),
+    );
+  }
 }

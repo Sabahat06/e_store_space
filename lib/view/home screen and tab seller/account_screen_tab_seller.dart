@@ -64,6 +64,39 @@ class AccountScreenTabSeller extends StatelessWidget {
                     ]
                   ),
                   SizedBox(height: 10.h,),
+                  GestureDetector(
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialogWidget(
+                                title: 'Promo Code',
+                                subTitle: "${authController.user.value.user.promoCode??"45678"}",
+                                onPositiveClick: () {
+                                  Get.back();
+                                },
+                              );
+                            }
+                        );
+                      },
+                      child: Row(
+                        children: [
+                          const Icon(Icons.code_outlined,),
+                          const SizedBox(width: 10,),
+                          Container(
+                            width: Get.width-65,
+                            child: const Text(
+                              'Promo Code',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                  ),
+                  const Divider(),
                   SizedBox(height: 12.h,),
                   GestureDetector(
                       onTap: () {
@@ -172,7 +205,7 @@ class AccountScreenTabSeller extends StatelessWidget {
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.blue,
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(0),
                       ),
                       height: 40,
                       width: double.infinity,

@@ -147,13 +147,13 @@ class BecomeASeller extends StatelessWidget {
                       progressing.value = false;
                       if(StaticVariable.becameASellerResponseCode == 200 || StaticVariable.becameASellerResponseCode == 201){
                         if(type.text == "Affiliate"){
-                          authController.user.value.user.affiliate == "1";
+                          StaticVariable.isAffiliate.value = "1";
                           User.saveUserToCache(authController.user.value);
                           Fluttertoast.showToast(msg: "Now you are a Affiliate");
                           Get.back();
                         }
                         else if (type.text == "Seller"){
-                          authController.user.value.user.seller == "1";
+                          StaticVariable.isSeller.value = "1";
                           User.saveUserToCache(authController.user.value);
                           Fluttertoast.showToast(msg: "Now you are a Affiliate");
                           Get.back();

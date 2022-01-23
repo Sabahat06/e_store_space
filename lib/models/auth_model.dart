@@ -78,8 +78,8 @@ class User {
     picture = json['picture']??"";
     refrancePromoCode = json['refrance_promo_code']??"";
     promoCode = json['promo_code'];
-    affiliate.value = json['affiliate'];
-    seller.value = json['seller'];
+    affiliate.value = json['affiliate']??"";
+    seller.value = json['seller']??"";
     message = json['message']??"";
     status = json['status'];
     createdAt = json['created_at'];

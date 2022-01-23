@@ -1,6 +1,7 @@
 import 'package:e_store_space/controller/bottom_bar_controller.dart';
 import 'package:e_store_space/controller/user_store_controller.dart';
 import 'package:e_store_space/services/http_services.dart';
+import 'package:e_store_space/statics/static_var.dart';
 import 'package:e_store_space/view/account_screens/became_a_seller.dart';
 import 'package:e_store_space/view/account_screens/privacy_policy.dart';
 import 'package:e_store_space/view/account_screens/term_and_condition.dart';
@@ -41,7 +42,7 @@ class AccountScreenTab extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    authController.user.value.user.seller.value == "1"
+                    StaticVariable.isSeller.value == "1"
                          ? Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -73,11 +74,11 @@ class AccountScreenTab extends StatelessWidget {
                       ]
                     )
                          : Container(),
-                    authController.user.value.user.seller.value == "1"
+                    StaticVariable.isSeller.value == "1"
                         ? SizedBox(height: 10.h,)
                         : SizedBox(height: 0),
 
-                    authController.user.value.user.affiliate.value == "1"
+                    StaticVariable.isAffiliate.value == "1"
                         ? Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -109,7 +110,7 @@ class AccountScreenTab extends StatelessWidget {
                         ]
                     )
                         : Container(),
-                    authController.user.value.user.affiliate.value == "1"
+                    StaticVariable.isAffiliate.value == "1"
                         ? SizedBox(height: 10.h,)
                         : SizedBox(height: 0),
 
@@ -124,7 +125,7 @@ class AccountScreenTab extends StatelessWidget {
                             Container(
                               width: Get.width-65,
                               child: const Text(
-                                'Became a Seller',
+                                'Became a Seller/Affiliate',
                                 style: TextStyle(
                                     fontSize: 20,
                                     color: Colors.black
@@ -334,7 +335,7 @@ class AccountScreenTab extends StatelessWidget {
                       child: Container(
                         decoration: BoxDecoration(
                           color: Colors.blue,
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(0),
                         ),
                         height: 40,
                         width: double.infinity,
@@ -451,7 +452,7 @@ class AccountScreenTab extends StatelessWidget {
                         color: Colors.blue,
                         width: double.infinity,
                         txt: 'Create Account',
-                        borderRadius: 10.r,
+                        borderRadius: 0.r,
                         fontSize: 20.sp,
                       ),
                       const SizedBox(height: 15,),
@@ -462,7 +463,7 @@ class AccountScreenTab extends StatelessWidget {
                         color: Colors.blue,
                         width: double.infinity,
                         txt: 'Sign In',
-                        borderRadius: 10.r,
+                        borderRadius: 0.r,
                         fontSize: 20.sp,
                       ),
                     ],
