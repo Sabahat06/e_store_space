@@ -41,7 +41,7 @@ class AccountScreenTab extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    authController.user.value.user.seller == "1"
+                    authController.user.value.user.seller.value == "1"
                          ? Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -73,11 +73,11 @@ class AccountScreenTab extends StatelessWidget {
                       ]
                     )
                          : Container(),
-                    authController.user.value.user.seller == "1"
+                    authController.user.value.user.seller.value == "1"
                         ? SizedBox(height: 10.h,)
                         : SizedBox(height: 0),
 
-                    authController.user.value.user.affiliate == "1"
+                    authController.user.value.user.affiliate.value == "1"
                         ? Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -109,7 +109,7 @@ class AccountScreenTab extends StatelessWidget {
                         ]
                     )
                         : Container(),
-                    authController.user.value.user.affiliate == "1"
+                    authController.user.value.user.affiliate.value == "1"
                         ? SizedBox(height: 10.h,)
                         : SizedBox(height: 0),
 

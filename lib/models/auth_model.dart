@@ -1,4 +1,5 @@
 import 'package:cached_map/cached_map.dart';
+import 'package:get/get.dart';
 
 class AuthResponse {
   String token;
@@ -34,8 +35,8 @@ class User {
   String picture='';
   String refrancePromoCode='';
   String promoCode;
-  String affiliate;
-  String seller;
+  RxString affiliate=''.obs;
+  RxString seller=''.obs;
   String message='';
   String status;
   String createdAt;
@@ -77,8 +78,8 @@ class User {
     picture = json['picture']??"";
     refrancePromoCode = json['refrance_promo_code']??"";
     promoCode = json['promo_code'];
-    affiliate = json['affiliate'];
-    seller = json['seller'];
+    affiliate.value = json['affiliate'];
+    seller.value = json['seller'];
     message = json['message']??"";
     status = json['status'];
     createdAt = json['created_at'];
@@ -98,8 +99,8 @@ class User {
     data['picture'] = this.picture;
     data['refrance_promo_code'] = this.refrancePromoCode;
     data['promo_code'] = this.promoCode;
-    data['affiliate'] = this.affiliate;
-    data['seller'] = this.seller;
+    data['affiliate'] = this.affiliate.value;
+    data['seller'] = this.seller.value;
     data['message'] = this.message;
     data['status'] = this.status;
     data['created_at'] = this.createdAt;
