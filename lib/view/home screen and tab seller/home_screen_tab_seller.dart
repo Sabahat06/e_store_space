@@ -43,119 +43,105 @@ class HomeScreenTabSeller extends StatelessWidget {
         body: Obx(
           () => isLoading.value || userStoreController.progressing.value
               ? Center(child: CircularProgressIndicator(),)
-              : CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                expandedHeight: 210.0.h,
-                flexibleSpace: FlexibleSpaceBar(
-                  background: Carousel(
-                      dotSize: 5,
-                      autoplayDuration: Duration(seconds: 3),
-                      dotSpacing: 10,
-                      autoplay: true,
-                      dotColor: Colors.white,
-                      dotIncreasedColor: Colors.blue,
-                      indicatorBgPadding: 5,
-                      dotBgColor: Colors.transparent,
-                      dotVerticalPadding: 5,
-                      images: <Widget>[
-                        for(var i=0; i<splashData.length; i++)
-                          Container(
-                            margin:
-                            const EdgeInsets.only(top: 0.0, left: 0.0),
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(splashData[i],),
-                                fit: BoxFit.cover,
-                              ),
+              : Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                height: 300,
+                width: double.infinity,
+                child: Carousel(
+                    dotSize: 5,
+                    autoplayDuration: Duration(seconds: 3),
+                    dotSpacing: 10,
+                    autoplay: true,
+                    dotColor: Colors.white,
+                    dotIncreasedColor: Colors.blue,
+                    indicatorBgPadding: 5,
+                    dotBgColor: Colors.transparent,
+                    dotVerticalPadding: 5,
+                    images: <Widget>[
+                      for(var i=0; i<splashData.length; i++)
+                        Container(
+                          margin:
+                          const EdgeInsets.only(top: 0.0, left: 0.0),
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(splashData[i],),
+                              fit: BoxFit.cover,
                             ),
                           ),
-                      ]
-                  ),
+                        ),
+                    ]
                 ),
               ),
-              SliverAppBar(
-                backgroundColor: Colors.blue,
-                pinned: true,
-                flexibleSpace: FlexibleSpaceBar(
-                  titlePadding: const EdgeInsetsDirectional.only(
-                    start: 5.0,
-                    bottom: 5.0,
-                    top: 5,
-                    end: 5
-                  ),
-                  centerTitle: true,
-                  title: Container(
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            height: 70.h,
-                            width: 50.w,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage("assets/image/appbar.jpg"),
-                                fit: BoxFit.cover
-                              )
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      height: 45.h,
+                      width: 70.w,
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage("assets/image/appbar.jpg"),
+                              fit: BoxFit.cover
+                          )
+                      ),
+                    ),
+                    Container(
+                        width: 290.w,
+                        height: 45.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(0),
+                          color: Colors.white,
+                        ),
+                        child: Center(
+                          child: TextFormField(
+                            controller: searchController,
+                            decoration: const InputDecoration(
+                              hintText: "Search",
+                              prefixIcon: Icon(Icons.search),
+                              border: InputBorder.none,
                             ),
                           ),
-                          Container(
-                              width: 290.w,
-                              height: 70.h,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15.r),
-                                color: Colors.white,
-                              ),
-                              child: TextFormField(
-                                controller: searchController,
-                                decoration: const InputDecoration(
-                                  hintText: "Search",
-                                  prefixIcon: Icon(Icons.search),
-                                  border: InputBorder.none,
-                                ),
-                              )
-                          ),
-                          // const Icon(Icons.sort_outlined, color: Colors.white,),
-                          // const Icon(Icons.sort_outlined, color: Colors.white,),
-                        ]
+                        )
                     ),
-                  ),
-                ),
+                  ]
+              ),
+              const SizedBox(height: 5,),
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0),
+                child: Container(child: Text('All Stores:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),),),
               ),
               Obx(
                 () => userStoreController.userStore.value.store == null || userStoreController.userStore.value.store.length == 0
-                  ? SliverList(delegate: SliverChildListDelegate([
-                      Center(child: Column(
-                        children: [
-                          SizedBox(height: 200,),
-                          Text('No Store Added Yet Add Some', style: TextStyle(fontSize: 16.sp,),),
-                        ],
-                      ),)
-                   ]))
-                  : SliverList(
-                  delegate: SliverChildListDelegate([
-                    SingleChildScrollView(
-                      child: Container(
-                        width: double.infinity,
-                        child: GridView.builder(
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 1.1
-                          ),
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: userStoreController.userStore.value.store.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return renderingStore(index, userStoreController.userStore.value.store[index], context);
-                          }
-                        )
-                      ),
+                ? Center(child: Column(
+                    children: [
+                      SizedBox(height: 200,),
+                      Text('No Store Added Yet Add Some', style: TextStyle(fontSize: 16.sp,),),
+                    ],
+                  ),
+                )
+                : SingleChildScrollView(
+                    child: Container(
+                      width: double.infinity,
+                      child: GridView.builder(
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 1.1
+                        ),
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: userStoreController.userStore.value.store.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return renderingStore(index, userStoreController.userStore.value.store[index], context);
+                        }
+                      )
                     ),
-                  ]),
-                ),
+                  ),
               )
             ],
-          ),
+          )
         ),
         floatingActionButton: GestureDetector(
           onTap: (){Get.to(() => AddingStoreScreen());},
@@ -184,64 +170,23 @@ class HomeScreenTabSeller extends StatelessWidget {
   renderingStore(int index, Store store, BuildContext context){
     double width = MediaQuery.of(context).size.width;
     return Padding(
-      padding: EdgeInsets.all(10.0.w),
-      child: GestureDetector(
-        onTap: () async {
-          isLoading.value = true;
-          StoreProductModel storeProductModel = await HttpService.getStoreProducts(token: authController.user.value.token, id: store.id.toString());
-          isLoading.value=false;
-          Get.to(() => StoreProductsSeller(storeProductModel, store.name, store.id.toString()));
-          },
-        child: Card(
-          elevation: 2,
-          child: Container(
-            height: width*0.5,
-            // width: width*0.45,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.grey[100],
-              // border: Border.all(color: Colors.grey),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.2),
-                  spreadRadius: 3,
-                  blurRadius: 3,
-                  offset: const Offset(1, 1), // changes position of shadow
-                ),
-              ],
+      padding: const EdgeInsets.only(left: 5, right: 5, bottom: 5),
+      child: Container(
+        height: 80,
+        width: 100,
+        color: Colors.white,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              radius: 45,
+              backgroundImage: NetworkImage('https://spinningsoft.co/projects/eStoreSpace/admin/images/store/${store.picture}'),
+              backgroundColor: store.picture == '' ? index%2!=0 ? Colors.green : Colors.redAccent : Colors.transparent,
             ),
-            child: Column(
-              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  height: width*0.35,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(10.0),
-                      topLeft: Radius.circular(10.0),
-                    ),
-                    color: Colors.white,
-                  ),
-                  child: Image.asset("assets/image/apple.jpg", fit: BoxFit.cover,),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                        padding: const EdgeInsets.only(left: 10,top: 5),
-                        child:  Text(store.name,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.sp),)
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 10,top: 5),
-                      child: Text('2 Products',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.sp),),
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
+            const SizedBox(height: 5,),
+            Text('${store.dealType}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+          ],
         ),
       ),
     );
