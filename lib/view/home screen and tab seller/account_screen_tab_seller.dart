@@ -43,23 +43,23 @@ class AccountScreenTabSeller extends StatelessWidget {
                         ),
                       ),
                       Obx(
-                            () => bottomBarController.isAffiliate.value
-                                ? IconButton(
-                              onPressed: (){
-                                bottomBarController.isAffiliate.value =!bottomBarController.isAffiliate.value;
-                              },
-                              icon: bottomBarController.isAffiliate.value
+                        () => bottomBarController.isAffiliate.value
+                            ? IconButton(
+                                onPressed: (){
+                                  bottomBarController.isAffiliate.value =!bottomBarController.isAffiliate.value;
+                                },
+                                icon: bottomBarController.isAffiliate.value
                                   ? const Icon(Icons.toggle_on_outlined, size: 35, color: Colors.blue,)
                                   : const Icon(Icons.toggle_off_outlined, size: 35, color: Colors.blue,),
-                            )
-                                : IconButton(
-                                      onPressed: (){
-                                        bottomBarController.isSeller.value =!bottomBarController.isSeller.value;
-                                      },
-                                      icon: bottomBarController.isSeller.value
-                                          ? const Icon(Icons.toggle_on_outlined, size: 35, color: Colors.blue,)
-                                          : const Icon(Icons.toggle_off_outlined, size: 35, color: Colors.blue,),
-                                    ),
+                              )
+                            : IconButton(
+                                onPressed: (){
+                                  bottomBarController.isSeller.value =!bottomBarController.isSeller.value;
+                                },
+                                icon: bottomBarController.isSeller.value
+                                  ? const Icon(Icons.toggle_on_outlined, size: 35, color: Colors.blue,)
+                                  : const Icon(Icons.toggle_off_outlined, size: 35, color: Colors.blue,),
+                              ),
                       ),
                     ]
                   ),
