@@ -77,10 +77,10 @@ class StoreProductsSeller extends StatelessWidget {
       padding: EdgeInsets.all(10),
       child: GestureDetector(
         onTap: () async {
-          // productController.progressing.value = true;
-          // productController.productDetailsModel.value = await HttpService.getProductDetails("1");
-          // productController.progressing.value = false;
-          // Get.to(() => ProductDetailsScreen(productDetailsModel: productController.productDetailsModel.value,));
+            // productController.progressing.value = true;
+            // productController.productDetailsModel.value = await HttpService.getProductDetails("1");
+            // productController.progressing.value = false;
+            // Get.to(() => ProductDetailsScreen(productDetailsModel: productController.productDetailsModel.value,));
         },
         child: Card(
           elevation: 1,
@@ -116,7 +116,7 @@ class StoreProductsSeller extends StatelessWidget {
                     const SizedBox(height: 5,),
                     SmoothStarRating(
                       color: Colors.purpleAccent,
-                      rating: double.parse(product.ratingsAverage),
+                      rating: double.parse(product.ratingsAverage==null ? "0" : product.ratingsAverage=='' ? "0" : product.ratingsAverage),
                       size: 18,
                       isReadOnly: true,
                       borderColor: Colors.purpleAccent,

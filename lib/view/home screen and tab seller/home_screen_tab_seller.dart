@@ -3,6 +3,7 @@ import 'package:e_store_space/controller/user_store_controller.dart';
 import 'package:e_store_space/models/get_store_product.dart';
 import 'package:e_store_space/models/user_store.dart';
 import 'package:e_store_space/view/product/product_detail_screen.dart';
+import 'package:e_store_space/view/product/product_screen.dart';
 import 'package:e_store_space/view/seller%20screens/product_category_screen.dart';
 import 'package:e_store_space/view/seller%20screens/product_screen_seller.dart';
 import 'package:e_store_space/view/seller%20screens/store_product_seller.dart';
@@ -209,7 +210,12 @@ class HomeScreenTabSeller extends StatelessWidget {
   renderingStore(int index, Store store, BuildContext context){
     double width = MediaQuery.of(context).size.width;
     return GestureDetector(
-      onTap: (){Get.to(() => ProductCategoryScreen(storeId: store.id.toString(), goToSellerScreen: true,));},
+      onTap: () async {
+          isLoading.value = true;
+          StoreProductModel storeProductModel = await  HttpService.getStoreProducts(token: authController.user.value.token, id: store.id.toString());
+          isLoading.value = false;
+          Get.to(() => StoreProductsSeller(storeProductModel, store.name, store.id.toString()));
+        },
       child: Padding(
         padding: const EdgeInsets.only(left: 5, right: 5, bottom: 5),
         child: Container(

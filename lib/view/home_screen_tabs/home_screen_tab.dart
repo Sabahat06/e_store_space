@@ -1,5 +1,6 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:e_store_space/controller/product_category_controller.dart';
+import 'package:e_store_space/models/get_store_product.dart';
 import 'package:e_store_space/models/latest_store_model.dart';
 import 'package:e_store_space/models/product_category_model.dart';
 import 'package:e_store_space/view/product/product_detail_screen.dart';
@@ -274,11 +275,11 @@ class HomeScreenTab extends StatelessWidget {
 
   renderingstoreProduct(int index, HomeScreenStore store){
     return GestureDetector(
-      onTap: (){
+      onTap: () async {
         // controller.progressing.value = true;
-        // var storeProducts = HttpService.getStoreProducts(token: authController);
-        Get.to(() => ProductCategoryScreen(storeId: store.id.toString(), goToSellerScreen: false,));
+        // StoreProductModel storeProductModel = await  HttpService.getStoreProducts(token: authController.user.value.token, id: store.id.toString());
         // controller.progressing.value = false;
+        // Get.to(() => StoreProductsSeller(storeProductModel, store.name, store.id.toString(), true));
       },
       child: Padding(
         padding: EdgeInsets.only(left: 5, right: 5, bottom: 5),
