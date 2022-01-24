@@ -143,23 +143,28 @@ class ProductDetailsScreen extends StatelessWidget {
                                     children: [
                                       Container(
                                         width: 220.w,
-                                        child: Text(productDetailsModel.productDetails.description),
+                                        child: Text(productDetailsModel.productDetails.description, textAlign: TextAlign.justify,),
                                       ),
                                       const SizedBox(height: 7,),
                                       Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           GestureDetector(
                                             onTap: () {Get.to(() => ReviewsScreen(ratings: productDetailsModel.productDetails.ratings, productName: productDetailsModel.productDetails.name,));},
                                             child: SmoothStarRating(
                                               color: Colors.purpleAccent,
-                                              rating: double.parse(productDetailsModel.rating),
+                                              rating: double.parse(productDetailsModel.rating == null ? "0" : productDetailsModel.rating=="" ? "0" : productDetailsModel.rating),
                                               size: 15,
                                               isReadOnly: true,
                                               borderColor: Colors.purpleAccent,
                                             ),
                                           ),
                                           const SizedBox(width: 7,),
-                                          Text(double.parse(productDetailsModel.rating).toStringAsFixed(1), style: TextStyle(fontSize: 15, color: Colors.black54),),
+                                          Text(
+                                            productDetailsModel.rating == null ? "0.0" : double.parse(productDetailsModel.rating).toStringAsFixed(1),
+                                            style: TextStyle(fontSize: 15, color: Colors.black54),
+                                          ),
                                         ],
                                       ),
                                     ],

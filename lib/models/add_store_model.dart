@@ -4,15 +4,15 @@ class AddStoreModel {
   AddStoreModel({this.addStore});
 
   AddStoreModel.fromJson(Map<String, dynamic> json) {
-    addStore = json['addStore'] != null
-        ? new AddStore.fromJson(json['addStore'])
+    addStore = json['store'] != null
+        ? new AddStore.fromJson(json['store'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.addStore != null) {
-      data['addStore'] = this.addStore.toJson();
+      data['store'] = this.addStore.toJson();
     }
     return data;
   }

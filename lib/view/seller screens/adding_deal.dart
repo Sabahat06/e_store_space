@@ -36,7 +36,7 @@ class AddingStoreScreen extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () {Get.back();}, color: Colors.white,),
         leadingWidth: 30,
-        title: const Text('Add Deal', style: TextStyle(color: Colors.white),),
+        title: const Text('Add Store', style: TextStyle(color: Colors.white),),
       ),
       body: Obx(
         () => controller.progressing.value
@@ -94,11 +94,11 @@ class AddingStoreScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 MyFilledButton(
-                  txt: 'Adding Deal',
+                  txt: 'Add Store',
                   fontSize: 20,
                   width: double.infinity,
                   color: Colors.blue,
-                  borderRadius: 10,
+                  borderRadius: 0,
                   ontap: () async {
                     if(addingDealValidation()) {
                       controller.progressing.value = true;
@@ -107,10 +107,11 @@ class AddingStoreScreen extends StatelessWidget {
                         dealType: dealType.text,
                         description: description.text,
                         name: dealName.text,
-                        file: StaticVariable.image,
+                        file: StaticVariable.pickedimage,
                       );
                       controller.progressing.value = false;
-                      if(StaticVariable.addUserDealResponseCode == 201){
+                      print(controller.store);
+                      if(StaticVariable.addUserDealResponseCode == 201 || StaticVariable.addUserDealResponseCode == 200){
                         Get.off(() => ProductCategoryScreen(storeId: controller.store.addStore.id.toString(),goToSellerScreen: true,));
                       }
                     }

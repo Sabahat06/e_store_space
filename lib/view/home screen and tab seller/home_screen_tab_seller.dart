@@ -3,6 +3,8 @@ import 'package:e_store_space/controller/user_store_controller.dart';
 import 'package:e_store_space/models/get_store_product.dart';
 import 'package:e_store_space/models/user_store.dart';
 import 'package:e_store_space/view/product/product_detail_screen.dart';
+import 'package:e_store_space/view/seller%20screens/product_category_screen.dart';
+import 'package:e_store_space/view/seller%20screens/product_screen_seller.dart';
 import 'package:e_store_space/view/seller%20screens/store_product_seller.dart';
 import 'package:e_store_space/view/seller%20screens/adding_deal.dart';
 import 'package:e_store_space/widgets/my_appbar.dart';
@@ -206,24 +208,27 @@ class HomeScreenTabSeller extends StatelessWidget {
 
   renderingStore(int index, Store store, BuildContext context){
     double width = MediaQuery.of(context).size.width;
-    return Padding(
-      padding: const EdgeInsets.only(left: 5, right: 5, bottom: 5),
-      child: Container(
-        height: 80,
-        width: 100,
-        color: Colors.white,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: 45,
-              backgroundImage: NetworkImage('https://spinningsoft.co/projects/eStoreSpace/admin/images/store/${store.picture}'),
-              backgroundColor: store.picture == '' ? index%2!=0 ? Colors.green : Colors.redAccent : Colors.transparent,
-            ),
-            const SizedBox(height: 5,),
-            Text('${store.dealType}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
-          ],
+    return GestureDetector(
+      onTap: (){Get.to(() => ProductCategoryScreen(storeId: store.id.toString(), goToSellerScreen: true,));},
+      child: Padding(
+        padding: const EdgeInsets.only(left: 5, right: 5, bottom: 5),
+        child: Container(
+          height: 80,
+          width: 100,
+          color: Colors.white,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius: 45,
+                backgroundImage: NetworkImage('https://spinningsoft.co/projects/eStoreSpace/admin/images/store/${store.picture}'),
+                backgroundColor: store.picture == '' ? index%2!=0 ? Colors.green : Colors.redAccent : Colors.transparent,
+              ),
+              const SizedBox(height: 5,),
+              Text('${store.dealType}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+            ],
+          ),
         ),
       ),
     );

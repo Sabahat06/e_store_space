@@ -30,15 +30,15 @@ class User {
   String phoneNo;
   String address;
   String city;
-  // String area='';
-  // String country='';
+  String area='';
+  String country='';
   String picture='';
   String refrancePromoCode='';
-  String promoCode;
+  String promoCode='';
   RxString affiliate=''.obs;
   RxString seller=''.obs;
   String message='';
-  String status;
+  String status='';
   String createdAt;
   String updatedAt;
   String deletedAt='';
@@ -61,8 +61,8 @@ class User {
         this.createdAt,
         this.updatedAt,
         this.deletedAt,
-        // this.area,
-        // this.country
+        this.area,
+        this.country
       });
 
   User.fromJson(Map<String, dynamic> json) {
@@ -73,15 +73,15 @@ class User {
     phoneNo = json['phone_no'];
     address = json['address'];
     city = json['city'];
-    // area = json['area']??"";
-    // country = json['country']??"";
+    area = json['area']??"";
+    country = json['country']??"";
     picture = json['picture']??"";
     refrancePromoCode = json['refrance_promo_code']??"";
-    promoCode = json['promo_code'];
+    promoCode = json['promo_code']??"";
     affiliate.value = json['affiliate']??"";
     seller.value = json['seller']??"";
     message = json['message']??"";
-    status = json['status'];
+    status = json['status']??"";
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     deletedAt = json['deleted_at']??"";

@@ -243,15 +243,10 @@ class HttpService {
       Uri _placeOrder = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/addOrder');
       var response1 = await http.post(
         _placeOrder,
-        headers: {
-          // 'Content-Type': 'application/json',
-          // 'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
-        },
+        headers: {'Authorization': 'Bearer $token'},
         body: {
           'user_id': customerID,
           'price' : amount,
-          'order_notes': orderNotes,
           'shaping_address' : address,
           'product' : jsonEncode(orderDetails),
         },
@@ -298,10 +293,10 @@ class HttpService {
           'name': name,
           'deal_type': dealType,
           'description': description,
-          'picture': file,
+          // 'picture': file,
         }
       );
-      if (response.statusCode == 201 || response.statusCode == 201) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         StaticVariable.addUserDealResponseCode= response.statusCode;
         return AddStoreModel.fromJson(jsonDecode(response.body));
       }

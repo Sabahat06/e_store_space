@@ -50,7 +50,7 @@ class UpdateProfile extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () {Get.back();}, color: Colors.white,),
         leadingWidth: 30,
-        title: const Text('Update Profile', style: TextStyle(color: Colors.white),),
+        title: const Text('Profile', style: TextStyle(color: Colors.white),),
       ),
       body: Obx(
         () => authController.progressing.value ? Center(child: CircularProgressIndicator(),) : Padding(
@@ -66,7 +66,15 @@ class UpdateProfile extends StatelessWidget {
                         child: Image.asset("assets/image/appimage.jpeg",)
                     ),
                   ),
-                  SizedBox(height: 30.h,),
+                  SizedBox(height: 15.h,),
+                  Row(
+                    children: [
+                      Text("Promo Code:", style: TextStyle(fontSize: 18.sp, color: Colors.black, fontWeight: FontWeight.bold),),
+                      SizedBox(width: 10.w,),
+                      Text("${authController.user.value.user.promoCode??"You Have No Promo Code"}", style: TextStyle(fontSize: 16.sp, color: Colors.blue),),
+                    ],
+                  ),
+                  SizedBox(height: 15.h,),
                   MyTextField(controller: name, label: 'Name', prefixIcon: IconButton(icon: Icon(Icons.person_outlined, color: Colors.blue,),)),
                   SizedBox(height: 12.h,),
                   MyTextField(controller: email, label: 'Email',  keyboardType: TextInputType.emailAddress, prefixIcon: IconButton(icon: Icon(Icons.email_outlined, color: Colors.blue,),)),

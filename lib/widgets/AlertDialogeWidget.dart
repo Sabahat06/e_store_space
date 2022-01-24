@@ -19,7 +19,7 @@ class AlertDialogWidget extends StatelessWidget {
           fontWeight: FontWeight.bold,
       ),
     ),
-      content: Text(subTitle,),
+      content: Text(subTitle, style: TextStyle(fontSize: 16, color: Colors.black),),
       actions: [
         // TextButton(
         //   child: Text(

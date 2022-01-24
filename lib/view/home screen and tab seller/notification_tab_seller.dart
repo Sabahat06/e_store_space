@@ -18,19 +18,25 @@ class NotificationScreenTabSeller extends StatelessWidget {
           centerTitle: true,
           title: Text("Notification", style: TextStyle(fontSize: 16.sp, color: Colors.white),),
         ),
-      body: SingleChildScrollView(
+      body: Center(
         child: Container(
           width: double.infinity,
-          child: ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: 2,
-            itemBuilder: (BuildContext context, int index) {
-              return renderingNotification(index, context);
-            }
-          )
+          child: Center(child: Text('You Have No Notification', style: TextStyle(color: Colors.black, fontSize: 16.sp),)),
         ),
-      ),
+      )
+      // SingleChildScrollView(
+      //   child: Container(
+      //     width: double.infinity,
+      //     child: ListView.builder(
+      //       shrinkWrap: true,
+      //       physics: const NeverScrollableScrollPhysics(),
+      //       itemCount: 2,
+      //       itemBuilder: (BuildContext context, int index) {
+      //         return renderingNotification(index, context);
+      //       }
+      //     )
+      //   ),
+      // ),
     );
   }
 

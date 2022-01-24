@@ -79,9 +79,9 @@ class _MyimagePickerState extends State<MyImagePicker> {
         imageQuality: 15).then((imageFile) {
       setState(() {
         widget.file = File(imageFile.path);
+        StaticVariable.pickedimage = widget.file;
         List<int> imageBytes = widget.file.readAsBytesSync();
         StaticVariable.baseString = base64Encode(imageBytes);
-        StaticVariable.image = widget.file;
       });
 
     });
@@ -100,9 +100,6 @@ class _MyimagePickerState extends State<MyImagePicker> {
                   onPressed: () {
                     Navigator.pop(context);
                     _openGallery(true);
-
-
-
                   },
                   child: Column(
                     children: const [

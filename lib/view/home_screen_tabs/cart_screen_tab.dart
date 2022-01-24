@@ -33,17 +33,17 @@ class CartScreenTab extends StatelessWidget {
           ),
         ),
       body: Obx(
-        () => controller.items.length == 0
+        () => controller.items.value.length == 0
             ? const Center(child: Text("There is No item in the cart", style: TextStyle(fontSize: 18),))
             : Column(
           children: [
             Expanded(
               child: ListView.builder(
-                itemCount: controller.items.length,
+                itemCount: controller.items.value.length,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
-                    child: MyProduct(controller.items[index], index),
+                    child: MyProduct(controller.items.value[index], index),
                   );
                 }
               ),
@@ -52,7 +52,6 @@ class CartScreenTab extends StatelessWidget {
               padding: EdgeInsets.only(bottom: 7.0.w, left: 3.w, right: 3.w, top: 3.w),
               child: GestureDetector(
                 onTap: (){
-
                   authController.isLogedIn.value ? Get.to(AddOrderLoginScreen(totalAmount: controller.calculateBillingAmount().toStringAsFixed(2),)) : Get.to(() => CreateAccount(true));
                 },
                 child: Container(

@@ -83,10 +83,10 @@ class HomeScreenTab extends StatelessWidget {
                     height: 45.h,
                     width: 70.w,
                     decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage("assets/image/appbar.jpg"),
-                            fit: BoxFit.cover
-                        )
+                      image: DecorationImage(
+                        image: AssetImage("assets/image/appbar.jpg"),
+                        fit: BoxFit.cover
+                      )
                     ),
                   ),
                   Container(
@@ -127,7 +127,7 @@ class HomeScreenTab extends StatelessWidget {
                             itemCount: controller.latestAndStoreModel.value.homeScreenStore.length,
                             shrinkWrap: true,
                             itemBuilder: (BuildContext context, int index){
-                              return storeLatestProducts(index, controller.latestAndStoreModel.value.homeScreenStore[index]);
+                              return renderingstoreProduct(index, controller.latestAndStoreModel.value.homeScreenStore[index]);
                             },
                           ),
                 ),
@@ -141,18 +141,18 @@ class HomeScreenTab extends StatelessWidget {
                 height: 150,
                 width: double.infinity,
                 child: Obx(
-                      () => controller.storeProgressing.value
-                          ? Center(child: CircularProgressIndicator(),)
-                          : controller.latestAndStoreModel.value.latestStore==null || controller.latestAndStoreModel.value.latestStore.length == 0
-                            ? Center(child: Text("There is No Latest Store Here", style: TextStyle(color: Colors.black, fontSize: 16.sp),),)
-                            : ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: controller.latestAndStoreModel.value.latestStore.length,
-                                shrinkWrap: true,
-                                itemBuilder: (BuildContext context, int index){
-                                  return renderingstoreProduct(index, controller.latestAndStoreModel.value.latestStore[index]);
-                                },
-                              ),
+                  () => controller.storeProgressing.value
+                    ? Center(child: CircularProgressIndicator(),)
+                    : controller.latestAndStoreModel.value.latestStore==null || controller.latestAndStoreModel.value.latestStore.length == 0
+                      ? Center(child: Text("There is No Latest Store Here", style: TextStyle(color: Colors.black, fontSize: 16.sp),),)
+                      : ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: controller.latestAndStoreModel.value.latestStore.length,
+                          shrinkWrap: true,
+                          itemBuilder: (BuildContext context, int index){
+                            return storeLatestProducts(index, controller.latestAndStoreModel.value.latestStore[index]);
+                          },
+                        ),
                 ),
               ),
               Container(
@@ -184,7 +184,7 @@ class HomeScreenTab extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 10.0),
+                padding: const EdgeInsets.only(left: 10.0, top: 5),
                 child: Container(child: Text('Categories: ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),),),
               ),
               Container(
@@ -272,10 +272,13 @@ class HomeScreenTab extends StatelessWidget {
     );
   }
 
-  renderingstoreProduct(int index, LatestStore store){
+  renderingstoreProduct(int index, HomeScreenStore store){
     return GestureDetector(
       onTap: (){
+        // controller.progressing.value = true;
+        // var storeProducts = HttpService.getStoreProducts(token: authController);
         Get.to(() => ProductCategoryScreen(storeId: store.id.toString(), goToSellerScreen: false,));
+        // controller.progressing.value = false;
       },
       child: Padding(
         padding: EdgeInsets.only(left: 5, right: 5, bottom: 5),
@@ -301,25 +304,28 @@ class HomeScreenTab extends StatelessWidget {
     );
   }
 
-  storeLatestProducts(int index, HomeScreenStore store){
-    return Padding(
-      padding: EdgeInsets.only(left: 5, right: 5, bottom: 5),
-      child: Container(
-        height: 70,
-        width: 100,
-        color: Colors.white,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: 40,
-              backgroundImage: NetworkImage('https://spinningsoft.co/projects/eStoreSpace/admin/images/store/${store.picture}'),
-              backgroundColor: store.picture == '' ? index%2==0 ? Colors.green : Colors.redAccent : Colors.transparent,
-            ),
-            SizedBox(height: 5,),
-            Text('${store.dealType}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
-          ],
+  storeLatestProducts(int index, LatestStore store){
+    return GestureDetector(
+      onTap: (){() => ProductCategoryScreen(storeId: store.id.toString(), goToSellerScreen: false,);},
+      child: Padding(
+        padding: EdgeInsets.only(left: 5, right: 5, bottom: 5),
+        child: Container(
+          height: 70,
+          width: 100,
+          color: Colors.white,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius: 40,
+                backgroundImage: NetworkImage('https://spinningsoft.co/projects/eStoreSpace/admin/images/store/${store.picture}'),
+                backgroundColor: store.picture == '' ? index%2==0 ? Colors.green : Colors.redAccent : Colors.transparent,
+              ),
+              SizedBox(height: 5,),
+              Text('${store.dealType}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+            ],
+          ),
         ),
       ),
     );

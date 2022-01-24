@@ -44,7 +44,9 @@ class ProductScreenSeller extends StatelessWidget {
             ? const Center(child: CircularProgressIndicator())
             : Column(
               children: [
-                Expanded(
+                productController.productsModal.value.products == null || productController.productsModal.value.products.length == 0
+                    ? Expanded(child: Center(child: Text('There is No Product in this Category', style: TextStyle(fontSize: 16.sp, color: Colors.black),),))
+                    : Expanded(
                   child: ListView.builder(
                   itemCount: productController.productsModal.value.products.length,
                   shrinkWrap: true,
