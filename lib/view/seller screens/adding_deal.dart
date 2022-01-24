@@ -106,7 +106,8 @@ class AddingStoreScreen extends StatelessWidget {
                         token: authController.user.value.token,
                         dealType: dealType.text,
                         description: description.text,
-                        name: dealName.text
+                        name: dealName.text,
+                        file: StaticVariable.image,
                       );
                       controller.progressing.value = false;
                       if(StaticVariable.addUserDealResponseCode == 201){
@@ -128,6 +129,11 @@ class AddingStoreScreen extends StatelessWidget {
       Fluttertoast.showToast(msg: 'Name is Required');
       return false;
     }
+    // else if
+    // (file == null){
+    //   Fluttertoast.showToast(msg: 'Please Select Image');
+    //   return false;
+    // }
     // else if
     // (!GetUtils.isEmail(dealShortDetail.text)){
     //   Fluttertoast.showToast(msg: 'Email format is not correct');

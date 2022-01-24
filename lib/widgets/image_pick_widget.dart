@@ -81,6 +81,7 @@ class _MyimagePickerState extends State<MyImagePicker> {
         widget.file = File(imageFile.path);
         List<int> imageBytes = widget.file.readAsBytesSync();
         StaticVariable.baseString = base64Encode(imageBytes);
+        StaticVariable.image = widget.file;
       });
 
     });

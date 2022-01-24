@@ -91,7 +91,7 @@ class ProductScreen extends StatelessWidget {
                     const SizedBox(height: 5,),
                     SmoothStarRating(
                       color: Colors.purpleAccent,
-                      rating: double.parse(products.rating),
+                      rating: double.parse(products.rating == "" ? "0" : products.rating),
                       size: 18,
                       isReadOnly: true,
                       borderColor: Colors.purpleAccent,

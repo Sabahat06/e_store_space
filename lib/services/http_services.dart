@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:e_store_space/models/add_store_model.dart';
 import 'package:e_store_space/models/auth_model.dart';
 import 'package:e_store_space/models/get_store_product.dart';
@@ -139,7 +140,7 @@ class HttpService {
           'password': password,
         },
       );
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 200) {
         StaticVariable.loginResponseCode= response.statusCode;
         return AuthResponse.fromJson(jsonDecode(response.body)) ;
       } else {
@@ -167,7 +168,7 @@ class HttpService {
 
         },
       );
-      if (response.statusCode == 201) {
+      if (response.statusCode == 201 || response.statusCode == 200) {
         StaticVariable.registerResponseCode = response.statusCode;
         return AuthResponse.fromJson(jsonDecode(response.body)) ;
 
@@ -195,7 +196,7 @@ class HttpService {
           'message': message
         },
       );
-      if (response.statusCode == 201) {
+      if (response.statusCode == 201 || response.statusCode == 200) {
         return jsonDecode(response.body)['message'];
 
       } else
@@ -224,7 +225,7 @@ class HttpService {
           'password_confirmation': newPassword
         },
       );
-      if (response.statusCode == 201) {
+      if (response.statusCode == 201 || response.statusCode == 200) {
         StaticVariable.updateProfileResponseCode = response.statusCode;
         return jsonDecode(response.body)['message'];
 
@@ -287,7 +288,7 @@ class HttpService {
 
 
   static Future<AddStoreModel> addUserStore
-      ({String token, String name, String dealType, String description}) async {
+      ({String token, String name, String dealType, String description, File file}) async {
     Uri _addUserStore = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/addStore');
     try {
       var response = await http.post(
@@ -296,7 +297,8 @@ class HttpService {
         body: {
           'name': name,
           'deal_type': dealType,
-          'description': description
+          'description': description,
+          'picture': file,
         }
       );
       if (response.statusCode == 201 || response.statusCode == 201) {

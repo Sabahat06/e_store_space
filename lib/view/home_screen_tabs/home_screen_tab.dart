@@ -25,13 +25,13 @@ import 'package:url_launcher/url_launcher.dart';
 class HomeScreenTab extends StatelessWidget {
   RxInt currentIndex = 0.obs;
   RxList<String> splashData = [
-    "assets/image/slider1.jpg",
+    "assets/image/slider1.png",
     "assets/image/slider2.png",
-    "assets/image/slider3.jpg"
+    "assets/image/slider3.png"
   ].obs;
 
   RxList<String> banner = [
-    "assets/image/banner1.jpg",
+    "assets/image/banner1.png",
     "assets/image/banner2.png",
   ].obs;
 
@@ -118,14 +118,18 @@ class HomeScreenTab extends StatelessWidget {
                 height: 150,
                 width: double.infinity,
                 child: Obx(
-                  () => ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: controller.latestAndStoreModel.value.homeScreenStore.length,
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index){
-                      return storeLatestProducts(index, controller.latestAndStoreModel.value.homeScreenStore[index]);
-                    },
-                  ),
+                  () => controller.storeProgressing.value
+                      ? Center(child: CircularProgressIndicator(),)
+                      : controller.latestAndStoreModel.value.homeScreenStore == null || controller.latestAndStoreModel.value.homeScreenStore.length == 0
+                        ?  Center(child: Text("There is No Store Here", style: TextStyle(color: Colors.black, fontSize: 16.sp),),)
+                        :  ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: controller.latestAndStoreModel.value.homeScreenStore.length,
+                            shrinkWrap: true,
+                            itemBuilder: (BuildContext context, int index){
+                              return storeLatestProducts(index, controller.latestAndStoreModel.value.homeScreenStore[index]);
+                            },
+                          ),
                 ),
               ),
               const SizedBox(height: 5,),
@@ -137,21 +141,25 @@ class HomeScreenTab extends StatelessWidget {
                 height: 150,
                 width: double.infinity,
                 child: Obx(
-                      () => ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: controller.latestAndStoreModel.value.homeScreenStore.length,
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index){
-                      return renderingstoreProduct(index, controller.latestAndStoreModel.value.latestStore[index]);
-                    },
-                  ),
+                      () => controller.storeProgressing.value
+                          ? Center(child: CircularProgressIndicator(),)
+                          : controller.latestAndStoreModel.value.latestStore==null || controller.latestAndStoreModel.value.latestStore.length == 0
+                            ? Center(child: Text("There is No Latest Store Here", style: TextStyle(color: Colors.black, fontSize: 16.sp),),)
+                            : ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: controller.latestAndStoreModel.value.latestStore.length,
+                                shrinkWrap: true,
+                                itemBuilder: (BuildContext context, int index){
+                                  return renderingstoreProduct(index, controller.latestAndStoreModel.value.latestStore[index]);
+                                },
+                              ),
                 ),
               ),
               Container(
                 height: 150,
                 width: double.infinity,
                 child: Carousel(
-                  dotSize: 5,
+                  dotSize: 0,
                   autoplayDuration: Duration(seconds: 3),
                   dotSpacing: 10,
                   autoplay: true,
@@ -182,7 +190,9 @@ class HomeScreenTab extends StatelessWidget {
               Container(
                 width: double.infinity,
                 child: Obx(
-                  () => GridView.builder(
+                  () => controller.progressing.value
+                      ? Center(child: CircularProgressIndicator(),)
+                      :  GridView.builder(
                     itemCount: controller.productCategory.value.productCategoryModel.length,
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),

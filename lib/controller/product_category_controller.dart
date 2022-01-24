@@ -6,6 +6,9 @@ import 'package:get/get.dart';
 class ProductCategoryController extends GetxController{
   Rx<ProductCategory> productCategory = ProductCategory().obs;
   Rx<LatestAndStoreModel> latestAndStoreModel = LatestAndStoreModel().obs;
+  RxBool progressing = false.obs;
+  RxBool storeProgressing = false.obs;
+
   @override
   void onInit() {
     loadDeals();
@@ -14,12 +17,16 @@ class ProductCategoryController extends GetxController{
   }
 
   loadCategories() async {
+    progressing.value = true;
     productCategory.value = await HttpService.getProductCategories();
+    progressing.value = false;
     print(productCategory);
   }
 
   loadDeals() async {
+    storeProgressing.value = true;
     latestAndStoreModel.value = await HttpService.getAllStore();
+    storeProgressing.value = false;
     print('sduhf');
   }
 }

@@ -32,6 +32,7 @@ class BecomeASeller extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () {Get.back();}, color: Colors.white,),
         leadingWidth: 30,
@@ -197,8 +198,12 @@ class BecomeASeller extends StatelessWidget {
       Fluttertoast.showToast(msg: 'Phone Number is required');
       return false;
     }
-    else if (phone.text.trim().length <= 9){
-      Fluttertoast.showToast(msg: 'Enter Valid Phone Number');
+    else if (type.text.trim().length == 0){
+      Fluttertoast.showToast(msg: 'User Type is required');
+      return false;
+    }
+    else if (promoCode.text.trim().length == 0){
+      Fluttertoast.showToast(msg: 'Promo Code is required');
       return false;
     }
     else

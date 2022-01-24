@@ -57,7 +57,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20)
                   ),
                   child: Center(
-                    child: Text(double.parse(productDetailsModel.rating).toStringAsFixed(1), style: TextStyle(fontSize: 16.sp, color: Colors.black),),
+                    child: Text(double.parse(productDetailsModel.rating == null ? "0" : productDetailsModel.rating == "" ? "0" : productDetailsModel.rating).toStringAsFixed(1), style: TextStyle(fontSize: 16.sp, color: Colors.black),),
                   ),
                 ),
                 const SizedBox(width: 13,),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:get/get.dart';
 class StaticVariable{
 
@@ -20,4 +22,5 @@ class StaticVariable{
   static int addStoreResponseCode = 0;
   static RxString isSeller = '0'.obs;
   static RxString isAffiliate = '0'.obs;
+  static File image;
 }
