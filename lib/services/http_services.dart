@@ -302,6 +302,26 @@ class HttpService {
     }
   }
 
+  static Future<String> forgotPassword
+      ({String email}) async {
+    Uri _forgotPassword = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/password/${email}');
+    try {
+      var response = await http.get(
+        _forgotPassword,
+      );
+      if (response.statusCode == 200||response.statusCode == 201) {
+        Fluttertoast.showToast(msg: "Password has been send to your mail Thanku");
+        return (response.body);
+      }
+      else{
+        Fluttertoast.showToast(msg: "Enter Email is Invalid");
+      }
+    }
+    catch (e) {
+      return null;
+    }
+  }
+
   static Future<AddStoreModel> addUserStore
       ({String token, String name, String dealType, String description, File file}) async {
     Uri _addUserStore = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/addStore');

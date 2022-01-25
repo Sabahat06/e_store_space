@@ -35,7 +35,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                 onTap: () async {
                   if(forgotPasswordValidation()){
                     controller.progressing.value = true;
-                    var response = HttpService.getAllPages();
+                    var response = HttpService.forgotPassword(email: email.text);
                     controller.progressing.value = false;
                     // controller.forgotPassword(email.text);
                   }

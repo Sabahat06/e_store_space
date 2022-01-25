@@ -117,7 +117,7 @@ class HomeScreenTabSeller extends StatelessWidget {
                           ),
                         ]
                     ),
-                    const SizedBox(height: 5,),
+                    const SizedBox(height: 10,),
                     Padding(
                       padding: const EdgeInsets.only(left: 10.0),
                       child: Container(child: Text('All Stores:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),),),
@@ -218,9 +218,10 @@ class HomeScreenTabSeller extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(left: 5, right: 5, bottom: 5),
         child: Card(
+          color: Colors.grey[300],
           elevation: 2,
           child: Container(
-            height: 80,
+            height: 100,
             width: 100,
             color: Colors.white,
             child: Column(
