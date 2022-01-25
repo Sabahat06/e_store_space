@@ -20,6 +20,7 @@ class StaticVariable{
   static int updateProfileResponseCode = 0;
   static int becameASellerResponseCode = 0;
   static int addStoreResponseCode = 0;
+  static int addStoreProductResponseCode = 0;
   static RxString isSeller = '0'.obs;
   static RxString isAffiliate = '0'.obs;
   static File pickedimage;

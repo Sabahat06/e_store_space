@@ -71,7 +71,7 @@ class AccountScreenTabSeller extends StatelessWidget {
                             builder: (BuildContext context) {
                               return AlertDialogWidget(
                                 title: 'Promo Code',
-                                subTitle: "${authController.user.value.user.promoCode==null || authController.user.value.user.promoCode=="" ? "You Have No Promo Code" :authController.user.value.user.promoCode}",
+                                subTitle: "${authController.user.value.user.promoCode==null || authController.user.value.user.promoCode=="" ? "You Have No Promo Code yet" :authController.user.value.user.promoCode}",
                                 onPositiveClick: () {
                                   Get.back();
                                 },

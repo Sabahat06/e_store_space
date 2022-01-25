@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:e_store_space/models/add_store_model.dart';
 import 'package:e_store_space/models/auth_model.dart';
 import 'package:e_store_space/models/get_store_product.dart';
@@ -96,6 +97,25 @@ class HttpService {
     try {
       var response = await http.get(
         _uriCategoryProduct,
+      );
+      if (response.statusCode == 200) {
+        return ProductModel.fromJson(jsonDecode(response.body)) ;
+
+      } else {
+        return null;
+      }
+    }
+    catch (e) {
+      return null;
+    }
+  }
+
+  static Future<ProductModel> getProductOfStore(
+      String storeID,) async {
+    Uri _uriStoreOfProduct = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/getStoreProductId/${storeID}');
+    try {
+      var response = await http.get(
+        _uriStoreOfProduct,
       );
       if (response.statusCode == 200) {
         return ProductModel.fromJson(jsonDecode(response.body)) ;
@@ -282,56 +302,42 @@ class HttpService {
     }
   }
 
-
   static Future<AddStoreModel> addUserStore
       ({String token, String name, String dealType, String description, File file}) async {
     Uri _addUserStore = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/addStore');
     try {
-      var response = await http.post(
-        _addUserStore,
-        headers: {'Authorization': 'Bearer $token'},
-        body: {
-          'name': name,
-          'deal_type': dealType,
-          'description': description,
-          // 'picture': file,
-        }
-      );
+      Map<String, String> headers = { "Authorization": 'Bearer $token'};
+      http.MultipartRequest request = new http.MultipartRequest("POST", _addUserStore);
+      http.MultipartFile multipartFile = await http.MultipartFile.fromPath('image', file.path);
+      request.headers.addAll(headers);
+      request.fields['name'] = name;
+      request.fields['deal_type'] = dealType;
+      request.fields['description'] = name;
+      request.files.add(multipartFile);
+      http.StreamedResponse response = await request.send();
+      print(response);
       if (response.statusCode == 200 || response.statusCode == 201) {
         StaticVariable.addUserDealResponseCode= response.statusCode;
-        return AddStoreModel.fromJson(jsonDecode(response.body));
+        // return AddStoreModel.fromJson(jsonDecode());
       }
+
+      // var response = await http.post(
+      //   _addUserStore,
+      //   headers: {'Authorization': 'Bearer $token'},
+      //   body: {
+      //     'name': name,
+      //     'deal_type': dealType,
+      //     'description': description,
+      //     'image': file,
+      //   }
+      // );
+      // if (response.statusCode == 200 || response.statusCode == 201) {
+      //   StaticVariable.addUserDealResponseCode= response.statusCode;
+      //   return AddStoreModel.fromJson(jsonDecode(response.body));
+      // }
     }
     catch (e) {
       return null;
-    }
-  }
-
-
-  static Future<dynamic> getAppSettings({String userID}) async {
-    try {
-      var response = await http.post(
-        _uri,
-        body: {
-          'get_settings': '1',
-          'user_id' : userID ?? "0"
-        },
-      );
-      if (response.statusCode == 200) {
-        StaticVariable.deliveryCharges= jsonDecode(response.body)['product_delivery'];
-        StaticVariable.initial_slide_1= jsonDecode(response.body)['initial_slide_1'];
-        StaticVariable.initial_slide_2= jsonDecode(response.body)['initial_slide_2'];
-        StaticVariable.initial_slide_3= jsonDecode(response.body)['initial_slide_3'];
-        StaticVariable.user_status.value = jsonDecode(response.body)['user_status'] ?? "";
-        StaticVariable.account_status.value = jsonDecode(response.body)['account_status'] ?? "";
-        StaticVariable.appSettings.value = true;
-        return jsonDecode(response.body);
-
-      } else
-        return "Some error accoured";
-    }
-    catch (e) {
-      return "Some error accoured";
     }
   }
 
@@ -391,25 +397,40 @@ class HttpService {
   }
 
 
-  static Future<OrderDetailModel> addStoreProduct({
+  static Future<String> addStoreProduct({
       List<SelectedProductSeller> selectedProductSeler, String token, String store_id, String user_id}) async {
     Uri _addStoreProduct = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/addStoreProduct');
     try {
-      var response = await http.post(
-        _addStoreProduct,
-        headers: {'Authorization': 'Bearer $token'},
-        body: {
-          'store_id' : store_id,
-          'product' : jsonEncode(selectedProductSeler)
-        }
-      );
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        StaticVariable.addStoreResponseCode = response.statusCode;
-        return OrderDetailModel.fromJson(jsonDecode(response.body));
 
-      } else {
-        return null;
+      Map<String, String> headers = { "Authorization": 'Bearer $token'};
+      http.MultipartRequest request = new http.MultipartRequest("POST", _addStoreProduct);
+      // http.MultipartFile multipartFile = await http.MultipartFile.fromPath('image', file.path);
+      request.headers.addAll(headers);
+      request.fields['store_id'] = store_id;
+      request.fields['product'] = jsonEncode(selectedProductSeler);
+      // request.files.add(multipartFile);
+      http.StreamedResponse response = await request.send();
+      print(response);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        StaticVariable.addStoreProductResponseCode= response.statusCode;
+        // return AddStoreModel.fromJson(jsonDecode());
       }
+
+      // var response = await http.post(
+      //   _addStoreProduct,
+      //   headers: {'Authorization': 'Bearer $token'},
+      //   body: {
+      //     'store_id' : store_id,
+      //     'product' : jsonEncode(selectedProductSeler)
+      //   }
+      // );
+      // if (response.statusCode == 200 || response.statusCode == 201) {
+      //   StaticVariable.addStoreProductResponseCode = response.statusCode;
+      //   return jsonDecode(response.body)['productStore'];
+      //
+      // } else {
+      //   return null;
+      // }
     }
     catch (e) {
       return null;

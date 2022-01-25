@@ -1,3 +1,4 @@
+import 'package:e_store_space/models/product_detail.dart';
 import 'package:e_store_space/models/product_model.dart';
 import 'package:e_store_space/services/http_services.dart';
 import 'package:e_store_space/view/product/product_detail_screen.dart';
@@ -8,16 +9,11 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:e_store_space/controller/product_controller.dart';
 
 
-class ProductScreen extends StatelessWidget {
-  // RxString id = '0'.obs;
+class StoreProductScreen extends StatelessWidget {
+  ProductModel productModel;
   String title;
-  String categoryId;
-  ProductController productController;
-
-  ProductScreen({this.categoryId, this.title}){
-    productController =Get.put(ProductController(categoryId: categoryId));
-  }
-
+  StoreProductScreen({this.productModel, this.title});
+  RxBool progressing = false.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -28,19 +24,19 @@ class ProductScreen extends StatelessWidget {
         title: Text(title, style: const TextStyle(color: Colors.white),),
       ),
       body: Obx(
-        () => productController.progressing.value
+            () => progressing.value
             ? const Center(child: CircularProgressIndicator())
-            : productController.productsModal.value.products.length == 0 || productController.productsModal.value.products==null
-            ? const Center(child: Text('There is No Product in this Category', style: TextStyle(fontSize: 18, color: Colors.black),),)
+            : productModel.products ==null || productModel.products.length==0
+            ? const Center(child: Text('There is No Product in this Store', style: TextStyle(fontSize: 18, color: Colors.black),),)
             : ListView.builder(
-            itemCount: productController.productsModal.value.products.length,
+            itemCount: productModel.products.length,
             shrinkWrap: true,
             // gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             //     crossAxisCount: 2,
             //     mainAxisSpacing: 1.1
             // ),
             itemBuilder: (BuildContext context, int index) {
-              return renderingProduct(index, productController.productsModal.value.products[index]);
+              return renderingProduct(index, productModel.products[index]);
             }
         ),
       ),
@@ -52,10 +48,11 @@ class ProductScreen extends StatelessWidget {
       padding: EdgeInsets.all(10),
       child: GestureDetector(
         onTap: () async {
-          productController.progressing.value = true;
-          productController.productDetailsModel.value = await HttpService.getProductDetails(products.id.toString());
-          productController.progressing.value = false;
-          Get.to(() => ProductDetailsScreen(productDetailsModel: productController.productDetailsModel.value,));
+          Rx<ProductDetailsModel> productDetailsModel = ProductDetailsModel().obs;
+          progressing.value = true;
+          productDetailsModel.value = await HttpService.getProductDetails(products.id.toString());
+          progressing.value = false;
+          Get.to(() => ProductDetailsScreen(productDetailsModel: productDetailsModel.value,));
         },
         child: Card(
           elevation: 1,
@@ -63,8 +60,8 @@ class ProductScreen extends StatelessWidget {
             width: double.infinity,
             height: 90,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.white
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white
             ),
             child: Row(
               children: [
@@ -72,12 +69,12 @@ class ProductScreen extends StatelessWidget {
                   width: 90,
                   height: 90,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                    image: DecorationImage(
-                      image: NetworkImage("https://spinningsoft.co/projects/eStoreSpace/admin/images/product/${products.picture}"),
-                      fit: BoxFit.cover
-                    )
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                      image: DecorationImage(
+                          image: NetworkImage("https://spinningsoft.co/projects/eStoreSpace/admin/images/product/${products.picture}"),
+                          fit: BoxFit.cover
+                      )
                   ),
                 ),
                 const SizedBox(width: 20,),

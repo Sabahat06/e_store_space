@@ -94,7 +94,7 @@ class ProductCategoryScreen extends StatelessWidget {
                 Center(
                   child: Padding(
                       padding: const EdgeInsets.only(left: 10,top: 5),
-                      child:  Text(productCategoryModel.name,style: TextStyle(fontWeight: FontWeight.bold),)
+                      child:  Text(productCategoryModel.name,style: const TextStyle(fontWeight: FontWeight.bold),)
                   ),
                 )
               ],

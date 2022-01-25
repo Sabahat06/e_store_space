@@ -62,7 +62,7 @@ class _MyAppState extends State<MyApp> {
     //   }
     //   LocalNotificationService.display(message);
     // });
-    HttpService.getAppSettings();
+    // HttpService.getAppSettings();
     ///When the app is in background but opened and user taps
     ///on the notification
     // FirebaseMessaging.onMessageOpenedApp.listen((message) async {

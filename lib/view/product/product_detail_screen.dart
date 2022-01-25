@@ -243,11 +243,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                         !_isCreatingLink
                                             ? () => _createDynamicLink(false)
                                             : null;
-                                        FlutterShare.share(
-                                            title: _linkMessage,
-                                          text: _linkMessage
-
-
+                                              FlutterShare.share(
+                                                  title: _linkMessage,
+                                                text: _linkMessage
                                         );
                                       },
                                       // onPressed: !_isCreatingLink
@@ -510,10 +508,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     });
 
     final DynamicLinkParameters parameters = DynamicLinkParameters(
-      uriPrefix: 'https://lsukapp.page.link/n3UL',
+      uriPrefix: 'https://sabahat.page.link/qbvQ',
       link: Uri.parse(DynamicLink),
       androidParameters: const AndroidParameters(
-        packageName: 'com.example.video_app_lsuk',
+        packageName: 'com.sabahat.e_store_space',
         minimumVersion: 0,
       ),
       iosParameters: const IOSParameters(

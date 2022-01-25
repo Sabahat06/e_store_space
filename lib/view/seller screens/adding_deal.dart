@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:e_store_space/controller/add_store_controller.dart';
 import 'package:e_store_space/services/http_services.dart';
+import 'package:e_store_space/view/homepage.dart';
 import 'package:e_store_space/view/seller%20screens/product_category_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -112,7 +113,7 @@ class AddingStoreScreen extends StatelessWidget {
                       controller.progressing.value = false;
                       print(controller.store);
                       if(StaticVariable.addUserDealResponseCode == 201 || StaticVariable.addUserDealResponseCode == 200){
-                        Get.off(() => ProductCategoryScreen(storeId: controller.store.addStore.id.toString(),goToSellerScreen: true,));
+                        Get.off(() => HomePage(),);
                       }
                     }
                   },

@@ -3,8 +3,11 @@ import 'package:e_store_space/controller/product_category_controller.dart';
 import 'package:e_store_space/models/get_store_product.dart';
 import 'package:e_store_space/models/latest_store_model.dart';
 import 'package:e_store_space/models/product_category_model.dart';
+import 'package:e_store_space/models/product_model.dart';
+import 'package:e_store_space/services/http_services.dart';
 import 'package:e_store_space/view/product/product_detail_screen.dart';
 import 'package:e_store_space/view/product/product_screen.dart';
+import 'package:e_store_space/view/product/store_product.dart';
 import 'package:e_store_space/view/seller%20screens/product_category_screen.dart';
 import 'package:e_store_space/view/seller%20screens/store_product_seller.dart';
 import 'package:e_store_space/widgets/my_appbar.dart';
@@ -269,10 +272,10 @@ class HomeScreenTab extends StatelessWidget {
   renderingstoreProduct(int index, HomeScreenStore store){
     return GestureDetector(
       onTap: () async {
-        // controller.progressing.value = true;
-        // StoreProductModel storeProductModel = await  HttpService.getStoreProducts(token: authController.user.value.token, id: store.id.toString());
-        // controller.progressing.value = false;
-        // Get.to(() => StoreProductsSeller(storeProductModel, store.name, store.id.toString(), true));
+        controller.progressing.value = true;
+        ProductModel productModel = await  HttpService.getProductOfStore(store.id.toString());
+        controller.progressing.value = false;
+        Get.to(() => StoreProductScreen(productModel: productModel, title: store.name,));
       },
       child: Padding(
         padding: EdgeInsets.only(left: 5, right: 5, bottom: 5),
@@ -300,7 +303,12 @@ class HomeScreenTab extends StatelessWidget {
 
   storeLatestProducts(int index, LatestStore store){
     return GestureDetector(
-      onTap: (){() => ProductCategoryScreen(storeId: store.id.toString(), goToSellerScreen: false,);},
+      onTap: () async {
+          controller.progressing.value = true;
+          ProductModel productModel = await  HttpService.getProductOfStore(store.id.toString());
+          controller.progressing.value = false;
+          Get.to(() => StoreProductScreen(productModel: productModel, title: store.name,));
+        },
       child: Padding(
         padding: EdgeInsets.only(left: 5, right: 5, bottom: 5),
         child: Container(

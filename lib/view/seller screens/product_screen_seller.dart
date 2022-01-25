@@ -5,6 +5,7 @@ import 'package:e_store_space/models/product_model.dart';
 import 'package:e_store_space/services/http_services.dart';
 import 'package:e_store_space/statics/static_var.dart';
 import 'package:e_store_space/view/home%20screen%20and%20tab%20seller/home_screen_tab_seller.dart';
+import 'package:e_store_space/view/homepage.dart';
 import 'package:e_store_space/view/product/product_detail_screen.dart';
 import 'package:e_store_space/view/product/review_screen.dart';
 import 'package:e_store_space/widgets/my_filled_button.dart';
@@ -22,11 +23,11 @@ class ProductScreenSeller extends StatelessWidget {
   String title;
   String storeId;
   String categoryId;
-  ProductController productController = Get.put(ProductController());
+  ProductController productController;
   List selectedProduct = [];
 
   ProductScreenSeller({this.categoryId, this.title, this.storeId}){
-    ProductController(categoryId: categoryId);
+    productController = Get.put(ProductController(categoryId: categoryId));
   }
 
 
@@ -72,16 +73,11 @@ class ProductScreenSeller extends StatelessWidget {
                           selectedProductSeller.add(SelectedProductSeller(product_id: product.toString(),));
                         });
                         productController.progressing.value = true;
-                        var response = await HttpService.addStoreProduct(
-                          token: authController.user.value.token,
-                          selectedProductSeler: selectedProduct,
-                          store_id: storeId,
-                          user_id:  authController.user.value.user.id.toString()
-                        );
+                        var response = await HttpService.addStoreProduct(token: authController.user.value.token, selectedProductSeler: selectedProductSeller, store_id: storeId, user_id:  authController.user.value.user.id.toString());
                         productController.progressing.value = false;
-                        if(StaticVariable.addStoreResponseCode == 200 || StaticVariable.addStoreResponseCode == 201){
+                        if(StaticVariable.addStoreProductResponseCode == 200 || StaticVariable.addStoreProductResponseCode == 201){
                           Fluttertoast.showToast(msg: "Your Products Added Successfully");
-                          Get.off(() => HomeScreenTabSeller());
+                          Get.off(() => HomePage());
                         }
                       }
 
