@@ -402,35 +402,35 @@ class HttpService {
     Uri _addStoreProduct = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/addStoreProduct');
     try {
 
-      Map<String, String> headers = { "Authorization": 'Bearer $token'};
-      http.MultipartRequest request = new http.MultipartRequest("POST", _addStoreProduct);
-      // http.MultipartFile multipartFile = await http.MultipartFile.fromPath('image', file.path);
-      request.headers.addAll(headers);
-      request.fields['store_id'] = store_id;
-      request.fields['product'] = jsonEncode(selectedProductSeler);
-      // request.files.add(multipartFile);
-      http.StreamedResponse response = await request.send();
-      print(response);
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        StaticVariable.addStoreProductResponseCode= response.statusCode;
-        // return AddStoreModel.fromJson(jsonDecode());
-      }
-
-      // var response = await http.post(
-      //   _addStoreProduct,
-      //   headers: {'Authorization': 'Bearer $token'},
-      //   body: {
-      //     'store_id' : store_id,
-      //     'product' : jsonEncode(selectedProductSeler)
-      //   }
-      // );
+      // Map<String, String> headers = { "Authorization": 'Bearer $token'};
+      // http.MultipartRequest request = new http.MultipartRequest("POST", _addStoreProduct);
+      // // http.MultipartFile multipartFile = await http.MultipartFile.fromPath('image', file.path);
+      // request.headers.addAll(headers);
+      // request.fields['store_id'] = store_id;
+      // request.fields['product'] = jsonEncode(selectedProductSeler);
+      // // request.files.add(multipartFile);
+      // http.StreamedResponse response = await request.send();
+      // print(response);
       // if (response.statusCode == 200 || response.statusCode == 201) {
-      //   StaticVariable.addStoreProductResponseCode = response.statusCode;
-      //   return jsonDecode(response.body)['productStore'];
-      //
-      // } else {
-      //   return null;
+      //   StaticVariable.addStoreProductResponseCode= response.statusCode;
+      //   // return AddStoreModel.fromJson(jsonDecode());
       // }
+
+      var response = await http.post(
+        _addStoreProduct,
+        headers: {'Authorization': 'Bearer $token'},
+        body: {
+          'store_id' : store_id,
+          'product' : jsonEncode(selectedProductSeler)
+        }
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        StaticVariable.addStoreProductResponseCode = response.statusCode;
+        return jsonDecode(response.body)['productStore'];
+
+      } else {
+        return null;
+      }
     }
     catch (e) {
       return null;
