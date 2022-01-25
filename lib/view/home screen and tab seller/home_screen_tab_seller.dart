@@ -22,7 +22,6 @@ import 'package:e_store_space/services/http_services.dart';
 import 'package:e_store_space/statics/static_var.dart';
 import 'package:e_store_space/view/search_screen.dart';
 import 'package:e_store_space/widgets/my_category_box.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreenTabSeller extends StatelessWidget {
 

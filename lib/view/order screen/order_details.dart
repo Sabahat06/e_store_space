@@ -1,14 +1,9 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:e_store_space/models/order_history_model.dart';
-import 'package:e_store_space/settings/color_palates.dart';
 import 'package:e_store_space/widgets/my_label.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 
 
@@ -212,15 +207,15 @@ class OrderDetailScreen extends StatelessWidget {
   //
   // }
 
-  Future<void> _makePhoneCall(String url) async {
-    String phoneNumber = 'tel:'+url;
-    if (await canLaunch(phoneNumber)) {
-      await launch(phoneNumber);
-    } else {
-      // Clipboard.setData(ClipboardData(text: url));
-      Fluttertoast.showToast(msg:"Phone number copied");
-      throw 'Could not launch $url';
-    }
-  }
+  // Future<void> _makePhoneCall(String url) async {
+  //   String phoneNumber = 'tel:'+url;
+  //   if (await canLaunch(phoneNumber)) {
+  //     await launch(phoneNumber);
+  //   } else {
+  //     // Clipboard.setData(ClipboardData(text: url));
+  //     Fluttertoast.showToast(msg:"Phone number copied");
+  //     throw 'Could not launch $url';
+  //   }
+  // }
 
 }

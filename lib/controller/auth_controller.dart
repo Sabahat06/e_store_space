@@ -4,14 +4,12 @@ import 'package:e_store_space/statics/static_var.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:location/location.dart';
 import 'package:e_store_space/models/ForgotPassword.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:e_store_space/models/auth_model.dart';
 import 'package:e_store_space/services/http_services.dart';
 import 'package:e_store_space/view/homepage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 
 class AuthController extends GetxController{
@@ -28,10 +26,8 @@ class AuthController extends GetxController{
 
 
 
-  SharedPreferences pref;
   @override
   Future<void> onInit() async {
-    pref = await SharedPreferences.getInstance();
     user.value = await User.fromCache();
     isLogedIn.value = user.value == null ? false : true;
     // TODO: implement onInit
@@ -83,7 +79,6 @@ class AuthController extends GetxController{
       if(StaticVariable.registerResponseCode == 201){
         User.saveUserToCache(response);
         this.user.value = response;
-        pref.setString('userId', user.value.user.id.toString());
         this.isLogedIn.value = true;
         Fluttertoast.showToast(msg: 'You are registered in E Store Space');
         Get.off(HomePage());

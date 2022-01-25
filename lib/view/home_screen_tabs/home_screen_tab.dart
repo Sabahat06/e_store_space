@@ -15,13 +15,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:e_store_space/controller/auth_controller.dart';
 import 'package:e_store_space/controller/bottom_bar_controller.dart';
-import 'package:e_store_space/controller/cart/shop_cart_screen_controller.dart';
-import 'package:e_store_space/controller/page_controller.dart';
-import 'package:e_store_space/services/http_services.dart';
-import 'package:e_store_space/statics/static_var.dart';
-import 'package:e_store_space/view/search_screen.dart';
-import 'package:e_store_space/widgets/my_category_box.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreenTab extends StatelessWidget {
   RxInt currentIndex = 0.obs;

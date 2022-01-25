@@ -4,7 +4,6 @@ import 'package:e_store_space/view/account_screens/order_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:e_store_space/controller/auth_controller.dart';
 import 'package:e_store_space/controller/bottom_bar_controller.dart';
 import 'package:e_store_space/controller/order_history_screen_controller.dart';

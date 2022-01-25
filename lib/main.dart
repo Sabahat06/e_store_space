@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'controller/bottom_bar_controller.dart';
 import 'controller/dummy_order_controller.dart';
 
@@ -22,11 +21,9 @@ import 'controller/dummy_order_controller.dart';
 
 // Orders currentOrder;
 void main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  // HttpOverrides.global = MyHttpOverrides();
-  //
-  // FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+  HttpOverrides.global = MyHttpOverrides();
 
   runApp(MyApp());
 }

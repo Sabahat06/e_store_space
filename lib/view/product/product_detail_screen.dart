@@ -46,6 +46,18 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   final String Link = 'https://sabahat.page.link/qbvQ';
   final String _testString = 'join video';
 
+  Future<void> initDynamicLinks() async {
+    dynamicLinks.onLink.listen((dynamicLinkData) {
+      Navigator.pushNamed(context, dynamicLinkData.link.path);
+    }).onError((error) {
+      print('onLink error');
+      print(error.message);
+    });
+  }
+  initState(){
+    super.initState();
+    initDynamicLinks();
+  }
   @override
   Widget build(BuildContext context) {
     cartControllerNew.currentChoiceID.value = widget.productDetailsModel.productDetails.productColors.first.colorId;
@@ -226,9 +238,21 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                         color: Colors.red,
                                         size: 30,
                                       ),
-                                      onPressed: !_isCreatingLink
-                                          ? () => _createDynamicLink(false)
-                                          : null,
+                                      onPressed: (){
+                                        // onPressed:
+                                        !_isCreatingLink
+                                            ? () => _createDynamicLink(false)
+                                            : null;
+                                        FlutterShare.share(
+                                            title: _linkMessage,
+                                          text: _linkMessage
+
+
+                                        );
+                                      },
+                                      // onPressed: !_isCreatingLink
+                                      //     ? () => _createDynamicLink(false)
+                                      //     : null,
                                     ),
                                   ],
                                 ),

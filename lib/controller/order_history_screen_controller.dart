@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:e_store_space/controller/auth_controller.dart';
 import 'package:e_store_space/models/order_history_model.dart';
 import 'package:e_store_space/services/http_services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 
 class OrderHistoryController extends GetxController{
