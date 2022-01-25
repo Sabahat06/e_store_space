@@ -238,14 +238,15 @@ class HttpService {
   }
 
 
-  static Future<String> placeOrderForLoginCustomer({String token, String customerID,String country, String phone, String area, String city ,String name,String email,String orderNotes,String address, String amount, List<PlaceOrderDetailModal> orderDetails}) async {
+  static Future<String> placeOrderForLoginCustomer({String token1, String customerID,String country, String phone, String area, String city ,String name,String email,String orderNotes,String address, String amount, List<PlaceOrderDetailModal> orderDetails}) async {
     try {
       Uri _placeOrder = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/addOrder');
       var response1 = await http.post(
         _placeOrder,
-        headers: {'Authorization': 'Bearer $token'},
+        headers: {'Authorization': 'Bearer $token1'},
         body: {
           'user_id': customerID,
+          'order_notes': orderNotes,
           'price' : amount,
           'shaping_address' : address,
           'product' : jsonEncode(orderDetails),

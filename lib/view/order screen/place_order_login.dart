@@ -200,7 +200,7 @@ class AddOrderLoginScreen extends StatelessWidget {
                         }
                         controller.progressing.value = true;
                         var response = await HttpService.placeOrderForLoginCustomer(
-                          token: authController.user.value.token,
+                          token1: authController.user.value.token,
                           customerID: authController.user.value.user.id.toString(),
                           amount: totalAmount,
                           name: name.text,

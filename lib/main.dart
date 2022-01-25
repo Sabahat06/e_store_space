@@ -23,7 +23,7 @@ import 'controller/dummy_order_controller.dart';
 // Orders currentOrder;
 void main() async {
   // WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
+  await Firebase.initializeApp();
   // HttpOverrides.global = MyHttpOverrides();
   //
   // FirebaseMessaging.onBackgroundMessage(backgroundHandler);

@@ -4,29 +4,52 @@ import 'package:e_store_space/controller/wish_list_controller.dart';
 import 'package:e_store_space/models/cart/new_cart_model.dart';
 import 'package:e_store_space/models/product_detail.dart';
 import 'package:e_store_space/view/product/review_screen.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:share/share.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
-class ProductDetailsScreen extends StatelessWidget {
-  WishListController wishListController = Get.find();
-  CartControllerNew cartControllerNew = Get.find();
+class ProductDetailsScreen extends StatefulWidget {
   ProductDetailsModel productDetailsModel;
 
   ProductDetailsScreen({@required this.productDetailsModel}) {}
+
+  @override
+  State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
+}
+
+class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+  WishListController wishListController = Get.find();
+
+  CartControllerNew cartControllerNew = Get.find();
+
   List<String> productImages = ['assets/image/image6.jpg', 'assets/image/appbar.jpg', 'assets/image/appimage.jpeg', 'assets/image/image6.jpg'];
+
   List<int> colorCode = [0xff039e2c, 0xffDEDEDE, 0xffffb852, 0xffe95a5c];
+
   RxInt choiceid = 0.obs;
+
   RxInt quantity = 0.obs;
+
   RxBool isExpanded = false.obs;
+
   RxString subCategoryImages=''.obs;
+
+  String _linkMessage;
+  bool _isCreatingLink = false;
+  FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
+  final String DynamicLink = 'https://wwww.google.com';
+  final String Link = 'https://sabahat.page.link/qbvQ';
+  final String _testString = 'join video';
 
   @override
   Widget build(BuildContext context) {
-    cartControllerNew.currentChoiceID.value = productDetailsModel.productDetails.productColors.first.colorId;
-    subCategoryImages.value = "https://spinningsoft.co/projects/eStoreSpace/admin/images/product_images/${productDetailsModel.productDetails.productColors.first.image}";
+    cartControllerNew.currentChoiceID.value = widget.productDetailsModel.productDetails.productColors.first.colorId;
+    subCategoryImages.value = "https://spinningsoft.co/projects/eStoreSpace/admin/images/product_images/${widget.productDetailsModel.productDetails.productColors.first.image}";
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -57,7 +80,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20)
                   ),
                   child: Center(
-                    child: Text(double.parse(productDetailsModel.rating == null ? "0" : productDetailsModel.rating == "" ? "0" : productDetailsModel.rating).toStringAsFixed(1), style: TextStyle(fontSize: 16.sp, color: Colors.black),),
+                    child: Text(double.parse(widget.productDetailsModel.rating == null ? "0" : widget.productDetailsModel.rating == "" ? "0" : widget.productDetailsModel.rating).toStringAsFixed(1), style: TextStyle(fontSize: 16.sp, color: Colors.black),),
                   ),
                 ),
                 const SizedBox(width: 13,),
@@ -96,9 +119,9 @@ class ProductDetailsScreen extends StatelessWidget {
                     children: [
                       ListView.builder(
                         itemBuilder: (context, index){
-                          return subCategoriesImages(productDetailsModel.productDetails.productColors[index] ,index);
+                          return subCategoriesImages(widget.productDetailsModel.productDetails.productColors[index] ,index);
                         },
-                        itemCount: productDetailsModel.productDetails.productColors.length,
+                        itemCount: widget.productDetailsModel.productDetails.productColors.length,
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                       )
@@ -125,7 +148,7 @@ class ProductDetailsScreen extends StatelessWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(productDetailsModel.productDetails.name, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),),
+                                Text(widget.productDetailsModel.productDetails.name, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),),
                                 Row(
                                   children: [
                                     Text('More Detail', style: TextStyle(fontSize: 16.sp, color: Colors.blue),),
@@ -143,7 +166,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                     children: [
                                       Container(
                                         width: 220.w,
-                                        child: Text(productDetailsModel.productDetails.description, textAlign: TextAlign.justify,),
+                                        child: Text(widget.productDetailsModel.productDetails.description, textAlign: TextAlign.justify,),
                                       ),
                                       const SizedBox(height: 7,),
                                       Row(
@@ -151,10 +174,10 @@ class ProductDetailsScreen extends StatelessWidget {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           GestureDetector(
-                                            onTap: () {Get.to(() => ReviewsScreen(ratings: productDetailsModel.productDetails.ratings, productName: productDetailsModel.productDetails.name,));},
+                                            onTap: () {Get.to(() => ReviewsScreen(ratings: widget.productDetailsModel.productDetails.ratings, productName: widget.productDetailsModel.productDetails.name,));},
                                             child: SmoothStarRating(
                                               color: Colors.purpleAccent,
-                                              rating: double.parse(productDetailsModel.rating == null ? "0" : productDetailsModel.rating=="" ? "0" : productDetailsModel.rating),
+                                              rating: double.parse(widget.productDetailsModel.rating == null ? "0" : widget.productDetailsModel.rating=="" ? "0" : widget.productDetailsModel.rating),
                                               size: 15,
                                               isReadOnly: true,
                                               borderColor: Colors.purpleAccent,
@@ -162,7 +185,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                           ),
                                           const SizedBox(width: 7,),
                                           Text(
-                                            productDetailsModel.rating == null ? "0.0" : double.parse(productDetailsModel.rating).toStringAsFixed(1),
+                                            widget.productDetailsModel.rating == null ? "0.0" : double.parse(widget.productDetailsModel.rating).toStringAsFixed(1),
                                             style: TextStyle(fontSize: 15, color: Colors.black54),
                                           ),
                                         ],
@@ -187,14 +210,14 @@ class ProductDetailsScreen extends StatelessWidget {
                                   children: [
                                     IconButton(
                                       icon: Icon(
-                                        wishListController.items.any((element) => element.productDetails.id==productDetailsModel.productDetails.id)
+                                        wishListController.items.any((element) => element.productDetails.id==widget.productDetailsModel.productDetails.id)
                                             ? Icons.favorite
                                             : Icons.favorite_border,
                                         color: Colors.red,
                                         size: 30,
                                       ),
                                       onPressed: (){
-                                        wishListController.addOrRemoveItem(productDetailsModel);
+                                        wishListController.addOrRemoveItem(widget.productDetailsModel);
                                       },
                                     ),
                                     IconButton(
@@ -203,6 +226,9 @@ class ProductDetailsScreen extends StatelessWidget {
                                         color: Colors.red,
                                         size: 30,
                                       ),
+                                      onPressed: !_isCreatingLink
+                                          ? () => _createDynamicLink(false)
+                                          : null,
                                     ),
                                   ],
                                 ),
@@ -290,9 +316,9 @@ class ProductDetailsScreen extends StatelessWidget {
                                         Center(child: Text('Color', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, color: Colors.blue), textAlign: TextAlign.center,)),
                                         ListView.builder(
                                           itemBuilder: (context, index){
-                                            return renderingColors(productDetailsModel.productDetails.productColors[index] ,index);
+                                            return renderingColors(widget.productDetailsModel.productDetails.productColors[index] ,index);
                                           },
-                                          itemCount: productDetailsModel.productDetails.productColors.length,
+                                          itemCount: widget.productDetailsModel.productDetails.productColors.length,
                                           shrinkWrap: true,
                                           scrollDirection: Axis.horizontal,
                                         )
@@ -310,9 +336,9 @@ class ProductDetailsScreen extends StatelessWidget {
                                           children: [
                                             GestureDetector(
                                               onTap: (){
-                                                productDetailsModel.productDetails.quantity.value--;
-                                                if(productDetailsModel.productDetails.quantity.value<=0){
-                                                  productDetailsModel.productDetails.quantity.value=0;
+                                                widget.productDetailsModel.productDetails.quantity.value--;
+                                                if(widget.productDetailsModel.productDetails.quantity.value<=0){
+                                                  widget.productDetailsModel.productDetails.quantity.value=0;
                                                 }
                                               },
                                               child: Container(
@@ -326,11 +352,11 @@ class ProductDetailsScreen extends StatelessWidget {
                                               ),
                                             ),
                                             SizedBox(width: 10.w,),
-                                            productDetailsModel.productDetails.quantity.value <=0 ? Text('0', style: TextStyle(fontSize: 14.sp, color: Colors.black),) : Text(productDetailsModel.productDetails.quantity.value.toString(), style: TextStyle(fontSize: 14.sp, color: Colors.black), ),
+                                            widget.productDetailsModel.productDetails.quantity.value <=0 ? Text('0', style: TextStyle(fontSize: 14.sp, color: Colors.black),) : Text(widget.productDetailsModel.productDetails.quantity.value.toString(), style: TextStyle(fontSize: 14.sp, color: Colors.black), ),
                                             SizedBox(width: 10.w,),
                                             GestureDetector(
                                               onTap: () {
-                                                productDetailsModel.productDetails.quantity.value++;
+                                                widget.productDetailsModel.productDetails.quantity.value++;
                                               },
                                               child: Container(
                                                 width: 25.w,
@@ -369,14 +395,14 @@ class ProductDetailsScreen extends StatelessWidget {
                               padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 25.w),
                               child: GestureDetector(
                                 onTap: (){
-                                  if(productDetailsModel.productDetails.quantity.value==0){
+                                  if(widget.productDetailsModel.productDetails.quantity.value==0){
                                     Fluttertoast.showToast(msg: "Please Select Quantity");
                                   }else{
-                                    Map json = productDetailsModel.productDetails.toJson();
+                                    Map json = widget.productDetailsModel.productDetails.toJson();
                                     // json['choiceID'] = cartControllerNew.currentChoiceID.value;
                                     // json['quantity'] = productDetailsModel.productDetails.quantity.value;
                                     Item item = Item.fromJson(json);
-                                    item.quantity.value = productDetailsModel.productDetails.quantity.value;
+                                    item.quantity.value = widget.productDetailsModel.productDetails.quantity.value;
                                     item.choiceID = cartControllerNew.currentChoiceID.value;
                                     cartControllerNew.addItem(item);
                                   }
@@ -451,6 +477,45 @@ class ProductDetailsScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> _createDynamicLink(bool short) async {
+    setState(() {
+      _isCreatingLink = true;
+    });
+
+    final DynamicLinkParameters parameters = DynamicLinkParameters(
+      uriPrefix: 'https://lsukapp.page.link/n3UL',
+      link: Uri.parse(DynamicLink),
+      androidParameters: const AndroidParameters(
+        packageName: 'com.example.video_app_lsuk',
+        minimumVersion: 0,
+      ),
+      iosParameters: const IOSParameters(
+        bundleId: 'io.invertase.testing',
+        minimumVersion: '0',
+      ),
+    );
+    Uri url;
+    if (short) {
+      final ShortDynamicLink shortLink =
+      await dynamicLinks.buildShortLink(parameters);
+      url = shortLink.shortUrl;
+    } else {
+      url = await dynamicLinks.buildLink(parameters);
+    }
+    setState(() {
+      _linkMessage = url.toString();
+      _isCreatingLink = false;
+    });
+  }
+
+  Future<void> shareFile() async {
+
+    await FlutterShare.share(
+      title: 'Your Promo Code :8282',
+      text: '${_linkMessage}',
     );
   }
 }

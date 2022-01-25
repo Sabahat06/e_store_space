@@ -72,12 +72,12 @@ class SignInScreen extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.blue,
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(0),
                     ),
                     height: 40,
                     width: double.infinity,
                     child: const Center(
-                      child: Text('Log in',
+                      child: Text('Log In',
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,

@@ -218,22 +218,25 @@ class HomeScreenTabSeller extends StatelessWidget {
         },
       child: Padding(
         padding: const EdgeInsets.only(left: 5, right: 5, bottom: 5),
-        child: Container(
-          height: 80,
-          width: 100,
-          color: Colors.white,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              CircleAvatar(
-                radius: 45,
-                backgroundImage: NetworkImage('https://spinningsoft.co/projects/eStoreSpace/admin/images/store/${store.picture}'),
-                backgroundColor: store.picture == '' ? index%2!=0 ? Colors.green : Colors.redAccent : Colors.transparent,
-              ),
-              const SizedBox(height: 5,),
-              Text('${store.dealType}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
-            ],
+        child: Card(
+          elevation: 2,
+          child: Container(
+            height: 80,
+            width: 100,
+            color: Colors.white,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  radius: 45,
+                  backgroundImage: NetworkImage('https://spinningsoft.co/projects/eStoreSpace/admin/images/store/${store.picture}'),
+                  backgroundColor: store.picture == '' ? index%2!=0 ? Colors.green : Colors.redAccent : Colors.transparent,
+                ),
+                const SizedBox(height: 15,),
+                Text('${store.dealType}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+              ],
+            ),
           ),
         ),
       ),
