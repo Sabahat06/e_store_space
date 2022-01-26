@@ -16,20 +16,24 @@ class PaypalPayment extends StatefulWidget {
 
 class PaypalPaymentState extends State<PaypalPayment> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  String checkoutUrl;
-  String executeUrl;
-  String accessToken;
+  var checkoutUrl;
+  var executeUrl;
+  var accessToken;
   PaypalServices services = PaypalServices();
 
   // you can change default currency according to your need
-  Map<dynamic,dynamic> defaultCurrency = {"symbol": "USD ", "decimalDigits": 2, "symbolBeforeTheNumber": true, "currency": "USD"};
+  Map<dynamic, dynamic> defaultCurrency = {
+    "symbol": "USD ",
+    "decimalDigits": 2,
+    "symbolBeforeTheNumber": true,
+    "currency": "USD"
+  };
 
   bool isEnableShipping = false;
   bool isEnableAddress = false;
 
   String returnURL = 'return.example.com';
-  String cancelURL= 'cancel.example.com';
-
+  String cancelURL = 'cancel.example.com';
 
   @override
   void initState() {
@@ -49,7 +53,7 @@ class PaypalPaymentState extends State<PaypalPayment> {
           });
         }
       } catch (e) {
-        print('exception: '+e.toString());
+        print('exception: ' + e.toString());
         final snackBar = SnackBar(
           content: Text(e.toString()),
           duration: Duration(seconds: 10),
@@ -57,9 +61,11 @@ class PaypalPaymentState extends State<PaypalPayment> {
             label: 'Close',
             onPressed: () {
               // Some code to undo the change.
+              Navigator.pop(context);
             },
           ),
         );
+        // ignore: deprecated_member_use
         _scaffoldKey.currentState.showSnackBar(snackBar);
       }
     });
@@ -79,7 +85,6 @@ class PaypalPaymentState extends State<PaypalPayment> {
         "currency": defaultCurrency["currency"]
       }
     ];
-
 
     // checkout invoice details
     String totalAmount = '1.99';
@@ -106,8 +111,7 @@ class PaypalPaymentState extends State<PaypalPayment> {
             "details": {
               "subtotal": subTotalAmount,
               "shipping": shippingCost,
-              "shipping_discount":
-              ((-1.0) * shippingDiscountCost).toString()
+              "shipping_discount": ((-1.0) * shippingDiscountCost).toString()
             }
           },
           "description": "The payment transaction description.",
@@ -116,12 +120,9 @@ class PaypalPaymentState extends State<PaypalPayment> {
           },
           "item_list": {
             "items": items,
-            if (isEnableShipping &&
-                isEnableAddress)
+            if (isEnableShipping && isEnableAddress)
               "shipping_address": {
-                "recipient_name": userFirstName +
-                    " " +
-                    userLastName,
+                "recipient_name": userFirstName + " " + userLastName,
                 "line1": addressStreet,
                 "line2": "",
                 "city": addressCity,
@@ -134,10 +135,7 @@ class PaypalPaymentState extends State<PaypalPayment> {
         }
       ],
       "note_to_payer": "Contact us for any questions on your order.",
-      "redirect_urls": {
-        "return_url": returnURL,
-        "cancel_url": cancelURL
-      }
+      "redirect_urls": {"return_url": returnURL, "cancel_url": cancelURL}
     };
     return temp;
   }

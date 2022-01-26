@@ -43,6 +43,7 @@ dependencies:
   cached_map: ^2.0.5
   image_picker: ^0.8.4
   progress_dialog: ^1.2.4
+  webview_flutter: ^2.0.12
   #  geolocator: ^7.7.1
   #  geocoding: ^2.0.1
   location: ^4.3.0

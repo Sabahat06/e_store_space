@@ -277,6 +277,7 @@ class HttpService {
         return jsonDecode(response1.body)['message'];
       } else
         Fluttertoast.showToast(msg: "Your Order is not placed");
+      print(response1);
     }
     catch (e) {
       print(e);
