@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:dio/dio.dart';
 import 'package:e_store_space/models/add_store_model.dart';
 import 'package:e_store_space/models/auth_model.dart';
 import 'package:e_store_space/models/get_store_product.dart';
@@ -267,6 +266,7 @@ class HttpService {
         body: {
           'user_id': customerID,
           'order_notes': orderNotes,
+          "store_id" : "1",
           'price' : amount,
           'shaping_address' : address,
           'product' : jsonEncode(orderDetails),
