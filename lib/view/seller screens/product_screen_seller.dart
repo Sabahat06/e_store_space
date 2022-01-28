@@ -72,6 +72,7 @@ class ProductScreenSeller extends StatelessWidget {
                         selectedProduct.forEach((product) {
                           selectedProductSeller.add(SelectedProductSeller(product_id: product.toString(),));
                         });
+
                         productController.progressing.value = true;
                         for(int i=0;i<selectedProductSeller.length;i++){
                           var response = await HttpService.addStoreProduct(
