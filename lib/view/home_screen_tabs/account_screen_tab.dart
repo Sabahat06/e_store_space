@@ -1,5 +1,6 @@
 import 'package:e_store_space/controller/bottom_bar_controller.dart';
 import 'package:e_store_space/controller/user_store_controller.dart';
+import 'package:e_store_space/paypal_services/payment.dart';
 import 'package:e_store_space/services/http_services.dart';
 import 'package:e_store_space/statics/static_var.dart';
 import 'package:e_store_space/view/account_screens/became_a_seller.dart';
@@ -116,6 +117,7 @@ class AccountScreenTab extends StatelessWidget {
 
                     GestureDetector(
                         onTap: () {
+                          // Get.to(() => makePayment());
                           Get.to(() => BecomeASeller());
                         },
                         child: Row(

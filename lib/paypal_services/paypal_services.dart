@@ -4,7 +4,6 @@ import 'dart:convert' as convert;
 import 'package:http_auth/http_auth.dart';
 
 class PaypalServices {
-
   String domain = "https://api.sandbox.paypal.com"; // for sandbox mode
 //  String domain = "https://api.paypal.com"; // for production mode
 
@@ -14,15 +13,15 @@ class PaypalServices {
 
   // for getting the access token from Paypal
   Future<String> getAccessToken() async {
-    Uri _uri = Uri.parse('$domain/v1/oauth2/token?grant_type=client_credentials');
     try {
       var client = BasicAuthClient(clientId, secret);
-      var response = await client.post(_uri);
+      var response = await client.post(
+          Uri.parse('$domain/v1/oauth2/token?grant_type=client_credentials'));
       if (response.statusCode == 200) {
         final body = convert.jsonDecode(response.body);
         return body["access_token"];
       }
-      return null;
+      return "0";
     } catch (e) {
       rethrow;
     }
@@ -31,13 +30,11 @@ class PaypalServices {
   // for creating the payment request with Paypal
   Future<Map<String, String>> createPaypalPayment(
       transactions, accessToken) async {
-    Uri _uri = Uri.parse('https://api.sandbox.paypal.com/v1/payments/payment');
     try {
-      var response = await http.post(
-          _uri,
+      var response = await http.post(Uri.parse("$domain/v1/payments/payment"),
           body: convert.jsonEncode(transactions),
           headers: {
-            "content-type": "application/json",
+            // "content-type": "application/json",
             'Authorization': 'Bearer ' + accessToken
           });
 
@@ -60,7 +57,7 @@ class PaypalServices {
           }
           return {"executeUrl": executeUrl, "approvalUrl": approvalUrl};
         }
-        return null;
+        throw Exception("0");
       } else {
         throw Exception(body["message"]);
       }
@@ -75,7 +72,7 @@ class PaypalServices {
       var response = await http.post(url,
           body: convert.jsonEncode({"payer_id": payerId}),
           headers: {
-            "content-type": "application/json",
+            // "content-type": "application/json",
             'Authorization': 'Bearer ' + accessToken
           });
 
@@ -83,7 +80,7 @@ class PaypalServices {
       if (response.statusCode == 200) {
         return body["id"];
       }
-      return null;
+      return "0";
     } catch (e) {
       rethrow;
     }

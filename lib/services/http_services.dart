@@ -282,6 +282,7 @@ class HttpService {
       } else
         print(response1);
         Fluttertoast.showToast(msg: "Your Order is not placed");
+      print(response1);
     }
     catch (e) {
       print(e);
