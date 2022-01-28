@@ -73,7 +73,15 @@ class ProductScreenSeller extends StatelessWidget {
                           selectedProductSeller.add(SelectedProductSeller(product_id: product.toString(),));
                         });
                         productController.progressing.value = true;
-                        var response = await HttpService.addStoreProduct(token: authController.user.value.token, selectedProductSeler: selectedProductSeller, store_id: storeId, user_id:  authController.user.value.user.id.toString());
+                        for(int i=0;i<=selectedProductSeller.length;i++){
+                          var response = await HttpService.addStoreProduct(
+                            i: i,
+                            product_id: selectedProductSeller[i].product_id,
+                            token: authController.user.value.token,
+                            store_id: storeId,
+                            user_id:  authController.user.value.user.id.toString()
+                          );
+                        }
                         productController.progressing.value = false;
                         if(StaticVariable.addStoreProductResponseCode == 200 || StaticVariable.addStoreProductResponseCode == 201){
                           Fluttertoast.showToast(msg: "Your Products Added Successfully");

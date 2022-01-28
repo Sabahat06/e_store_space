@@ -422,31 +422,15 @@ class HttpService {
   }
 
 
-  static Future<String> addStoreProduct({
-      List<SelectedProductSeller> selectedProductSeler, String token, String store_id, String user_id}) async {
+  static Future<String> addStoreProduct({int i, String product_id, String token, String store_id, String user_id}) async {
     Uri _addStoreProduct = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/addStoreProduct');
     try {
-
-      // Map<String, String> headers = { "Authorization": 'Bearer $token'};
-      // http.MultipartRequest request = new http.MultipartRequest("POST", _addStoreProduct);
-      // // http.MultipartFile multipartFile = await http.MultipartFile.fromPath('image', file.path);
-      // request.headers.addAll(headers);
-      // request.fields['store_id'] = store_id;
-      // request.fields['product'] = jsonEncode(selectedProductSeler);
-      // // request.files.add(multipartFile);
-      // http.StreamedResponse response = await request.send();
-      // print(response);
-      // if (response.statusCode == 200 || response.statusCode == 201) {
-      //   StaticVariable.addStoreProductResponseCode= response.statusCode;
-      //   // return AddStoreModel.fromJson(jsonDecode());
-      // }
-
       var response = await http.post(
         _addStoreProduct,
         headers: {'Authorization': 'Bearer $token'},
         body: {
           'store_id' : store_id,
-          'product' : jsonEncode(selectedProductSeler)
+          'product[i][product_id]' : product_id
         }
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
