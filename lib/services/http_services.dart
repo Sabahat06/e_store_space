@@ -11,19 +11,11 @@ import 'package:e_store_space/models/product_detail.dart';
 import 'package:e_store_space/models/sold_product_model.dart';
 import 'package:e_store_space/models/user_store.dart';
 import 'package:get/get.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:e_store_space/controller/auth_controller.dart';
-import 'package:e_store_space/models/dashboard.dart';
-import 'package:e_store_space/models/faq_model.dart';
-import 'package:e_store_space/models/html_content.dart';
 import 'package:e_store_space/models/order_history_model.dart';
-import 'package:e_store_space/models/place_order_detail_modal.dart';
 import 'package:e_store_space/models/product_model.dart';
 import 'package:e_store_space/models/search.dart';
-import 'package:e_store_space/models/send_request_model.dart';
-import 'package:e_store_space/models/time_slot.dart';
-import 'package:e_store_space/models/used_mobile_model.dart';
 import 'package:e_store_space/statics/static_var.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -229,7 +221,7 @@ class HttpService {
 
   static Future<String> updateProfile
       ({String token, String name, String email, String phone, String address, String city, String oldPassword, String newPassword}) async {
-    Uri _updateProfile = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/seller-update');
+    Uri _updateProfile = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/userUpdate');
     try {
       var response = await http.post(
         _updateProfile,
@@ -310,13 +302,16 @@ class HttpService {
 
   static Future<String> forgotPassword
       ({String email}) async {
-    Uri _forgotPassword = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/password/${email}');
+    Uri _forgotPassword = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/password/email');
     try {
-      var response = await http.get(
+      var response = await http.post(
         _forgotPassword,
+        body: {
+          'email': email
+        },
       );
       if (response.statusCode == 200||response.statusCode == 201) {
-        Fluttertoast.showToast(msg: "Password has been send to your mail Thanku");
+        Fluttertoast.showToast(msg: "Password Link has been send to your mail Thanku");
         return (response.body);
       }
       else{
