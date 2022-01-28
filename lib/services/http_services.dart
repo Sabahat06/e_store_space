@@ -257,7 +257,7 @@ class HttpService {
   }
 
 
-  static Future<String> placeOrderForLoginCustomer({String token1, String customerID,String country, String phone, String area, String city ,String name,String email,String orderNotes,String address, String amount, List<PlaceOrderDetailModal> orderDetails}) async {
+  static Future<String> placeOrderForLoginCustomer({int i, String discount, String token1, String customerID,String country, String phone, String area, String city ,String name,String email,String orderNotes,String address, String amount, String productId, String colorId, String productPrice, String quantity}) async {
     try {
       Uri _placeOrder = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/addOrder');
       var response1 = await http.post(
@@ -269,13 +269,18 @@ class HttpService {
           "store_id" : "1",
           'price' : amount,
           'shaping_address' : address,
-          'product' : jsonEncode(orderDetails),
+          'product[i][product_id]' : productId,
+          'product[i][color_id]' : colorId,
+          'product[i][price]' : productPrice,
+          'product[i][discount]' : discount,
+          'product[i][quantity]' : quantity,
         },
       );
       if (response1.statusCode == 200 || response1.statusCode == 201) {
         StaticVariable.placeOrderResponseCode = response1.statusCode;
         return jsonDecode(response1.body)['message'];
       } else
+        print(response1);
         Fluttertoast.showToast(msg: "Your Order is not placed");
     }
     catch (e) {

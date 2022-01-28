@@ -199,22 +199,29 @@ class AddOrderLoginScreen extends StatelessWidget {
                           });
                         }
                         controller.progressing.value = true;
-                        var response = await HttpService.placeOrderForLoginCustomer(
-                          token1: authController.user.value.token,
-                          customerID: authController.user.value.user.id.toString(),
-                          amount: totalAmount,
-                          name: name.text,
-                          email: email.text,
-                          phone: phone.text,
-                          address: address.text,
-                          area: area.text,
-                          city: city.text,
-                          country: country.text,
-                          orderDetails: orderDetails,
-                          orderNotes: messageController.text,
-                        );
+                        for(int i=0;i<orderDetails.length;i++){
+                          var response = await HttpService.placeOrderForLoginCustomer(
+                            i: i,
+                            token1: authController.user.value.token,
+                            customerID: authController.user.value.user.id.toString(),
+                            amount: totalAmount,
+                            name: name.text,
+                            email: email.text,
+                            phone: phone.text,
+                            address: address.text,
+                            area: area.text,
+                            city: city.text,
+                            country: country.text,
+                            orderNotes: messageController.text,
+                            productId: orderDetails[i].product_id,
+                            colorId: orderDetails[i].color_id,
+                            discount: orderDetails[i].discount,
+                            productPrice: orderDetails[i].price,
+                            quantity: orderDetails[i].quantity
+                          );
+                        }
                         controller.progressing.value = false;
-                        if(StaticVariable.placeOrderResponseCode==200){
+                        if(StaticVariable.placeOrderResponseCode==200 || StaticVariable.placeOrderResponseCode == 201){
                           Fluttertoast.showToast(msg: "Your Order has been Placed Successfully");
                           cartController.clearCart();
                           bottomBarController.currentBNBIndex.value = 0;
