@@ -68,7 +68,8 @@ class ProductScreenSeller extends StatelessWidget {
                       List<SelectedProductSeller> selectedProductSeller = [];
                       if(selectedProduct.length==0){
                         Fluttertoast.showToast(msg: "Select Some Products");
-                      }else {
+                      }
+                      else {
                         selectedProduct.forEach((product) {
                           selectedProductSeller.add(SelectedProductSeller(product_id: product.toString(),));
                         });
