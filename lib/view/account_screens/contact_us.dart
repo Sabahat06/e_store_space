@@ -1,3 +1,4 @@
+import 'package:e_store_space/statics/static_var.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -19,6 +20,7 @@ class ContactUs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () {Get.back();}, color: Colors.white,),
         leadingWidth: 30,
@@ -92,7 +94,9 @@ class ContactUs extends StatelessWidget {
                           subject: subject.text
                       );
                       progressing.value = false;
-                      Fluttertoast.showToast(msg: response);
+                      if(StaticVariable.contactUs == 201 || StaticVariable.contactUs == 200){
+                        Fluttertoast.showToast(msg: "Your query has been submitted successfully");
+                      }
                       Get.back();
                     }
                   },

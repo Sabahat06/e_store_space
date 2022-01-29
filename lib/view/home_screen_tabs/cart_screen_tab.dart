@@ -93,7 +93,7 @@ class CartScreenTab extends StatelessWidget {
   }
 
   MyProduct(Item item, int index){
-    String valueString = item.productColors[index].color.colorCode.replaceAll('#', "0xff");
+    String valueString = item.productColors.first.color.colorCode.replaceAll('#', "0xff");
     String valueString1 = valueString.replaceAll('\r', "");
     String valueString2 = valueString1.replaceAll('\n', "");
     int colorCodesss = int.parse(valueString2.toString());

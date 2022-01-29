@@ -86,10 +86,16 @@ class OrderDetailScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 10,),
-              order.orderDetails.first.orderProducts.length == 0
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(width: Get.width*0.45, child: const Text("Products:", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),)),
+                ],
+              ),
+              order.orderDetails.first.orderProducts ==null || order.orderDetails.first.orderProducts.length == 0
                 ? Container()
                 : Container(
-                    color: Colors.green,
+                    // color: Colors.green,
                     height: order.orderDetails.first.orderProducts.length <= 1 ? Get.height*0.2 :  Get.height*0.4,
                     width: double.infinity,
                     child: ListView.builder(
@@ -98,27 +104,27 @@ class OrderDetailScreen extends StatelessWidget {
                     ),
                   ),
               const SizedBox(height: 10,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  MyFilledButton(
-                    width: Get.width*0.45,
-                    height: 45,
-                    fontSize: 16,
-                    txt: "Rating",
-                    borderRadius: 6,
-                    color: Colors.blue,
-                  ),
-                  MyFilledButton(
-                    width: Get.width*0.45,
-                    height: 45,
-                    fontSize: 16,
-                    txt: "Re Order",
-                    borderRadius: 6,
-                    color: Colors.blue,
-                  )
-                ],
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     MyFilledButton(
+              //       width: Get.width*0.45,
+              //       height: 45,
+              //       fontSize: 16,
+              //       txt: "Rating",
+              //       borderRadius: 6,
+              //       color: Colors.blue,
+              //     ),
+              //     MyFilledButton(
+              //       width: Get.width*0.45,
+              //       height: 45,
+              //       fontSize: 16,
+              //       txt: "Re Order",
+              //       borderRadius: 6,
+              //       color: Colors.blue,
+              //     )
+              //   ],
+              // ),
             ],
           ),
         ),
@@ -128,7 +134,7 @@ class OrderDetailScreen extends StatelessWidget {
 
   renderingOrderProduct(OrderProducts orderProducts){
     return Padding(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(0),
       child: GestureDetector(
         child: Card(
           elevation: 1,
@@ -159,10 +165,6 @@ class OrderDetailScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(orderProducts.name, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),),
-                    const SizedBox(height: 5,),
-                    Text(orderProducts.name, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),),
-                    const SizedBox(height: 5,),
-                    Container(width: Get.width*0.3,child: Text(orderProducts.description, style: const TextStyle(fontSize: 14, color: Colors.black45),)),
                     const SizedBox(height: 5,),
                   ],
                 ),

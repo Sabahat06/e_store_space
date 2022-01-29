@@ -208,6 +208,7 @@ class HttpService {
         },
       );
       if (response.statusCode == 201 || response.statusCode == 200) {
+        StaticVariable.contactUs = response.statusCode;
         return jsonDecode(response.body)['message'];
 
       } else

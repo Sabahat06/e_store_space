@@ -1,5 +1,6 @@
 import 'package:e_store_space/controller/product_controller.dart';
 import 'package:e_store_space/models/get_store_product.dart';
+import 'package:e_store_space/models/product_model.dart';
 import 'package:e_store_space/services/http_services.dart';
 import 'package:e_store_space/view/product/product_detail_screen.dart';
 import 'package:e_store_space/view/seller%20screens/adding_product.dart';
@@ -12,7 +13,7 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class StoreProductsSeller extends StatelessWidget {
   // ProductController productController = Get.find();
-  StoreProductModel storeProductModel;
+  ProductModel storeProductModel;
   String title;
   String storeId;
 
@@ -27,7 +28,7 @@ class StoreProductsSeller extends StatelessWidget {
         leadingWidth: 30,
         title: Text(title, style: TextStyle(color: Colors.white),),
       ),
-      body: storeProductModel.storeProduct == null || storeProductModel.storeProduct.length == 0
+      body: storeProductModel.products == null || storeProductModel.products.length == 0
           ? Center(child: Text('You have No Product in this Store'),)
           : Padding(
         padding: EdgeInsets.all(10.w),
@@ -35,12 +36,12 @@ class StoreProductsSeller extends StatelessWidget {
           child: Container(
             width: double.infinity,
             child: ListView.builder(
-                itemCount: storeProductModel.storeProduct.length,
+                itemCount: storeProductModel.products.length,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
-                    child: MyProduct(index, storeProductModel.storeProduct[index]),
+                    child: MyProduct(index, storeProductModel.products[index]),
                   );
                 }
             ),
@@ -72,7 +73,7 @@ class StoreProductsSeller extends StatelessWidget {
     );
   }
 
-  MyProduct(int index, StoreProduct product){
+  MyProduct(int index, Products product){
     return Padding(
       padding: EdgeInsets.all(10),
       child: GestureDetector(
@@ -116,7 +117,7 @@ class StoreProductsSeller extends StatelessWidget {
                     const SizedBox(height: 5,),
                     SmoothStarRating(
                       color: Colors.purpleAccent,
-                      rating: double.parse(product.ratingsAverage==null ? "0" : product.ratingsAverage=='' ? "0" : product.ratingsAverage),
+                      rating: double.parse(product.rating==null ? "0" : product.rating=='' ? "0" : product.rating),
                       size: 18,
                       isReadOnly: true,
                       borderColor: Colors.purpleAccent,

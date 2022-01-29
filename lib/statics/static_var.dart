@@ -24,4 +24,5 @@ class StaticVariable{
   static RxString isSeller = '0'.obs;
   static RxString isAffiliate = '0'.obs;
   static File pickedimage;
+  static int contactUs = 0;
 }

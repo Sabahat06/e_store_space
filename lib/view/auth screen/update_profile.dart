@@ -138,6 +138,7 @@ class UpdateProfile extends StatelessWidget {
                     },
                     txt: 'Save Details',
                     color: Colors.blue,
+                    borderRadius: 0,
                   ),
                 ],
               ),
