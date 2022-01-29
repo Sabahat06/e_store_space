@@ -125,7 +125,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ],
                 ),
                 Container(
-                  height: 70.h,
+                  height: 60.h,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -137,6 +137,67 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                       )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 12, right: 12),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(widget.productDetailsModel.productDetails.name, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),),
+                      Container(
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            bottomLeft: Radius.circular(10)
+                          ),
+                          color: Colors.transparent
+                        ),
+                        width: 85.w,
+                        height: 35.h,
+                        child: Center(
+                          child: Row(
+                            children: [
+                              IconButton(
+                                icon: Icon(
+                                  wishListController.items.any((element) => element.productDetails.id==widget.productDetailsModel.productDetails.id)
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                  color: Colors.red,
+                                  size: 30,
+                                ),
+                                onPressed: (){
+                                  wishListController.addOrRemoveItem(widget.productDetailsModel);
+                                },
+                              ),
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.share_outlined,
+                                  color: Colors.red,
+                                  size: 30,
+                                ),
+                                onPressed: (){
+                                  // onPressed:
+                                  !_isCreatingLink
+                                      ? () => _createDynamicLink(false)
+                                      : null;
+                                  FlutterShare.share(
+                                      title: _linkMessage,
+                                      text: _linkMessage
+                                  );
+                                },
+                                // onPressed: !_isCreatingLink
+                                //     ? () => _createDynamicLink(false)
+                                //     : null,
+                              ),
+                            ],
+                          ),
+                          // Icon(
+                          //   Icons.favorite, size: 30, color: Colors.red,
+                          // ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -153,14 +214,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         color: Colors.white
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.only(left:10, top: 10,bottom: 10),
+                        padding: const EdgeInsets.only(left:10,bottom: 10),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(widget.productDetailsModel.productDetails.name, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),),
+                                // Text(widget.productDetailsModel.productDetails.name, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),),
                                 Row(
                                   children: [
                                     Text('More Detail', style: TextStyle(fontSize: 16.sp, color: Colors.blue),),
@@ -177,7 +238,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Container(
-                                        width: 220.w,
+                                        width: 320.w,
                                         child: Text(widget.productDetailsModel.productDetails.description, textAlign: TextAlign.justify,),
                                       ),
                                       const SizedBox(height: 7,),
@@ -198,7 +259,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                           const SizedBox(width: 7,),
                                           Text(
                                             widget.productDetailsModel.rating == null ? "0.0" : double.parse(widget.productDetailsModel.rating).toStringAsFixed(1),
-                                            style: TextStyle(fontSize: 15, color: Colors.black54),
+                                            style: const TextStyle(fontSize: 15, color: Colors.black54),
                                           ),
                                         ],
                                       ),
@@ -207,58 +268,58 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   : Container()
                               ],
                             ),
-                            Container(
-                              decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  bottomLeft: Radius.circular(10)
-                                ),
-                                color: Colors.transparent
-                              ),
-                              width: 85.w,
-                              height: 60.h,
-                              child: Center(
-                                child: Row(
-                                  children: [
-                                    IconButton(
-                                      icon: Icon(
-                                        wishListController.items.any((element) => element.productDetails.id==widget.productDetailsModel.productDetails.id)
-                                            ? Icons.favorite
-                                            : Icons.favorite_border,
-                                        color: Colors.red,
-                                        size: 30,
-                                      ),
-                                      onPressed: (){
-                                        wishListController.addOrRemoveItem(widget.productDetailsModel);
-                                      },
-                                    ),
-                                    IconButton(
-                                      icon: Icon(
-                                        Icons.share_outlined,
-                                        color: Colors.red,
-                                        size: 30,
-                                      ),
-                                      onPressed: (){
-                                        // onPressed:
-                                        !_isCreatingLink
-                                            ? () => _createDynamicLink(false)
-                                            : null;
-                                              FlutterShare.share(
-                                                  title: _linkMessage,
-                                                text: _linkMessage
-                                        );
-                                      },
-                                      // onPressed: !_isCreatingLink
-                                      //     ? () => _createDynamicLink(false)
-                                      //     : null,
-                                    ),
-                                  ],
-                                ),
-                                // Icon(
-                                //   Icons.favorite, size: 30, color: Colors.red,
-                                // ),
-                              ),
-                            ),
+                            // Container(
+                            //   decoration: const BoxDecoration(
+                            //     borderRadius: BorderRadius.only(
+                            //       topLeft: Radius.circular(10),
+                            //       bottomLeft: Radius.circular(10)
+                            //     ),
+                            //     color: Colors.transparent
+                            //   ),
+                            //   width: 85.w,
+                            //   height: 60.h,
+                            //   child: Center(
+                            //     child: Row(
+                            //       children: [
+                            //         IconButton(
+                            //           icon: Icon(
+                            //             wishListController.items.any((element) => element.productDetails.id==widget.productDetailsModel.productDetails.id)
+                            //                 ? Icons.favorite
+                            //                 : Icons.favorite_border,
+                            //             color: Colors.red,
+                            //             size: 30,
+                            //           ),
+                            //           onPressed: (){
+                            //             wishListController.addOrRemoveItem(widget.productDetailsModel);
+                            //           },
+                            //         ),
+                            //         IconButton(
+                            //           icon: const Icon(
+                            //             Icons.share_outlined,
+                            //             color: Colors.red,
+                            //             size: 30,
+                            //           ),
+                            //           onPressed: (){
+                            //             // onPressed:
+                            //             !_isCreatingLink
+                            //                 ? () => _createDynamicLink(false)
+                            //                 : null;
+                            //                   FlutterShare.share(
+                            //                       title: _linkMessage,
+                            //                     text: _linkMessage
+                            //             );
+                            //           },
+                            //           // onPressed: !_isCreatingLink
+                            //           //     ? () => _createDynamicLink(false)
+                            //           //     : null,
+                            //         ),
+                            //       ],
+                            //     ),
+                            //     // Icon(
+                            //     //   Icons.favorite, size: 30, color: Colors.red,
+                            //     // ),
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),

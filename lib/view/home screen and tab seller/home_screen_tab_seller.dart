@@ -85,39 +85,53 @@ class HomeScreenTabSeller extends StatelessWidget {
                           ]
                       ),
                     ),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            height: 45.h,
-                            width: 70.w,
-                            decoration: const BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage("assets/image/appbar.jpg"),
-                                    fit: BoxFit.cover
-                                )
-                            ),
-                          ),
-                          Container(
-                              width: 290.w,
-                              height: 45.h,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(0),
-                                color: Colors.white,
-                              ),
-                              child: Center(
-                                child: TextFormField(
-                                  controller: searchController,
-                                  decoration: const InputDecoration(
-                                    hintText: "Search",
-                                    prefixIcon: Icon(Icons.search),
-                                    border: InputBorder.none,
-                                  ),
-                                ),
-                              )
-                          ),
-                        ]
+                    Padding(
+                      padding: EdgeInsets.all(0),
+                      child: Container(
+                        height: 50,
+                        padding: EdgeInsets.only(left: 10),
+                        width: double.infinity,
+                        color: Colors.blue,
+                        child: Center(child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Text('E Store Space', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),
+                          ],
+                        )),),
                     ),
+                    // Row(
+                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //     children: [
+                    //       Container(
+                    //         height: 45.h,
+                    //         width: 70.w,
+                    //         decoration: const BoxDecoration(
+                    //             image: DecorationImage(
+                    //                 image: AssetImage("assets/image/appbar.jpg"),
+                    //                 fit: BoxFit.cover
+                    //             )
+                    //         ),
+                    //       ),
+                    //       Container(
+                    //           width: 290.w,
+                    //           height: 45.h,
+                    //           decoration: BoxDecoration(
+                    //             borderRadius: BorderRadius.circular(0),
+                    //             color: Colors.white,
+                    //           ),
+                    //           child: Center(
+                    //             child: TextFormField(
+                    //               controller: searchController,
+                    //               decoration: const InputDecoration(
+                    //                 hintText: "Search",
+                    //                 prefixIcon: Icon(Icons.search),
+                    //                 border: InputBorder.none,
+                    //               ),
+                    //             ),
+                    //           )
+                    //       ),
+                    //     ]
+                    // ),
                     const SizedBox(height: 10,),
                     Padding(
                       padding: const EdgeInsets.only(left: 10.0),

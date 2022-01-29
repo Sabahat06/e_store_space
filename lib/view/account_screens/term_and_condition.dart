@@ -15,8 +15,18 @@ class TermAndCondition extends StatelessWidget {
           leadingWidth: 30,
           title: const Text('Term & Condition', style: TextStyle(color: Colors.white),),
         ),
-        body: Html(
-          data: controller.termAndCondition,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Card(
+              elevation: 5,
+              color: Colors.white,
+              child: Html(
+                style: {'html': Style(textAlign: TextAlign.justify, color: Colors.black)},
+                data: controller.termAndCondition,
+              ),
+            ),
+          ),
         )
     );
   }

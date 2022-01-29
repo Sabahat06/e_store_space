@@ -28,7 +28,10 @@ class CartScreenTab extends StatelessWidget {
           title: Column(
             children: [
               Text('Your Cart', style: TextStyle(fontSize: 15.sp, color: Colors.white),),
-              Obx(() => controller.items.length ==0 ? Text('') : Text('${controller.items.length}Items', style: TextStyle(fontSize: 15.sp, color: Colors.white), )),
+              Obx(() => controller.items.length ==0
+                  ? Text('No Item', style: TextStyle(fontSize: 15.sp, color: Colors.white))
+                  : Text('${controller.items.length}Items', style: TextStyle(fontSize: 15.sp, color: Colors.white),)
+              ),
             ],
           ),
         ),

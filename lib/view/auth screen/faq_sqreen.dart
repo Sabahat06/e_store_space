@@ -18,8 +18,16 @@ class FAQScreen extends StatelessWidget {
         leadingWidth: 30,
         title: const Text('FAQs', style: TextStyle(color: Colors.white),),
       ),
-      body: Html(
-        data: controller.faqs,
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Card(
+          elevation: 5,
+          color: Colors.blueGrey[100],
+          child: Html(
+            style: {'html': Style( textAlign: TextAlign.justify, color: Colors.black)},
+            data: controller.faqs,
+          ),
+        ),
       )
     );
   }

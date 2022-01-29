@@ -50,7 +50,7 @@ class HomeScreenTab extends StatelessWidget {
                 width: double.infinity,
                 child: Carousel(
                     dotSize: 5,
-                    autoplayDuration: Duration(seconds: 3),
+                    autoplayDuration: const Duration(seconds: 3),
                     dotSpacing: 10,
                     autoplay: true,
                     dotColor: Colors.white,
@@ -73,50 +73,31 @@ class HomeScreenTab extends StatelessWidget {
                     ]
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    height: 45.h,
-                    width: 70.w,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/image/appbar.jpg"),
-                        fit: BoxFit.cover
-                      )
-                    ),
-                  ),
-                  Container(
-                      width: 290.w,
-                      height: 45.h,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(0),
-                        color: Colors.white,
-                      ),
-                      child: Center(
-                        child: TextFormField(
-                          controller: searchController,
-                          decoration: const InputDecoration(
-                            hintText: "Search",
-                            prefixIcon: Icon(Icons.search),
-                            border: InputBorder.none,
-                          ),
-                        ),
-                      )
-                  ),
-                ]
+              Padding(
+                padding: EdgeInsets.all(0),
+                child: Container(
+                  height: 50,
+                  padding: EdgeInsets.only(left: 10),
+                  width: double.infinity,
+                  color: Colors.blue,
+                  child: Center(child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Text('E Store Space', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),
+                    ],
+                  )),),
               ),
               const SizedBox(height: 5,),
               Padding(
                 padding: const EdgeInsets.only(left: 10.0),
-                child: Container(child: Text('All Stores:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),),),
+                child: Container(child: const Text('All Stores:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),),),
               ),
               Container(
                 height: 150,
                 width: double.infinity,
                 child: Obx(
                   () => controller.storeProgressing.value
-                      ? Center(child: CircularProgressIndicator(),)
+                      ? const Center(child: CircularProgressIndicator(),)
                       : controller.latestAndStoreModel.value.homeScreenStore == null || controller.latestAndStoreModel.value.homeScreenStore.length == 0
                         ?  Center(child: Text("There is No Store Here", style: TextStyle(color: Colors.black, fontSize: 16.sp),),)
                         :  ListView.builder(
@@ -132,14 +113,14 @@ class HomeScreenTab extends StatelessWidget {
               const SizedBox(height: 5,),
               Padding(
                 padding: const EdgeInsets.only(left: 10.0),
-                child: Container(child: Text('Latest Stores:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),),),
+                child: Container(child: const Text('Latest Stores:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),),),
               ),
               Container(
                 height: 150,
                 width: double.infinity,
                 child: Obx(
                   () => controller.storeProgressing.value
-                    ? Center(child: CircularProgressIndicator(),)
+                    ? const Center(child: CircularProgressIndicator(),)
                     : controller.latestAndStoreModel.value.latestStore==null || controller.latestAndStoreModel.value.latestStore.length == 0
                       ? Center(child: Text("There is No Latest Store Here", style: TextStyle(color: Colors.black, fontSize: 16.sp),),)
                       : ListView.builder(
@@ -157,7 +138,7 @@ class HomeScreenTab extends StatelessWidget {
                 width: double.infinity,
                 child: Carousel(
                   dotSize: 0,
-                  autoplayDuration: Duration(seconds: 3),
+                  autoplayDuration: const Duration(seconds: 3),
                   dotSpacing: 10,
                   autoplay: true,
                   dotColor: Colors.white,
@@ -182,13 +163,13 @@ class HomeScreenTab extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 10.0, top: 5),
-                child: Container(child: Text('Categories: ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),),),
+                child: Container(child: const Text('Categories: ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),),),
               ),
               Container(
                 width: double.infinity,
                 child: Obx(
                   () => controller.progressing.value
-                      ? Center(child: CircularProgressIndicator(),)
+                      ?  const Center(child: CircularProgressIndicator(),)
                       :  GridView.builder(
                     itemCount: controller.productCategory.value.productCategoryModel.length,
                     shrinkWrap: true,
@@ -219,7 +200,7 @@ class HomeScreenTab extends StatelessWidget {
         Get.to(() => ProductScreen(categoryId: productCategoryModel.id.toString(), title: productCategoryModel.name,));
       },
       child: Padding(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         child: Card(
           elevation: 2,
           child: Container(
@@ -257,7 +238,7 @@ class HomeScreenTab extends StatelessWidget {
                 Center(
                   child: Padding(
                       padding: const EdgeInsets.only(left: 10,top: 5),
-                      child:  Text(productCategoryModel.name,style: TextStyle(fontWeight: FontWeight.bold),)
+                      child:  Text(productCategoryModel.name,style: const TextStyle(fontWeight: FontWeight.bold),)
                   ),
                 )
 
@@ -278,7 +259,7 @@ class HomeScreenTab extends StatelessWidget {
         Get.to(() => StoreProductScreen(productModel: productModel, title: store.name,));
       },
       child: Padding(
-        padding: EdgeInsets.only(left: 5, right: 5, bottom: 5),
+        padding: const EdgeInsets.only(left: 5, right: 5, bottom: 5),
         child: Container(
           height: 70,
           width: 100,
@@ -292,8 +273,8 @@ class HomeScreenTab extends StatelessWidget {
                 backgroundImage: NetworkImage('https://spinningsoft.co/projects/eStoreSpace/admin/images/store/${store.picture}'),
                 backgroundColor: store.picture == '' ? index%2!=0 ? Colors.green : Colors.redAccent : Colors.transparent,
               ),
-              SizedBox(height: 5,),
-              Text('${store.dealType}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+              const SizedBox(height: 5,),
+              Text('${store.dealType}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
             ],
           ),
         ),
@@ -310,7 +291,7 @@ class HomeScreenTab extends StatelessWidget {
           Get.to(() => StoreProductScreen(productModel: productModel, title: store.name,));
         },
       child: Padding(
-        padding: EdgeInsets.only(left: 5, right: 5, bottom: 5),
+        padding: const EdgeInsets.only(left: 5, right: 5, bottom: 5),
         child: Container(
           height: 70,
           width: 100,
@@ -324,8 +305,8 @@ class HomeScreenTab extends StatelessWidget {
                 backgroundImage: NetworkImage('https://spinningsoft.co/projects/eStoreSpace/admin/images/store/${store.picture}'),
                 backgroundColor: store.picture == '' ? index%2==0 ? Colors.green : Colors.redAccent : Colors.transparent,
               ),
-              SizedBox(height: 5,),
-              Text('${store.dealType}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+              const SizedBox(height: 5,),
+              Text('${store.dealType}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
             ],
           ),
         ),
