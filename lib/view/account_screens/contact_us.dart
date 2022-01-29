@@ -113,16 +113,19 @@ class ContactUs extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 3.h,),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.blue, width: 2),
-                    color: Colors.blueGrey[100]
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Text('Get in touch with our customer support team. You can leave a message here directly by filling and submitting this form. Thank You.',
-                      style: TextStyle(fontSize: 16, color: Colors.black, height: 1.4),
-                      textAlign: TextAlign.values[3],
+                Card(
+                  elevation: 5,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.blue, width: 2),
+                      color: Colors.white
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Text('Get in touch with our customer support team. You can leave a message here directly by filling and submitting this form. Thank You.',
+                        style: TextStyle(fontSize: 16, color: Colors.black, height: 1.4),
+                        textAlign: TextAlign.values[3],
+                      ),
                     ),
                   ),
                 ),

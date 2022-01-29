@@ -22,7 +22,7 @@ class FAQScreen extends StatelessWidget {
         padding: const EdgeInsets.all(10.0),
         child: Card(
           elevation: 5,
-          color: Colors.blueGrey[100],
+          color: Colors.white,
           child: Html(
             style: {'html': Style( textAlign: TextAlign.justify, color: Colors.black)},
             data: controller.faqs,
