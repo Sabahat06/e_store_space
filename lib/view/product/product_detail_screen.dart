@@ -42,8 +42,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   String _linkMessage;
   bool _isCreatingLink = false;
   FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
-  final String DynamicLink = 'https://wwww.google.com';
-  final String Link = 'https://sabahat.page.link/qbvQ';
+  final String DynamicLink = 'https://wwww.google.com/';
+  final String Link = 'https://lsukapp.page.link/n3UL';
   final String _testString = 'join video';
 
   Future<void> initDynamicLinks() async {
@@ -177,14 +177,20 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   color: Colors.red,
                                   size: 30,
                                 ),
-                                onPressed: (){
+                                onPressed: () async {
                                   // onPressed:
-                                  !_isCreatingLink
-                                      ? () => _createDynamicLink(false)
-                                      : null;
-                                  FlutterShare.share(
-                                      title: _linkMessage,
-                                      text: _linkMessage
+                                  if(!_isCreatingLink){
+                                    () => _createDynamicLink(false);
+                                  }
+                                  else{
+                                    return null;
+                                  }
+                                  // !_isCreatingLink
+                                  //     ? () => _createDynamicLink(false)
+                                  //     : null;
+                                  await FlutterShare.share(
+                                      title: "_linkMessage",
+                                      text: "_linkMessage"
                                   );
                                 },
                                 // onPressed: !_isCreatingLink
@@ -268,58 +274,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   : Container()
                               ],
                             ),
-                            // Container(
-                            //   decoration: const BoxDecoration(
-                            //     borderRadius: BorderRadius.only(
-                            //       topLeft: Radius.circular(10),
-                            //       bottomLeft: Radius.circular(10)
-                            //     ),
-                            //     color: Colors.transparent
-                            //   ),
-                            //   width: 85.w,
-                            //   height: 60.h,
-                            //   child: Center(
-                            //     child: Row(
-                            //       children: [
-                            //         IconButton(
-                            //           icon: Icon(
-                            //             wishListController.items.any((element) => element.productDetails.id==widget.productDetailsModel.productDetails.id)
-                            //                 ? Icons.favorite
-                            //                 : Icons.favorite_border,
-                            //             color: Colors.red,
-                            //             size: 30,
-                            //           ),
-                            //           onPressed: (){
-                            //             wishListController.addOrRemoveItem(widget.productDetailsModel);
-                            //           },
-                            //         ),
-                            //         IconButton(
-                            //           icon: const Icon(
-                            //             Icons.share_outlined,
-                            //             color: Colors.red,
-                            //             size: 30,
-                            //           ),
-                            //           onPressed: (){
-                            //             // onPressed:
-                            //             !_isCreatingLink
-                            //                 ? () => _createDynamicLink(false)
-                            //                 : null;
-                            //                   FlutterShare.share(
-                            //                       title: _linkMessage,
-                            //                     text: _linkMessage
-                            //             );
-                            //           },
-                            //           // onPressed: !_isCreatingLink
-                            //           //     ? () => _createDynamicLink(false)
-                            //           //     : null,
-                            //         ),
-                            //       ],
-                            //     ),
-                            //     // Icon(
-                            //     //   Icons.favorite, size: 30, color: Colors.red,
-                            //     // ),
-                            //   ),
-                            // ),
                           ],
                         ),
                       ),
@@ -569,10 +523,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     });
 
     final DynamicLinkParameters parameters = DynamicLinkParameters(
-      uriPrefix: 'https://sabahat.page.link/qbvQ',
+      uriPrefix: 'https://lsukapp.page.link/n3UL',
       link: Uri.parse(DynamicLink),
       androidParameters: const AndroidParameters(
-        packageName: 'com.sabahat.e_store_space',
+        packageName: 'com.example.video_app_lsuk',
         minimumVersion: 0,
       ),
       iosParameters: const IOSParameters(
