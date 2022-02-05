@@ -13,6 +13,7 @@ import 'package:sizer/sizer.dart';
 import 'controller/bottom_bar_controller.dart';
 
 Future<void> backgroundHandler(RemoteMessage message) async {
+
   // currentOrder = await HttpService.getOrderWithID(message.data['order_id']);
   // print(message.data.toString());
   // print(message.notification.title);
