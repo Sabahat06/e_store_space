@@ -189,8 +189,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   //     ? () => _createDynamicLink(false)
                                   //     : null;
                                   await FlutterShare.share(
-                                      title: "_linkMessage",
-                                      text: "_linkMessage"
+                                    title: "_linkMessage",
+                                    text: "_linkMessage"
                                   );
                                 },
                                 // onPressed: !_isCreatingLink
