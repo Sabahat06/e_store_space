@@ -40,10 +40,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   RxString subCategoryImages=''.obs;
 
   String _linkMessage;
+  RxString _link = ''.obs;
   bool _isCreatingLink = false;
   FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
   final String DynamicLink = 'https://wwww.google.com/';
-  final String Link = 'https://lsukapp.page.link/n3UL';
+  final String Link = 'https://sabahat.page.link/qbvQ';
   final String _testString = 'join video';
 
   Future<void> initDynamicLinks() async {
@@ -57,6 +58,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   initState(){
     super.initState();
     initDynamicLinks();
+    _createDynamicLink(false);
   }
   @override
   Widget build(BuildContext context) {
@@ -180,7 +182,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 onPressed: () async {
                                   // onPressed:
                                   if(!_isCreatingLink){
-                                    () => _createDynamicLink(false);
+                                    _createDynamicLink(false);
                                   }
                                   else{
                                     return null;
@@ -188,9 +190,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   // !_isCreatingLink
                                   //     ? () => _createDynamicLink(false)
                                   //     : null;
-                                  await FlutterShare.share(
-                                    title: "_linkMessage",
-                                    text: "_linkMessage"
+                                  FlutterShare.share(
+                                      title: _linkMessage,
+                                      text: _linkMessage
                                   );
                                 },
                                 // onPressed: !_isCreatingLink
@@ -523,10 +525,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     });
 
     final DynamicLinkParameters parameters = DynamicLinkParameters(
-      uriPrefix: 'https://lsukapp.page.link/n3UL',
+      uriPrefix: 'https://sabahat.page.link/qbvQ',
       link: Uri.parse(DynamicLink),
       androidParameters: const AndroidParameters(
-        packageName: 'com.example.video_app_lsuk',
+        packageName: 'com.sabahat.e_store_space',
         minimumVersion: 0,
       ),
       iosParameters: const IOSParameters(
@@ -539,13 +541,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       final ShortDynamicLink shortLink =
       await dynamicLinks.buildShortLink(parameters);
       url = shortLink.shortUrl;
-    } else {
-      url = await dynamicLinks.buildLink(parameters);
     }
-    setState(() {
+    else {
+      url = await dynamicLinks.buildLink(parameters);
       _linkMessage = url.toString();
-      _isCreatingLink = false;
-    });
+      setState(() {
+        _linkMessage = url.toString();
+        _isCreatingLink = false;
+      });
+    }
+
   }
 
   Future<void> shareFile() async {
