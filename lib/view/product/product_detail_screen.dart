@@ -143,7 +143,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 12, right: 12),
+                  padding: const EdgeInsets.only(left: 12, right: 5),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
