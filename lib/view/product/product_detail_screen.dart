@@ -159,17 +159,19 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         child: Center(
                           child: Row(
                             children: [
-                              IconButton(
-                                icon: Icon(
-                                  wishListController.items.any((element) => element.productDetails.id==widget.productDetailsModel.productDetails.id)
-                                      ? Icons.favorite
-                                      : Icons.favorite_border,
-                                  color: Colors.red,
-                                  size: 30,
+                              Obx(
+                                () => IconButton(
+                                  icon: Icon(
+                                    wishListController.items.any((element) => element.productDetails.id==widget.productDetailsModel.productDetails.id)
+                                        ? Icons.favorite
+                                        : Icons.favorite_border,
+                                    color: Colors.red,
+                                    size: 30,
+                                  ),
+                                  onPressed: (){
+                                    wishListController.addOrRemoveItem(widget.productDetailsModel);
+                                  },
                                 ),
-                                onPressed: (){
-                                  wishListController.addOrRemoveItem(widget.productDetailsModel);
-                                },
                               ),
                               IconButton(
                                 icon: const Icon(
