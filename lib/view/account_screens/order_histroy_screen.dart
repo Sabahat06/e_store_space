@@ -30,9 +30,9 @@ class OrderHistoryScreen extends StatelessWidget {
       ),
       body: Obx(
         () => controller.progressing.value
-            ? Center(child: CircularProgressIndicator(),)
+            ? const Center(child: CircularProgressIndicator(),)
             : controller.orderHistoryModal.orderHistory == null || controller.orderHistoryModal.orderHistory.length == 0
-            ? Center(child: Text('You Have No Order Yet', style: TextStyle(fontSize: 18, color: Colors.black),),)
+            ? const Center(child: Text('You Have No Order Yet', style: TextStyle(fontSize: 18, color: Colors.black),),)
             : Padding(
           padding: const EdgeInsets.all(10.0),
           child: SingleChildScrollView(
@@ -42,7 +42,7 @@ class OrderHistoryScreen extends StatelessWidget {
                 ListView.builder(
                   itemCount: controller.orderHistoryModal.orderHistory.length,
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index,)=> renderListItem(controller.orderHistoryModal.orderHistory[index]),
                 ),
               ],

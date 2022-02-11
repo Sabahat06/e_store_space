@@ -24,7 +24,7 @@ class FavoriteScreenTab extends StatelessWidget {
           Expanded(
             child: Obx(
               () => controller.items.length==0
-                  ? Center(child: Text("Your WishList is Empty", style: TextStyle(fontSize: 18),),)
+                  ? const Center(child: Text("Your WishList is Empty", style: TextStyle(fontSize: 18),),)
                   : ListView.builder(
                   itemCount: controller.items.length,
                   shrinkWrap: true,
@@ -101,7 +101,7 @@ class FavoriteScreenTab extends StatelessWidget {
                             }
                         );
                       },
-                      icon: Icon(Icons.delete_outlined, color: Colors.red,) ,
+                      icon: const Icon(Icons.delete_outlined, color: Colors.red,) ,
                       iconSize: 30,
                     ),
                     // Column(

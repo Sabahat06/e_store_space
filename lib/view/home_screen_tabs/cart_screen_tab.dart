@@ -25,15 +25,17 @@ class CartScreenTab extends StatelessWidget {
           leading: IconButton(icon: const Icon(Icons.arrow_back), onPressed: () {Get.back();}, color: Colors.white, iconSize: 0,),
           leadingWidth: 5,
           centerTitle: true,
-          title: Column(
-            children: [
-              Text('Your Cart', style: TextStyle(fontSize: 15.sp, color: Colors.white),),
-              Obx(() => controller.items.length ==0
-                  ? Text('No Item', style: TextStyle(fontSize: 15.sp, color: Colors.white))
-                  : Text('${controller.items.length}Items', style: TextStyle(fontSize: 15.sp, color: Colors.white),)
-              ),
-            ],
-          ),
+          title: controller.items.length ==0
+              ? const Text('Your Cart', style: TextStyle(color: Colors.white),)
+              :  Column(
+                  children: [
+                    Text('Your Cart', style: TextStyle(fontSize: 15.sp, color: Colors.white),),
+                    Obx(() => controller.items.length ==0
+                        ? Text('No Item', style: TextStyle(fontSize: 15.sp, color: Colors.white))
+                        : Text('${controller.items.length}Items', style: TextStyle(fontSize: 15.sp, color: Colors.white),)
+                    ),
+                  ],
+                ),
         ),
       body: Obx(
         () => controller.items.value.length == 0
