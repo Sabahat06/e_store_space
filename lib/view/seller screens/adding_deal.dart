@@ -113,6 +113,7 @@ class AddingStoreScreen extends StatelessWidget {
                       controller.progressing.value = false;
                       print(controller.store);
                       if(StaticVariable.addUserDealResponseCode == 201 || StaticVariable.addUserDealResponseCode == 200){
+                        Fluttertoast.showToast(msg: "Your Store Has Been Added Successfully");
                         Get.off(() => HomePage(),);
                       }
                     }
