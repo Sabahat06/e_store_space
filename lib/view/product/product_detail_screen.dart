@@ -15,8 +15,9 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   ProductDetailsModel productDetailsModel;
+  String storeID;
 
-  ProductDetailsScreen({@required this.productDetailsModel}) {}
+  ProductDetailsScreen({@required this.productDetailsModel, this.storeID}) {}
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
@@ -445,6 +446,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     Item item = Item.fromJson(json);
                                     item.quantity.value = widget.productDetailsModel.productDetails.quantity.value;
                                     item.choiceID = cartControllerNew.currentChoiceID.value;
+                                    item.storeID = widget.storeID??"";
                                     cartControllerNew.addItem(item);
                                   }
                                 },

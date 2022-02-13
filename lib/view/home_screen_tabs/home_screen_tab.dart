@@ -74,16 +74,16 @@ class HomeScreenTab extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(0),
+                padding: const EdgeInsets.all(0),
                 child: Container(
                   height: 50,
-                  padding: EdgeInsets.only(left: 10),
+                  padding: const EdgeInsets.only(left: 10),
                   width: double.infinity,
                   color: Colors.blue,
                   child: Center(child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const Text('E Store Space', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),
+                    children: const [
+                      Text('E Store Space', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),
                     ],
                   )),),
               ),
@@ -197,7 +197,7 @@ class HomeScreenTab extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: (){
-        Get.to(() => ProductScreen(categoryId: productCategoryModel.id.toString(), title: productCategoryModel.name,));
+        Get.to(() => ProductScreen( categoryId: productCategoryModel.id.toString(), title: productCategoryModel.name,));
       },
       child: Padding(
         padding: const EdgeInsets.all(8),
@@ -256,7 +256,7 @@ class HomeScreenTab extends StatelessWidget {
         controller.progressing.value = true;
         ProductModel productModel = await  HttpService.getProductOfStore(store.id.toString());
         controller.progressing.value = false;
-        Get.to(() => StoreProductScreen(productModel: productModel, title: store.name,));
+        Get.to(() => StoreProductScreen(storeID: store.id.toString(), productModel: productModel, title: store.name,));
       },
       child: Padding(
         padding: const EdgeInsets.only(left: 5, right: 5, bottom: 5),

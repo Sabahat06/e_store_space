@@ -41,6 +41,7 @@ class Item {
   List<ProductColorsCart> productColors;
   List<RatingsCart> ratings;
   String choiceID;
+  String storeID;
 
   Item(
       {this.id,
@@ -57,6 +58,7 @@ class Item {
         this.ratings,
         this.quantity,
         this.choiceID,
+        this.storeID
       });
 
   Item.fromJson(Map<String, dynamic> json) {
@@ -70,6 +72,7 @@ class Item {
     createdAt = json['created_at']??"";
     updatedAt = json['updated_at']??"";
     deletedAt = json['deleted_at']??"";
+    storeID = json["store_id"];
     if (json['product_colors'] != null) {
       productColors = <ProductColorsCart>[];
       json['product_colors'].forEach((v) {
@@ -96,6 +99,7 @@ class Item {
     data['picture'] = this.picture;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
+    data['store_id'] = this.storeID;
     data['deleted_at'] = this.deletedAt;
     if (this.productColors != null) {
       data['product_colors'] =

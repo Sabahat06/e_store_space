@@ -48,7 +48,8 @@ class CartControllerNew extends GetxController {
       if (index != -1) {
         items[index].quantity++;
       }
-    } else {
+    }
+    else {
       items.add(item);
       Fluttertoast.showToast(msg: "Added to bag successfully");
     }

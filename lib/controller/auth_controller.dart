@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:device_info/device_info.dart';
 import 'package:e_store_space/statics/static_var.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -19,6 +20,7 @@ class AuthController extends GetxController{
   RxBool checkBoxValue = false.obs;
   RxString account_status = ''.obs;
   RxString user_status = ''.obs;
+  String deviceID;
 
 
   Rx<LatLng> latlng = LatLng(0.0, 0.0).obs;
@@ -38,9 +40,9 @@ class AuthController extends GetxController{
 
   void login(String email, String password) async {
       progressing.value = true;
-      AuthResponse response = await HttpService.loginUser(
-          email,
-          password,
+      AuthResponse response = await HttpService.loginUser(email,
+        password,
+        deviceID
       );
       progressing.value = false;
       if(StaticVariable.loginResponseCode == 200){
@@ -64,7 +66,6 @@ class AuthController extends GetxController{
 
 
   void register({String name, String email,String password, String city, String phone, String address, bool backtoCartScreen, String shopName, String shopImage})async {
-
       progressing.value = true;
       AuthResponse response = await HttpService.registerUser(
           name:name,
@@ -73,6 +74,7 @@ class AuthController extends GetxController{
           address: address,
           city: city,
         phoneNumber: phone,
+        deviceID: deviceID
       );
       progressing.value = false;
       //
@@ -86,6 +88,24 @@ class AuthController extends GetxController{
       else{
         Fluttertoast.showToast(msg: 'Invalid Data');
       }
+  }
+
+  sendToken() async {
+    String token = await  FirebaseMessaging.instance.getToken();
+    deviceID = await getDeviceId();
+    // String status = await HttpService.createToken(id, deviceID, token);
+    // // print("notification status: $status");
+  }
+
+  static Future<String> getDeviceId() async {
+    var deviceInfo = DeviceInfoPlugin();
+    if (Platform.isIOS) {
+      var iosDeviceInfo = await deviceInfo.iosInfo;
+      return iosDeviceInfo.identifierForVendor; // unique ID on iOS
+    } else {
+      var androidDeviceInfo = await deviceInfo.androidInfo;
+      return androidDeviceInfo.androidId; // unique ID on Android
+    }
   }
 
   // void forgotPassword(String email) async {

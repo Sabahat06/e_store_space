@@ -12,7 +12,8 @@ import 'package:e_store_space/controller/product_controller.dart';
 class StoreProductScreen extends StatelessWidget {
   ProductModel productModel;
   String title;
-  StoreProductScreen({this.productModel, this.title});
+  String storeID;
+  StoreProductScreen({this.productModel, this.title, this.storeID});
   RxBool progressing = false.obs;
 
   @override
@@ -52,7 +53,7 @@ class StoreProductScreen extends StatelessWidget {
           progressing.value = true;
           productDetailsModel.value = await HttpService.getProductDetails(products.id.toString());
           progressing.value = false;
-          Get.to(() => ProductDetailsScreen(productDetailsModel: productDetailsModel.value,));
+          Get.to(() => ProductDetailsScreen(storeID: storeID , productDetailsModel: productDetailsModel.value,));
         },
         child: Card(
           elevation: 1,

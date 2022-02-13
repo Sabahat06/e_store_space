@@ -19,6 +19,7 @@ class SignInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    controller.sendToken();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

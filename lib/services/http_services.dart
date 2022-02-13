@@ -141,7 +141,7 @@ class HttpService {
 
 
   static Future<AuthResponse> loginUser(
-      String email, String password,) async {
+      String email, String password, String deviceID) async {
     Uri _uriGetProductDetails = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/seller-login');
     try {
       var response = await http.post(
@@ -149,9 +149,10 @@ class HttpService {
         body: {
           'email': email,
           'password': password,
+          "notification_id" : deviceID
         },
       );
-      if (response.statusCode == 200 || response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         StaticVariable.loginResponseCode= response.statusCode;
         return AuthResponse.fromJson(jsonDecode(response.body)) ;
       } else {
@@ -164,7 +165,7 @@ class HttpService {
   }
 
   static Future<AuthResponse> registerUser({
-      String name, String email, String address, String city, String password, String phoneNumber}) async {
+      String name, String email, String address, String city, String password, String phoneNumber, String deviceID}) async {
     Uri _uriGetProductDetails = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/seller-registration');
     try {
       var response = await http.post(
@@ -175,8 +176,8 @@ class HttpService {
           'address': address,
           'password': password,
           'city': city,
-          'phone no' : phoneNumber
-
+          'phone no' : phoneNumber,
+          "notification_id" : deviceID
         },
       );
       if (response.statusCode == 201 || response.statusCode == 200) {
@@ -250,18 +251,18 @@ class HttpService {
   }
 
 
-  static Future<String> placeOrderForLoginCustomer({int i, String discount, String token1, String customerID,String country, String phone, String area, String city ,String name,String email,String orderNotes,String address, String amount, String productId, String colorId, String productPrice, String quantity}) async {
+  static Future<String> placeOrderForLoginCustomer({int i, String storeID , String paymentType , String discount, String token1, String customerID,String country, String phone, String area, String city ,String name,String email,String orderNotes,String address, String amount, String productId, String colorId, String productPrice, String quantity}) async {
     try {
       Uri _placeOrder = Uri.parse('https://spinningsoft.co/projects/eStoreSpace/api/addOrder');
       var response1 = await http.post(
         _placeOrder,
         headers: {'Authorization': 'Bearer $token1'},
         body: {
-          'user_id': customerID,
           'order_notes': orderNotes,
-          "store_id" : "1",
           'price' : amount,
           'shaping_address' : address,
+          'payment_method': paymentType,
+          'product[i][store_id]': storeID,
           'product[i][product_id]' : productId,
           'product[i][color_id]' : colorId,
           'product[i][price]' : productPrice,

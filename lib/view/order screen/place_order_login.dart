@@ -30,10 +30,13 @@ class AddOrderLoginScreen extends StatelessWidget {
   TextEditingController name;
   TextEditingController email;
   TextEditingController address;
+  String paymentTypeText;
   TextEditingController area = TextEditingController();
   TextEditingController phone;
   TextEditingController city = TextEditingController();
   TextEditingController country = TextEditingController();
+  TextEditingController paymentType = TextEditingController();
+
   AddOrderLoginScreen({this.totalAmount}){
     name = TextEditingController(text: authController.user.value.user.name);
     email = TextEditingController(text: authController.user.value.user.email);
@@ -63,6 +66,44 @@ class AddOrderLoginScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         const SizedBox(height: 7),
+                        Stack(
+                            alignment: Alignment.centerRight,
+                            children: [
+                              MyTextField(
+                                controller: paymentType,
+                                label: "Payment Type",
+                                enabled: false,
+                              ),
+                              DropdownButton<String>(
+                                isExpanded: true,
+                                icon: const Padding(
+                                  padding: EdgeInsets.only(right: 3.0),
+                                  child: Icon(
+                                    Icons.arrow_drop_down,
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                                iconSize: 24,
+                                elevation: 16,
+                                style: const TextStyle(color: Colors.blue),
+                                underline: Container(
+                                  color: Colors.transparent,
+                                ),
+                                onChanged: (newValue) {
+                                  paymentType.text = newValue;
+                                  // controller.selectedColony= controller.colonies.firstWhere((element) => element.name == colony.text);
+                                },
+                                items: <String>['Cash On Delivery', 'Online Payment']
+                                    .map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              )
+                            ]
+                        ),
+                        const SizedBox(height: 10),
                         MyTextField(
                           prefixIcon: IconButton(icon: Icon(Icons.person_outlined, color: Colors.blue,)),
                           controller: name,
@@ -115,19 +156,19 @@ class AddOrderLoginScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         MyTextField(
-                          prefixIcon: IconButton(icon: Icon(Icons.home_outlined, color: Colors.blue,)),
+                          prefixIcon: const IconButton(icon: Icon(Icons.home_outlined, color: Colors.blue,)),
                           controller: area,
                           label: 'Area',
                         ),
                         const SizedBox(height: 10),
                         MyTextField(
-                          prefixIcon: IconButton(icon: Icon(Icons.location_city_outlined, color: Colors.blue,)),
+                          prefixIcon: const IconButton(icon: Icon(Icons.location_city_outlined, color: Colors.blue,)),
                           controller: city,
                           label: 'City',
                         ),
                         const SizedBox(height: 10),
                         MyTextField(
-                          prefixIcon: IconButton(icon: Icon(Icons.location_city_outlined, color: Colors.blue,)),
+                          prefixIcon: const IconButton(icon: Icon(Icons.location_city_outlined, color: Colors.blue,)),
                           controller: country,
                           label: 'Country',
                         ),
@@ -186,6 +227,11 @@ class AddOrderLoginScreen extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () async {
                       if(placeOrderValidation()){
+                        if(paymentType.text == "Cash On Delivery"){
+                          paymentTypeText = "cash";
+                        }else{
+                          paymentTypeText= "bank";
+                        }
                         List<PlaceOrderDetailModal> orderDetails = [];
                         if(cartController.items.length>0)
                         {
@@ -195,6 +241,7 @@ class AddOrderLoginScreen extends StatelessWidget {
                                 quantity: product.quantity.value.toString(),
                                 color_id: product.choiceID,
                                 price: product.price.toString(),
+                                storeID: product.storeID??"",
                                 discount: "0"
                             ));
                           });
@@ -204,7 +251,6 @@ class AddOrderLoginScreen extends StatelessWidget {
                           var response = await HttpService.placeOrderForLoginCustomer(
                             i: i,
                             token1: authController.user.value.token,
-                            customerID: authController.user.value.user.id.toString(),
                             amount: totalAmount,
                             name: name.text,
                             email: email.text,
@@ -213,8 +259,10 @@ class AddOrderLoginScreen extends StatelessWidget {
                             area: area.text,
                             city: city.text,
                             country: country.text,
+                            paymentType: paymentTypeText,
                             orderNotes: messageController.text,
                             productId: orderDetails[i].product_id,
+                            storeID: orderDetails[i].storeID,
                             colorId: orderDetails[i].color_id,
                             discount: orderDetails[i].discount,
                             productPrice: orderDetails[i].price,
@@ -226,66 +274,67 @@ class AddOrderLoginScreen extends StatelessWidget {
                           Fluttertoast.showToast(msg: "Your Order has been Placed Successfully");
                           cartController.clearCart();
                           bottomBarController.currentBNBIndex.value = 0;
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (BuildContext context) => UsePaypal(
-                                  sandboxMode: true,
-                                  clientId: "AW1TdvpSGbIM5iP4HJNI5TyTmwpY9Gv9dYw8_8yW5lYIbCqf326vrkrp0ce9TAqjEGMHiV3OqJM_aRT0",
-                                  secretKey: "EHHtTDjnmTZATYBPiGzZC_AZUfMpMAzj2VZUeqlFUrRJA_C0pQNCxDccB5qoRQSEdcOnnKQhycuOWdP9",
-                                  returnURL: "https://samplesite.com/return",
-                                  cancelURL: "https://samplesite.com/cancel",
-                                  transactions: const [
-                                    {
-                                      "amount": {
-                                        "total": '10.12',
-                                        "currency": "USD",
-                                        "details": {
-                                          "subtotal": '10.12',
-                                          "shipping": '0',
-                                          "shipping_discount": 0
-                                        }
-                                      },
-                                      "description": "The payment transaction description.",
-                                      // "payment_options": {
-                                      //   "allowed_payment_method":
-                                      //       "INSTANT_FUNDING_SOURCE"
-                                      // },
-                                      "item_list": {
-                                        "items": [
-                                          {
-                                            "name": "A demo product",
-                                            "quantity": 1,
-                                            "price": '10.12',
-                                            "currency": "USD"
-                                          }
-                                        ],
-
-                                        // shipping address is not required though
-                                        "shipping_address": {
-                                          "recipient_name": "Jane Foster",
-                                          "line1": "Travis County",
-                                          "line2": "",
-                                          "city": "Austin",
-                                          "country_code": "US",
-                                          "postal_code": "73301",
-                                          "phone": "+00000000",
-                                          "state": "Texas"
-                                        },
-                                      }
-                                    }
-                                  ],
-                                  note: "Contact us for any questions on your order.",
-                                  onSuccess: (Map params) async {
-                                    print("onSuccess: $params");
-                                  },
-                                  onError: (error) {
-                                    print("onError: $error");
-                                  },
-                                  onCancel: (params) {
-                                    print('cancelled: $params');
-                                  }),
-                            ),
-                          );
+                          Get.off(() => HomePage());
+                          // Navigator.of(context).push(
+                          //   MaterialPageRoute(
+                          //     builder: (BuildContext context) => UsePaypal(
+                          //         sandboxMode: true,
+                          //         clientId: "AW1TdvpSGbIM5iP4HJNI5TyTmwpY9Gv9dYw8_8yW5lYIbCqf326vrkrp0ce9TAqjEGMHiV3OqJM_aRT0",
+                          //         secretKey: "EHHtTDjnmTZATYBPiGzZC_AZUfMpMAzj2VZUeqlFUrRJA_C0pQNCxDccB5qoRQSEdcOnnKQhycuOWdP9",
+                          //         returnURL: "https://samplesite.com/return",
+                          //         cancelURL: "https://samplesite.com/cancel",
+                          //         transactions: const [
+                          //           {
+                          //             "amount": {
+                          //               "total": '10.12',
+                          //               "currency": "USD",
+                          //               "details": {
+                          //                 "subtotal": '10.12',
+                          //                 "shipping": '0',
+                          //                 "shipping_discount": 0
+                          //               }
+                          //             },
+                          //             "description": "The payment transaction description.",
+                          //             // "payment_options": {
+                          //             //   "allowed_payment_method":
+                          //             //       "INSTANT_FUNDING_SOURCE"
+                          //             // },
+                          //             "item_list": {
+                          //               "items": [
+                          //                 {
+                          //                   "name": "A demo product",
+                          //                   "quantity": 1,
+                          //                   "price": '10.12',
+                          //                   "currency": "USD"
+                          //                 }
+                          //               ],
+                          //
+                          //               // shipping address is not required though
+                          //               "shipping_address": {
+                          //                 "recipient_name": "Jane Foster",
+                          //                 "line1": "Travis County",
+                          //                 "line2": "",
+                          //                 "city": "Austin",
+                          //                 "country_code": "US",
+                          //                 "postal_code": "73301",
+                          //                 "phone": "+00000000",
+                          //                 "state": "Texas"
+                          //               },
+                          //             }
+                          //           }
+                          //         ],
+                          //         note: "Contact us for any questions on your order.",
+                          //         onSuccess: (Map params) async {
+                          //           print("onSuccess: $params");
+                          //         },
+                          //         onError: (error) {
+                          //           print("onError: $error");
+                          //         },
+                          //         onCancel: (params) {
+                          //           print('cancelled: $params');
+                          //         }),
+                          //   ),
+                          // );
                           // Get.off(() => HomePage());
                         }
                       }
@@ -335,6 +384,11 @@ class AddOrderLoginScreen extends StatelessWidget {
     else if
     (phone.text.trim().length < 11){
       Fluttertoast.showToast(msg: 'Enter Valid Phone Number');
+      return false;
+    }
+    else if
+    (paymentType.text.trim().length == 0){
+      Fluttertoast.showToast(msg: 'Please Enter Payment type');
       return false;
     }
     else if

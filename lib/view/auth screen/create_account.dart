@@ -31,6 +31,7 @@ class CreateAccount extends StatelessWidget {
   File file;
   @override
   Widget build(BuildContext context) {
+    authController.sendToken();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
